@@ -11,565 +11,92 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --bg: #070a13;
-            --surface: #111827;
-            --accent: #00e676;
-            --accent2: #00ff84;
-            --text: #e0e0e0;
-            --text2: #9ca3af;
-            --border: #1f2937;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --radius: 16px;
-        }
-
+        :root { --bg: #070a13; --surface: #111827; --accent: #00e676; --accent2: #00ff84; --text: #e0e0e0; --text2: #9ca3af; --border: #1f2937; --danger: #ef4444; --warning: #f59e0b; --radius: 16px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(17, 24, 39, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-        }
-
-        .nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            text-decoration: none;
-        }
-
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+        .header { position: sticky; top: 0; z-index: 100; background: rgba(17,24,39,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; }
+        .nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
         .logo i { color: var(--accent); font-size: 2rem; }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            border: none;
-            font-family: 'Inter', sans-serif;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .btn-accent {
-            background: var(--accent);
-            color: #070a13;
-        }
-        .btn-accent:hover {
-            background: var(--accent2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,230,118,0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-        }
-        .btn-outline:hover {
-            background: var(--accent);
-            color: #070a13;
-            transform: translateY(-2px);
-        }
-
+        .btn { padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 0.95rem; transition: all 0.3s; border: none; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-accent { background: var(--accent); color: #070a13; }
+        .btn-accent:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,230,118,0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+        .btn-outline:hover { background: var(--accent); color: #070a13; transform: translateY(-2px); }
         .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
-
-        /* Bannières publicitaires */
-        .ad-banner-top {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 16px;
-            margin: 1.5rem auto;
-            max-width: 1200px;
-            padding: 1rem;
-            text-align: center;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .ad-banner-top::before {
-            content: 'Publicité';
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            font-size: 0.6rem;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: rgba(0,0,0,0.5);
-            padding: 2px 8px;
-            border-radius: 10px;
-            z-index: 1;
-        }
-
-        .ad-banner-bottom {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 16px;
-            margin: 1.5rem auto;
-            max-width: 340px;
-            padding: 1rem;
-            text-align: center;
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .ad-banner-bottom::before {
-            content: 'Publicité';
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            font-size: 0.6rem;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: rgba(0,0,0,0.5);
-            padding: 2px 8px;
-            border-radius: 10px;
-            z-index: 1;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent), #00c853);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
+        .ad-section { background: #111827; border: 1px solid #1f2937; border-radius: 16px; margin: 1.5rem auto; max-width: 1200px; padding: 1rem; text-align: center; min-height: 90px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .ad-section::before { content: 'Publicité'; position: absolute; top: 5px; right: 10px; font-size: 0.6rem; color: #6b7280; text-transform: uppercase; letter-spacing: 2px; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 10px; z-index: 1; }
+        .ad-section-bottom { background: #111827; border: 1px solid #1f2937; border-radius: 16px; margin: 1.5rem auto; max-width: 340px; padding: 1rem; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .ad-section-bottom::before { content: 'Publicité'; position: absolute; top: 5px; right: 10px; font-size: 0.6rem; color: #6b7280; text-transform: uppercase; letter-spacing: 2px; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 10px; z-index: 1; }
+        .hero { text-align: center; padding: 3rem 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 2rem; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--accent), #00c853); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .hero p { color: var(--text2); margin-bottom: 1.5rem; font-size: 1.1rem; }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .featured {
-            background: var(--surface);
-            border: 2px solid var(--accent);
-            border-radius: var(--radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-            box-shadow: 0 0 30px rgba(0,230,118,0.1);
-        }
-
-        .featured-icon {
-            font-size: 4rem;
-            color: var(--accent);
-            background: var(--bg);
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            flex-shrink: 0;
-        }
-
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .featured { background: var(--surface); border: 2px solid var(--accent); border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; box-shadow: 0 0 30px rgba(0,230,118,0.1); }
+        .featured-icon { font-size: 4rem; color: var(--accent); background: var(--bg); width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 20px; flex-shrink: 0; }
         .featured-info { flex: 1; min-width: 250px; }
         .featured-info h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-
-        .badge {
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 0.8rem;
-            background: var(--accent);
-            color: #000;
-        }
-
+        .badge { display: inline-block; padding: 0.3rem 1rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.8rem; background: var(--accent); color: #000; }
         .featured-desc { color: var(--text2); margin-bottom: 1rem; }
-
-        .featured-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .tag {
-            background: rgba(0,230,118,0.1);
-            border: 1px solid rgba(0,230,118,0.3);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            color: var(--accent);
-        }
-
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
+        .featured-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .tag { background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.3); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; color: var(--accent); }
+        .controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
         .search-box { flex: 1; min-width: 200px; position: relative; }
-        .search-box input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            color: #fff;
-            font-size: 0.9rem;
-            font-family: 'Inter', sans-serif;
-        }
+        .search-box input { width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 50px; color: #fff; font-size: 0.9rem; font-family: 'Inter', sans-serif; }
         .search-box input:focus { outline: none; border-color: var(--accent); }
-        .search-box i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text2);
-        }
-
-        select {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: #fff;
-            padding: 0.75rem 1rem;
-            border-radius: 50px;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-        }
-
-        .filter-chips {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .filter-chip {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text2);
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-        .filter-chip.active {
-            background: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-            font-weight: 600;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            transition: all 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-            box-shadow: 0 8px 30px rgba(0,230,118,0.1);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.8rem;
-        }
+        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text2); }
+        select { background: var(--surface); border: 1px solid var(--border); color: #fff; padding: 0.75rem 1rem; border-radius: 50px; font-family: 'Inter', sans-serif; cursor: pointer; }
+        .filter-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .filter-chip { background: var(--surface); border: 1px solid var(--border); color: var(--text2); padding: 0.5rem 1.2rem; border-radius: 50px; cursor: pointer; font-size: 0.85rem; transition: all 0.3s; }
+        .filter-chip.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: all 0.3s; }
+        .card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 30px rgba(0,230,118,0.1); }
+        .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; }
         .card-icon { font-size: 2.5rem; color: var(--accent); }
         .card-title { font-size: 1.1rem; font-weight: 600; }
         .card-dev { color: var(--text2); font-size: 0.85rem; }
-        .card-desc {
-            color: var(--text2);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .card-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-        }
+        .card-desc { color: var(--text2); font-size: 0.9rem; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-meta { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.85rem; }
         .card-version { color: var(--accent); font-weight: 600; }
         .card-downloads { color: var(--text2); }
-
-        .card-btn {
-            width: 100%;
-            padding: 0.6rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            border: none;
-            font-family: 'Inter', sans-serif;
-            background: var(--accent);
-            color: #000;
-        }
+        .card-btn { width: 100%; padding: 0.6rem; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; border: none; font-family: 'Inter', sans-serif; background: var(--accent); color: #000; }
         .card-btn:hover { background: var(--accent2); }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text2);
-            border: 2px dashed var(--border);
-            border-radius: var(--radius);
-            grid-column: 1 / -1;
-        }
+        .empty-state { text-align: center; padding: 3rem; color: var(--text2); border: 2px dashed var(--border); border-radius: var(--radius); grid-column: 1 / -1; }
         .empty-state i { font-size: 3rem; color: var(--accent); margin-bottom: 1rem; }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-        }
-        .page-btn {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: #fff;
-            min-width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .page-btn.active {
-            background: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-        }
+        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+        .page-btn { background: var(--surface); border: 1px solid var(--border); color: #fff; min-width: 40px; height: 40px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .page-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
         .modal-overlay.active { display: flex; }
-
-        .modal {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2rem;
-            width: 100%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: modalIn 0.3s ease;
-        }
-
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
+        .modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; animation: modalIn 0.3s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
         .modal h2 { margin-bottom: 1.5rem; }
-
         .form-group { margin-bottom: 1.2rem; }
         .form-group label { display: block; margin-bottom: 0.4rem; color: var(--text2); font-size: 0.9rem; }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-        }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: #fff; font-family: 'Inter', sans-serif; }
         .form-group textarea { resize: vertical; min-height: 80px; }
-
-        .upload-zone {
-            border: 2px dashed var(--border);
-            border-radius: 12px;
-            padding: 2rem 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: var(--bg);
-        }
+        .upload-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 2rem 1rem; text-align: center; cursor: pointer; transition: all 0.3s; background: var(--bg); }
         .upload-zone:hover { border-color: var(--accent); }
         .upload-zone i { font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem; }
-
-        .file-info {
-            display: none;
-            background: rgba(0,230,118,0.1);
-            padding: 0.6rem 1rem;
-            border-radius: 10px;
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--accent);
-        }
+        .file-info { display: none; background: rgba(0,230,118,0.1); padding: 0.6rem 1rem; border-radius: 10px; margin-top: 0.5rem; font-size: 0.85rem; color: var(--accent); }
         .file-info.show { display: block; }
-
-        .progress-bar {
-            display: none;
-            width: 100%;
-            height: 4px;
-            background: var(--border);
-            border-radius: 4px;
-            margin-top: 0.5rem;
-            overflow: hidden;
-        }
+        .progress-bar { display: none; width: 100%; height: 4px; background: var(--border); border-radius: 4px; margin-top: 0.5rem; overflow: hidden; }
         .progress-bar.active { display: block; }
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 1.5rem;
-        }
-
-        .btn-cancel {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text2);
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-        }
-
-        .btn-submit {
-            background: var(--accent);
-            color: #000;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
+        .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; }
+        .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text2); padding: 0.75rem 1.5rem; border-radius: 50px; cursor: pointer; }
+        .btn-submit { background: var(--accent); color: #000; border: none; padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; }
         .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .toast-container {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .toast {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 1rem;
-            border-radius: 12px;
-            animation: slideIn 0.3s ease;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            max-width: 400px;
-        }
+        .toast-container { position: fixed; top: 1rem; right: 1rem; z-index: 2000; display: flex; flex-direction: column; gap: 0.5rem; }
+        .toast { background: var(--surface); border: 1px solid var(--border); padding: 1rem; border-radius: 12px; animation: slideIn 0.3s ease; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; max-width: 400px; }
         .toast.success { border-left: 3px solid var(--accent); }
         .toast.error { border-left: 3px solid var(--danger); }
         .toast.warning { border-left: 3px solid var(--warning); }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text2);
-            border-top: 1px solid var(--border);
-            margin-top: 3rem;
-        }
-
-        @media (max-width: 768px) {
-            .header { padding: 0.8rem 1rem; }
-            .hero { padding: 2rem 1rem; }
-            .hero h1 { font-size: 1.8rem; }
-            .featured { flex-direction: column; text-align: center; }
-            .grid { grid-template-columns: 1fr; }
-            .controls { flex-direction: column; }
-        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .footer { text-align: center; padding: 2rem; color: var(--text2); border-top: 1px solid var(--border); margin-top: 3rem; }
+        @media (max-width: 768px) { .header { padding: 0.8rem 1rem; } .hero { padding: 2rem 1rem; } .hero h1 { font-size: 1.8rem; } .featured { flex-direction: column; text-align: center; } .grid { grid-template-columns: 1fr; } .controls { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -577,77 +104,44 @@
 
     <header class="header">
         <nav class="nav">
-            <a href="/" class="logo">
-                <i class="fab fa-android"></i>
-                <span>OpenStore</span>
-            </a>
-            <button class="btn btn-accent" onclick="openPublishModal()">
-                <i class="fas fa-plus"></i> Publier un APK
-            </button>
+            <a href="/" class="logo"><i class="fab fa-android"></i><span>OpenStore</span></a>
+            <button class="btn btn-accent" onclick="openPublishModal()"><i class="fas fa-plus"></i> Publier un APK</button>
         </nav>
     </header>
 
-    <!-- PUBLICITÉ START.IO - BANNIÈRE SUPÉRIEURE 728x90 -->
-    <div class="ad-banner-top" id="ad-banner-top-728">
-        <div id="startio-banner-728"></div>
-    </div>
+    <!-- Pub 728x90 -->
+    <div class="ad-section"><div id="ad-728-top" style="width:728px;max-width:100%;height:90px;display:flex;align-items:center;justify-content:center;color:#6b7280;">📢 Publicité 728x90</div></div>
 
     <main class="container">
         <section class="hero">
             <h1>📱 Publiez & Téléchargez des Apps Android</h1>
             <p>La plateforme communautaire pour partager vos applications Android.</p>
             <div class="hero-buttons">
-                <button class="btn btn-accent" onclick="openPublishModal()">
-                    <i class="fas fa-rocket"></i> Publier mon application
-                </button>
-                <button class="btn btn-outline" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
-                    <i class="fas fa-search"></i> Explorer le catalogue
-                </button>
+                <button class="btn btn-accent" onclick="openPublishModal()"><i class="fas fa-rocket"></i> Publier mon application</button>
+                <button class="btn btn-outline" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})"><i class="fas fa-search"></i> Explorer le catalogue</button>
             </div>
         </section>
 
-        <!-- PUBLICITÉ START.IO - BANNIÈRE MILIEU 728x90 -->
-        <div class="ad-banner-top" id="ad-banner-mid-728">
-            <div id="startio-banner-mid-728"></div>
-        </div>
+        <!-- Pub 728x90 -->
+        <div class="ad-section"><div id="ad-728-mid" style="width:728px;max-width:100%;height:90px;display:flex;align-items:center;justify-content:center;color:#6b7280;">📢 Publicité 728x90</div></div>
 
         <section class="featured">
             <div class="featured-icon"><i class="fas fa-comments"></i></div>
             <div class="featured-info">
                 <h2>Messagerie Hybride</h2>
                 <span class="badge">⭐ Application Officielle</span>
-                <p class="featured-desc">
-                    Une messagerie intelligente qui bascule automatiquement entre Internet et SMS. 
-                    Si votre connexion est perdue, vos messages sont envoyés par SMS automatiquement.
-                </p>
-                <div class="featured-tags">
-                    <span class="tag">🔄 Basculement auto</span>
-                    <span class="tag">🔒 Sécurisé</span>
-                    <span class="tag">📱 Android 5.0+</span>
-                </div>
-                <button class="btn btn-accent" onclick="downloadApp('https://example.com/messagerie.apk', 'Messagerie Hybride')">
-                    <i class="fas fa-download"></i> Télécharger l'APK
-                </button>
+                <p class="featured-desc">Une messagerie intelligente qui bascule automatiquement entre Internet et SMS.</p>
+                <div class="featured-tags"><span class="tag">🔄 Basculement auto</span><span class="tag">🔒 Sécurisé</span><span class="tag">📱 Android 5.0+</span></div>
+                <button class="btn btn-accent" onclick="downloadApp('https://example.com/messagerie.apk', 'Messagerie Hybride')"><i class="fas fa-download"></i> Télécharger l'APK</button>
             </div>
         </section>
 
         <section id="catalogue">
-            <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">
-                <i class="fas fa-store"></i> Catalogue communautaire
-            </h2>
-
+            <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;"><i class="fas fa-store"></i> Catalogue communautaire</h2>
             <div class="controls">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="search" id="searchInput" placeholder="Rechercher une application..." oninput="handleSearch()">
-                </div>
-                <select id="sortSelect" onchange="handleSort()">
-                    <option value="recent">Plus récentes</option>
-                    <option value="name">Nom (A-Z)</option>
-                    <option value="popular">Plus populaires</option>
-                </select>
+                <div class="search-box"><i class="fas fa-search"></i><input type="search" id="searchInput" placeholder="Rechercher une application..." oninput="handleSearch()"></div>
+                <select id="sortSelect" onchange="handleSort()"><option value="recent">Plus récentes</option><option value="name">Nom (A-Z)</option><option value="popular">Plus populaires</option></select>
             </div>
-
             <div class="filter-chips">
                 <button class="filter-chip active" data-filter="all" onclick="handleFilter('all', this)">📱 Toutes</button>
                 <button class="filter-chip" data-filter="outils" onclick="handleFilter('outils', this)">🛠️ Outils</button>
@@ -656,88 +150,49 @@
                 <button class="filter-chip" data-filter="productivite" onclick="handleFilter('productivite', this)">📊 Productivité</button>
                 <button class="filter-chip" data-filter="multimedia" onclick="handleFilter('multimedia', this)">🎬 Multimédia</button>
             </div>
-
             <div class="grid" id="appGrid"></div>
             <div class="pagination" id="pagination"></div>
         </section>
     </main>
 
-    <!-- PUBLICITÉ START.IO - BANNIÈRE INFÉRIEURE 300x250 -->
-    <div class="ad-banner-bottom" id="ad-banner-bottom-300">
-        <div id="startio-banner-300"></div>
-    </div>
+    <!-- Pub 300x250 -->
+    <div class="ad-section-bottom"><div id="ad-300-bottom" style="width:300px;height:250px;display:flex;align-items:center;justify-content:center;color:#6b7280;">📢 Publicité 300x250</div></div>
 
-    <footer class="footer">
-        <p>© 2024 OpenStore - Plateforme communautaire de partage d'applications Android</p>
-    </footer>
+    <footer class="footer"><p>© 2024 OpenStore - Plateforme communautaire de partage d'applications Android</p></footer>
 
-    <!-- Modal de publication -->
+    <!-- Modal -->
     <div class="modal-overlay" id="publishModal">
         <div class="modal">
             <h2>📤 Publier votre application</h2>
-            <form id="publishForm" onsubmit="handlePublish(event)">
-                <div class="form-group">
-                    <label>Nom de l'application *</label>
-                    <input type="text" id="appName" required placeholder="Ex: Mon App Géniale" maxlength="50">
-                </div>
-                <div class="form-group">
-                    <label>Développeur *</label>
-                    <input type="text" id="developer" required placeholder="Votre nom ou pseudo" maxlength="50">
-                </div>
-                <div class="form-group">
-                    <label>Version *</label>
-                    <input type="text" id="version" required placeholder="Ex: 1.0.0" maxlength="20">
-                </div>
-                <div class="form-group">
-                    <label>Catégorie</label>
-                    <select id="category">
-                        <option value="outils">🛠️ Outils</option>
-                        <option value="jeux">🎮 Jeux</option>
-                        <option value="social">💬 Réseaux sociaux</option>
-                        <option value="productivite">📊 Productivité</option>
-                        <option value="multimedia">🎬 Multimédia</option>
-                        <option value="autre">📦 Autre</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Description *</label>
-                    <textarea id="description" required placeholder="Décrivez votre application..." maxlength="500"></textarea>
-                </div>
+            <form id="publishForm" onsubmit="return false;">
+                <div class="form-group"><label>Nom de l'application *</label><input type="text" id="appName" required placeholder="Ex: Mon App Géniale" maxlength="50"></div>
+                <div class="form-group"><label>Développeur *</label><input type="text" id="developer" required placeholder="Votre nom ou pseudo" maxlength="50"></div>
+                <div class="form-group"><label>Version *</label><input type="text" id="version" required placeholder="Ex: 1.0.0" maxlength="20"></div>
+                <div class="form-group"><label>Catégorie</label><select id="category"><option value="outils">🛠️ Outils</option><option value="jeux">🎮 Jeux</option><option value="social">💬 Réseaux sociaux</option><option value="productivite">📊 Productivité</option><option value="multimedia">🎬 Multimédia</option><option value="autre">📦 Autre</option></select></div>
+                <div class="form-group"><label>Description *</label><textarea id="description" required placeholder="Décrivez votre application..." maxlength="500"></textarea></div>
                 <div class="form-group">
                     <label>Fichier APK * (max 50 MB)</label>
-                    <div class="upload-zone" onclick="document.getElementById('apkFile').click()">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Cliquez pour sélectionner votre fichier APK</p>
-                    </div>
+                    <div class="upload-zone" onclick="document.getElementById('apkFile').click()"><i class="fas fa-cloud-upload-alt"></i><p>Cliquez pour sélectionner votre fichier APK</p></div>
                     <input type="file" id="apkFile" accept=".apk" style="display:none" onchange="handleFileSelect(this)">
                     <div class="file-info" id="fileInfo"></div>
-                    <div class="progress-bar" id="progressBar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
+                    <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="closePublishModal()">Annuler</button>
-                    <button type="submit" class="btn-submit" id="submitBtn">
-                        <i class="fas fa-paper-plane"></i> Publier
-                    </button>
+                    <button type="button" class="btn-submit" id="submitBtn" onclick="handlePublish()"><i class="fas fa-paper-plane"></i> Publier</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- Start.io SDK -->
-    <script src="https://cdn.start.io/sdk/sdk.js"></script>
 
     <script>
         // ==========================================
-        // 🔑 CONFIGURATION
+        // ✅ VOS CLÉS CONFIGURÉES
         // ==========================================
-        const SUPABASE_URL = "https://supabase.co";
+        const SUPABASE_URL = "https://qdftmgbbbdlfirsckupx.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_ZbXbgqgbmGKY4bnigHQJ8g_XECMv_mR";
-        const STARTIO_PUB_ID = "206453012";
         
         let supabase;
         
@@ -753,174 +208,67 @@
         };
 
         // ==========================================
-        // INITIALISATION START.IO
+        // INITIALISATION
         // ==========================================
-        function initStartIO() {
-            console.log('📢 Initialisation Start.io - Pub ID: ' + STARTIO_PUB_ID);
+        async function init() {
+            console.log('🚀 OpenStore - Démarrage');
+            console.log('📋 URL:', SUPABASE_URL);
             
-            try {
-                // Configuration Start.io
-                if (typeof Startio !== 'undefined') {
-                    Startio.init({
-                        pubId: STARTIO_PUB_ID
-                    });
-                    
-                    // Bannière 728x90 - Haut
-                    Startio.showBanner({
-                        containerId: 'startio-banner-728',
-                        size: '728x90'
-                    });
-                    
-                    // Bannière 728x90 - Milieu
-                    Startio.showBanner({
-                        containerId: 'startio-banner-mid-728',
-                        size: '728x90'
-                    });
-                    
-                    // Bannière 300x250 - Bas
-                    Startio.showBanner({
-                        containerId: 'startio-banner-300',
-                        size: '300x250'
-                    });
-                    
-                    console.log('✅ Publicités Start.io chargées');
-                } else {
-                    // Fallback si SDK non chargé
-                    showPlaceholderAds();
-                }
-            } catch (error) {
-                console.log('⚠️ Start.io non disponible, placeholders affichés');
-                showPlaceholderAds();
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            
+            const { data, error } = await supabase.from('applications').select('count', { count: 'exact', head: true });
+            
+            if (error) {
+                console.log('⚠️ Table non trouvée - SQL requis:');
+                console.log('CREATE TABLE applications (id BIGSERIAL PRIMARY KEY, nom TEXT, developpeur TEXT, version TEXT, category TEXT, description TEXT, apk_url TEXT, created_at TIMESTAMPTZ DEFAULT NOW());');
+                showEmptyState('Table "applications" non trouvée. Créez-la dans SQL Editor.');
+            } else {
+                console.log('✅ Connecté !');
+                loadApps();
             }
-        }
-        
-        function showPlaceholderAds() {
-            document.getElementById('startio-banner-728').innerHTML = 
-                '<div style="padding:20px; color:#6b7280; border:2px dashed #1f2937; border-radius:12px; width:100%;">📢 Publicité Start.io - 728x90</div>';
-            document.getElementById('startio-banner-mid-728').innerHTML = 
-                '<div style="padding:20px; color:#6b7280; border:2px dashed #1f2937; border-radius:12px; width:100%;">📢 Publicité Start.io - 728x90</div>';
-            document.getElementById('startio-banner-300').innerHTML = 
-                '<div style="padding:20px; color:#6b7280; border:2px dashed #1f2937; border-radius:12px; width:300px; height:250px; display:flex; align-items:center; justify-content:center;">📢 Publicité Start.io<br>300x250</div>';
+            
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closePublishModal(); });
+            document.getElementById('publishModal').addEventListener('click', function(e) { if (e.target === this) closePublishModal(); });
         }
 
-        // ==========================================
-        // INITIALISATION SUPABASE
-        // ==========================================
-        async function initSupabase() {
-            try {
-                console.log('🔌 Connexion à Supabase...');
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                
-                // Test de connexion
-                const { data, error } = await supabase
-                    .from('applications')
-                    .select('count', { count: 'exact', head: true });
-                
-                if (error) {
-                    console.error('❌ Table applications non trouvée:', error.message);
-                    return false;
-                }
-                
-                console.log('✅ Supabase connecté !');
-                return true;
-            } catch (error) {
-                console.error('❌ Erreur Supabase:', error.message);
-                return false;
-            }
-        }
-
-        // ==========================================
-        // CHARGEMENT DES APPLICATIONS
-        // ==========================================
         async function loadApps() {
-            try {
-                console.log('📥 Chargement des applications...');
-                
-                const { data, error } = await supabase
-                    .from('applications')
-                    .select('*')
-                    .order('id', { ascending: false });
-
-                if (error) throw error;
-
-                state.apps = data || [];
-                console.log(`✅ ${state.apps.length} applications chargées`);
-                
-                applyFiltersAndRender();
-                
-                if (state.apps.length === 0) {
-                    showEmptyState('Aucune application. Publiez la première !');
-                }
-            } catch (error) {
-                console.error('❌ Erreur chargement:', error.message);
-                showEmptyState('Erreur de connexion. Vérifiez votre connexion internet.');
-            }
+            const { data, error } = await supabase.from('applications').select('*').order('id', { ascending: false });
+            if (error) { showEmptyState('Erreur chargement'); return; }
+            state.apps = data || [];
+            console.log('✅ ' + state.apps.length + ' apps chargées');
+            applyFiltersAndRender();
+            if (state.apps.length === 0) showEmptyState('Aucune application. Publiez la première !');
         }
 
-        function showEmptyState(message) {
-            document.getElementById('appGrid').innerHTML = `
-                <div class="empty-state">
-                    <i class="fab fa-android"></i>
-                    <h3>${message}</h3>
-                    <button class="btn btn-accent" style="margin-top:1rem;" onclick="openPublishModal()">
-                        <i class="fas fa-plus"></i> Publier maintenant
-                    </button>
-                </div>`;
+        function showEmptyState(msg) {
+            document.getElementById('appGrid').innerHTML = `<div class="empty-state"><i class="fab fa-android"></i><h3>${msg}</h3><button class="btn btn-accent" style="margin-top:1rem;" onclick="openPublishModal()"><i class="fas fa-plus"></i> Publier maintenant</button></div>`;
             document.getElementById('pagination').innerHTML = '';
         }
 
-        // ==========================================
-        // FILTRES, RECHERCHE, TRI
-        // ==========================================
         function applyFiltersAndRender() {
             let apps = [...state.apps];
-
-            if (state.currentFilter !== 'all') {
-                apps = apps.filter(app => app.category === state.currentFilter);
-            }
-
+            if (state.currentFilter !== 'all') apps = apps.filter(a => a.category === state.currentFilter);
             if (state.searchQuery) {
                 const q = state.searchQuery.toLowerCase();
-                apps = apps.filter(app => 
-                    (app.nom || '').toLowerCase().includes(q) ||
-                    (app.developpeur || '').toLowerCase().includes(q) ||
-                    (app.description || '').toLowerCase().includes(q)
-                );
+                apps = apps.filter(a => (a.nom||'').toLowerCase().includes(q) || (a.developpeur||'').toLowerCase().includes(q) || (a.description||'').toLowerCase().includes(q));
             }
-
-            if (state.sortBy === 'name') {
-                apps.sort((a, b) => (a.nom || '').localeCompare(b.nom || ''));
-            } else if (state.sortBy === 'popular') {
-                apps.sort((a, b) => (state.downloadCounts[b.id] || 0) - (state.downloadCounts[a.id] || 0));
-            } else {
-                apps.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
-            }
-
+            if (state.sortBy === 'name') apps.sort((a,b) => (a.nom||'').localeCompare(b.nom||''));
+            else if (state.sortBy === 'popular') apps.sort((a,b) => (state.downloadCounts[b.id]||0) - (state.downloadCounts[a.id]||0));
+            else apps.sort((a,b) => new Date(b.created_at||0) - new Date(a.created_at||0));
             state.filteredApps = apps;
             state.currentPage = 1;
             renderApps();
         }
 
-        function handleSearch() {
-            state.searchQuery = document.getElementById('searchInput').value.trim();
-            applyFiltersAndRender();
-        }
-
-        function handleSort() {
-            state.sortBy = document.getElementById('sortSelect').value;
-            applyFiltersAndRender();
-        }
-
-        function handleFilter(filter, element) {
-            document.querySelectorAll('.filter-chip').forEach(chip => chip.classList.remove('active'));
-            element.classList.add('active');
+        function handleSearch() { state.searchQuery = document.getElementById('searchInput').value.trim(); applyFiltersAndRender(); }
+        function handleSort() { state.sortBy = document.getElementById('sortSelect').value; applyFiltersAndRender(); }
+        function handleFilter(filter, el) {
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
             state.currentFilter = filter;
             applyFiltersAndRender();
         }
 
-        // ==========================================
-        // RENDU
-        // ==========================================
         function renderApps() {
             const grid = document.getElementById('appGrid');
             const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
@@ -928,87 +276,38 @@
             const pageApps = state.filteredApps.slice(start, start + state.itemsPerPage);
 
             if (pageApps.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-search"></i>
-                        <h3>Aucun résultat</h3>
-                        <p>Essayez de modifier votre recherche.</p>
-                    </div>`;
+                grid.innerHTML = '<div class="empty-state"><i class="fas fa-search"></i><h3>Aucun résultat</h3></div>';
                 document.getElementById('pagination').innerHTML = '';
                 return;
             }
 
             grid.innerHTML = pageApps.map(app => {
-                const downloads = state.downloadCounts[app.id] || 0;
-                return `
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fab fa-android"></i></div>
-                            <div>
-                                <div class="card-title">${escapeHtml(app.nom)}</div>
-                                <div class="card-dev">par ${escapeHtml(app.developpeur)}</div>
-                            </div>
-                        </div>
-                        <p class="card-desc">${escapeHtml(app.description)}</p>
-                        <div class="card-meta">
-                            <span class="card-version">v${escapeHtml(app.version)}</span>
-                            <span class="card-downloads">📥 ${downloads}</span>
-                        </div>
-                        <button class="card-btn" onclick="downloadApp('${escapeHtml(app.apk_url)}', '${escapeHtml(app.nom)}', ${app.id})">
-                            <i class="fas fa-download"></i> Télécharger
-                        </button>
-                    </div>`;
+                const dls = state.downloadCounts[app.id] || 0;
+                return `<div class="card"><div class="card-header"><div class="card-icon"><i class="fab fa-android"></i></div><div><div class="card-title">${escapeHtml(app.nom)}</div><div class="card-dev">par ${escapeHtml(app.developpeur)}</div></div></div><p class="card-desc">${escapeHtml(app.description)}</p><div class="card-meta"><span class="card-version">v${escapeHtml(app.version)}</span><span class="card-downloads">📥 ${dls}</span></div><button class="card-btn" onclick="downloadApp('${escapeHtml(app.apk_url)}', '${escapeHtml(app.nom)}', ${app.id})"><i class="fas fa-download"></i> Télécharger</button></div>`;
             }).join('');
 
             if (totalPages > 1) {
-                let html = '';
-                html += `<button class="page-btn" onclick="goToPage(${state.currentPage - 1})" ${state.currentPage === 1 ? 'disabled' : ''}>‹</button>`;
-                for (let i = 1; i <= totalPages; i++) {
-                    html += `<button class="page-btn ${i === state.currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-                }
-                html += `<button class="page-btn" onclick="goToPage(${state.currentPage + 1})" ${state.currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+                let html = `<button class="page-btn" onclick="goToPage(${state.currentPage-1})" ${state.currentPage===1?'disabled':''}>‹</button>`;
+                for (let i=1; i<=totalPages; i++) html += `<button class="page-btn ${i===state.currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
+                html += `<button class="page-btn" onclick="goToPage(${state.currentPage+1})" ${state.currentPage===totalPages?'disabled':''}>›</button>`;
                 document.getElementById('pagination').innerHTML = html;
-            } else {
-                document.getElementById('pagination').innerHTML = '';
-            }
+            } else document.getElementById('pagination').innerHTML = '';
         }
 
         function goToPage(page) {
             const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
-            if (page >= 1 && page <= totalPages) {
-                state.currentPage = page;
-                renderApps();
-                document.getElementById('catalogue').scrollIntoView({ behavior: 'smooth' });
-            }
+            if (page >= 1 && page <= totalPages) { state.currentPage = page; renderApps(); document.getElementById('catalogue').scrollIntoView({behavior:'smooth'}); }
         }
 
-        // ==========================================
-        // TÉLÉCHARGEMENT
-        // ==========================================
         function downloadApp(url, appName, appId) {
-            if (!url || url === '#') {
-                showToast('⚠️ Lien non disponible', 'warning');
-                return;
-            }
-
-            if (appId && appId !== 'featured') {
-                state.downloadCounts[appId] = (state.downloadCounts[appId] || 0) + 1;
-                localStorage.setItem('openstore_downloads', JSON.stringify(state.downloadCounts));
-            }
-
-            showToast(`📥 Téléchargement de "${appName}" !`, 'success');
+            if (!url || url === '#') { showToast('⚠️ Lien non disponible', 'warning'); return; }
+            if (appId && appId !== 'featured') { state.downloadCounts[appId] = (state.downloadCounts[appId]||0) + 1; localStorage.setItem('openstore_downloads', JSON.stringify(state.downloadCounts)); }
+            showToast('📥 Téléchargement de "' + appName + '" !', 'success');
             setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 800);
             setTimeout(() => renderApps(), 1000);
         }
 
-        // ==========================================
-        // PUBLICATION
-        // ==========================================
-        function openPublishModal() {
-            document.getElementById('publishModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
+        function openPublishModal() { document.getElementById('publishModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closePublishModal() {
             document.getElementById('publishModal').classList.remove('active');
             document.body.style.overflow = '';
@@ -1020,30 +319,24 @@
         function handleFileSelect(input) {
             const file = input.files[0];
             if (!file) return;
-
-            if (!file.name.toLowerCase().endsWith('.apk')) {
-                showToast('❌ Fichier .apk requis', 'warning');
-                input.value = '';
-                return;
-            }
-
-            if (file.size > 50 * 1024 * 1024) {
-                showToast('❌ Max 50 MB', 'warning');
-                input.value = '';
-                return;
-            }
-
-            const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
-            document.getElementById('fileInfo').innerHTML = `✅ <strong>${file.name}</strong> (${sizeMB} MB)`;
+            if (!file.name.toLowerCase().endsWith('.apk')) { showToast('❌ Fichier .apk requis', 'warning'); input.value = ''; return; }
+            if (file.size > 50*1024*1024) { showToast('❌ Max 50 MB', 'warning'); input.value = ''; return; }
+            document.getElementById('fileInfo').innerHTML = '✅ <strong>' + file.name + '</strong> (' + (file.size/1024/1024).toFixed(1) + ' MB)';
             document.getElementById('fileInfo').classList.add('show');
         }
 
-        async function handlePublish(event) {
-            event.preventDefault();
-
+        async function handlePublish() {
             const submitBtn = document.getElementById('submitBtn');
             const progressBar = document.getElementById('progressBar');
             const progressFill = document.getElementById('progressFill');
+            const appName = document.getElementById('appName').value.trim();
+            const developer = document.getElementById('developer').value.trim();
+            const version = document.getElementById('version').value.trim();
+            const category = document.getElementById('category').value;
+            const description = document.getElementById('description').value.trim();
+            const apkFile = document.getElementById('apkFile').files[0];
+
+            if (!appName || !developer || !version || !description || !apkFile) { showToast('❌ Tous les champs sont obligatoires.', 'error'); return; }
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
@@ -1051,153 +344,44 @@
             progressFill.style.width = '0%';
 
             let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 20;
-                if (progress > 90) progress = 90;
-                progressFill.style.width = progress + '%';
-            }, 400);
+            const interval = setInterval(() => { progress += Math.random()*20; if (progress>90) progress=90; progressFill.style.width = progress+'%'; }, 400);
 
             try {
-                const appName = document.getElementById('appName').value.trim();
-                const developer = document.getElementById('developer').value.trim();
-                const version = document.getElementById('version').value.trim();
-                const category = document.getElementById('category').value;
-                const description = document.getElementById('description').value.trim();
-                const apkFile = document.getElementById('apkFile').files[0];
+                const fileName = 'apk_' + Date.now() + '_' + apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_');
+                const { error: uploadError } = await supabase.storage.from('apks').upload(fileName, apkFile, { cacheControl: '3600', upsert: false });
+                if (uploadError) throw new Error('Erreur upload. Bucket "apks" existe-t-il ?');
 
-                if (!appName || !developer || !version || !description || !apkFile) {
-                    throw new Error('Tous les champs sont obligatoires.');
-                }
-
-                // Upload vers Supabase
-                const fileName = `apk_${Date.now()}_${apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
-                
-                const { data: uploadData, error: uploadError } = await supabase.storage
-                    .from('apks')
-                    .upload(fileName, apkFile, {
-                        cacheControl: '3600',
-                        upsert: false
-                    });
-
-                if (uploadError) {
-                    console.error('Erreur upload:', uploadError);
-                    throw new Error('Erreur upload. Vérifiez le bucket "apks" dans Supabase Storage.');
-                }
-
-                // Récupérer l'URL publique
-                const { data: urlData } = supabase.storage
-                    .from('apks')
-                    .getPublicUrl(fileName);
-
+                const { data: urlData } = supabase.storage.from('apks').getPublicUrl(fileName);
                 const publicUrl = urlData.publicUrl;
-                console.log('📎 URL publique:', publicUrl);
 
-                // Insérer dans la base de données
-                const { data: insertData, error: insertError } = await supabase
-                    .from('applications')
-                    .insert([{
-                        nom: appName,
-                        developpeur: developer,
-                        version: version,
-                        category: category,
-                        description: description,
-                        apk_url: publicUrl
-                    }]);
-
-                if (insertError) {
-                    console.error('Erreur insertion:', insertError);
-                    throw new Error('Erreur enregistrement. Vérifiez la table "applications".');
-                }
+                const { error: insertError } = await supabase.from('applications').insert([{ nom: appName, developpeur: developer, version, category, description, apk_url: publicUrl }]);
+                if (insertError) throw new Error('Erreur enregistrement. Table "applications" existe-t-elle ?');
 
                 clearInterval(interval);
                 progressFill.style.width = '100%';
-
-                setTimeout(async () => {
-                    showToast('✅ Application publiée avec succès !', 'success');
-                    closePublishModal();
-                    await loadApps();
-                }, 500);
-
+                setTimeout(async () => { showToast('✅ Application publiée !', 'success'); closePublishModal(); await loadApps(); }, 500);
             } catch (error) {
                 clearInterval(interval);
                 progressBar.classList.remove('active');
                 showToast('❌ ' + error.message, 'error');
-                console.error('Erreur:', error);
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
-                setTimeout(() => {
-                    progressBar.classList.remove('active');
-                    progressFill.style.width = '0%';
-                }, 1000);
+                setTimeout(() => { progressBar.classList.remove('active'); progressFill.style.width = '0%'; }, 1000);
             }
         }
 
-        // ==========================================
-        // TOAST
-        // ==========================================
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
+        function showToast(message, type) {
             const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
-            toast.innerHTML = `${icons[type]} ${message}`;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
+            toast.className = 'toast ' + type;
+            toast.innerHTML = ({success:'✅',error:'❌',warning:'⚠️'}[type]||'ℹ️') + ' ' + message;
+            document.getElementById('toastContainer').appendChild(toast);
+            setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); }, 4000);
         }
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // ==========================================
-        // DÉMARRAGE
-        // ==========================================
-        async function init() {
-            console.log('🚀 OpenStore - Démarrage');
-            console.log('📋 Config: Supabase=' + SUPABASE_URL + ', Start.io=' + STARTIO_PUB_ID);
-            
-            // Initialiser Start.io
-            initStartIO();
-            
-            // Initialiser Supabase
-            const connected = await initSupabase();
-            
-            if (connected) {
-                console.log('✅ Mode PRODUCTION activé');
-                await loadApps();
-            } else {
-                console.log('⚠️ Mode DÉMO - Table applications non trouvée');
-                showEmptyState('Base de données non configurée. Créez la table "applications" dans Supabase.');
-            }
-            
-            // Événements
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closePublishModal();
-            });
-            
-            document.getElementById('publishModal').addEventListener('click', function(e) {
-                if (e.target === this) closePublishModal();
-            });
-        }
+        function escapeHtml(text) { if(!text) return ''; const d=document.createElement('div'); d.textContent=text; return d.innerHTML; }
 
         document.addEventListener('DOMContentLoaded', init);
-        
-        console.log('
-        ╔══════════════════════════════════╗
-        ║     🚀 OpenStore Prêt           ║
-        ║  📱 Publiez vos apps Android    ║
-        ║  📥 Téléchargez des apps        ║
-        ║  📢 Pub Start.io: ' + STARTIO_PUB_ID + '      ║
-        ╚══════════════════════════════════╝
-        ');
     </script>
 </body>
 </html>
