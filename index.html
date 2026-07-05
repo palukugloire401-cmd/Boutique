@@ -1,156 +1,209 @@
-html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenStore - Plateforme d'Applications Android Alternatives</title>
-    <!-- Icônes et bibliothèque Supabase -->
-    <link href="https://cloudflare.com" rel="stylesheet">
-    <script src="https://jsdelivr.net"></script>
+    <title>Boutique d'Applications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     <style>
-        :root { --bg: #0b0f19; --surface: #151d30; --primary: #00e676; --primary-hover: #00b359; --text: #ffffff; --text-muted: #8b9bb4; --border: #24324f; }
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
-        nav { background: rgba(21, 29, 48, 0.85); backdrop-filter: blur(12px); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
-        .btn-primary { background: var(--primary); color: #0b0f19; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.2s ease; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .hero-section { text-align: center; margin-bottom: 60px; }
-        .hero-section h1 { font-size: 42px; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px; }
-        .hero-section p { color: var(--text-muted); font-size: 18px; max-width: 600px; margin: 0 auto; }
-        .grid-store { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .app-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 15px; transition: all 0.3s ease; }
-        .app-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 12px 30px rgba(0, 230, 118, 0.1); }
-        .app-icon-default { width: 64px; height: 64px; background: linear-gradient(135deg, #1e293b, #334155); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--primary); }
-        .app-title { font-size: 20px; font-weight: 700; margin: 0; }
-        .app-dev { font-size: 14px; color: var(--primary); margin: 0; font-weight: 500; }
-        .app-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin: 0; flex-grow: 1; }
-        .app-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 12px; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 15, 25, 0.8); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; width: 100%; max-width: 450px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.5); padding: 30px; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
-        .form-group input, .form-group textarea { background: var(--bg); border: 1px solid var(--border); padding: 12px 16px; border-radius: 12px; color: white; font-family: inherit; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); outline: none; }
-        .close-modal { position: absolute; top: 20px; right: 20px; color: var(--text-muted); cursor: pointer; font-size: 20px; }
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #151d30;
+            padding: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            margin: 0;
+            padding: 0 20px;
+        }
+        .btn {
+            background-color: #00e676;
+            border: none;
+            color: #000;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #00cc5b;
+        }
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .app-card {
+            background-color: #151d30;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            width: calc(33% - 40px);
+            vertical-align: top;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 230, 118, 0.5);
+        }
+        .footer {
+            background-color: #151d30;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+        }
+        #publishModal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #151d30;
+            padding: 20px;
+            border-radius: 10px;
+            color: #ffffff;
+            width: 400px;
+        }
+        .pub-zone {
+            background-color: #00e676;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .contact {
+            margin-top: 20px;
+            color: #00e676;
+        }
     </style>
+    <script>
+        const supabaseUrl = 'https://supabase.co';
+        const supabaseAnonKey = 'sb_publishable_ZbXbgqgbmGKY4bnigHQJ8g_XECMv_mR';
+        const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+        async function fetchApps() {
+            const { data, error } = await supabase.from('applications').select('*');
+            const appList = document.getElementById('app-list');
+            appList.innerHTML = ''; // Clear any previous data
+            if (error) {
+                appList.innerHTML = '<p>Erreur lors du chargement des applications.</p>';
+                console.error('Error fetching applications:', error);
+                return;
+            }
+            if (data.length === 0) {
+                appList.innerHTML = '<p>Aucune application trouvée.</p>';
+            } else {
+                data.forEach(app => {
+                    appList.innerHTML += `
+                        <div class="app-card">
+                            <h3>${app.nom}</h3>
+                            <p>Développé par : ${app.developpeur}</p>
+                            <p>Version : ${app.version}</p>
+                            <p>${app.description}</p>
+                            <a href="${app.apk_url}" class="btn" download>Télécharger APK</a>
+                        </div>`;
+                });
+            }
+        }
+
+        function openModal() {
+            document.getElementById('publishModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('publishModal').style.display = 'none';
+        }
+
+        document.getElementById('uploadForm').onsubmit = async function(event) {
+            event.preventDefault();
+            const appName = document.getElementById('appName').value;
+            const devName = document.getElementById('devName').value;
+            const version = document.getElementById('version').value;
+            const description = document.getElementById('description').value;
+            const apkFile = document.getElementById('apkFile').files[0];
+
+            const { error: uploadError } = await supabase.storage.from('apks').upload(`/${appName}-${apkFile.name}`, apkFile);
+            if (uploadError) {
+                console.error('Erreur lors du téléversement :', uploadError);
+                alert('Erreur lors du téléversement de l\'APK. Veuillez réessayer.');
+                return;
+            }
+            const publicUrl = supabase.storage.from('apks').getPublicUrl(`${appName}-${apkFile.name}`).publicUrl;
+
+            const { error: insertError } = await supabase.from('applications').insert([
+                { nom: appName, developpeur: devName, version: version, description: description, apk_url: publicUrl }
+            ]);
+            if (insertError) {
+                console.error('Erreur lors de l\'insertion dans la base de données :', insertError);
+                alert('Erreur lors de l\'ajout de l\'application. Veuillez réessayer.');
+                return;
+            }
+            closeModal();
+            fetchApps();
+        }
+
+        window.onload = fetchApps;
+    </script>
+    <script async src="https://startapp.com/ad.js?id=206453012"></script>
 </head>
 <body>
-
-    <nav>
-        <div class="logo"><i class="fa-solid fa-layer-group"></i> OpenStore</div>
-        <button class="btn-primary" onclick="toggleModal('publishModal')"><i class="fa-solid fa-cloud-arrow-up"></i> Déposer un APK</button>
-    </nav>
-
-    <div class="container">
-        <div class="hero-section">
-            <h1>Le Store Android de Demain</h1>
-            <p>Téléchargez des applications de confiance directement depuis la puissance du cloud, sans intermédiaire ni censure.</p>
-        </div>
-
-        <!-- Catalogue d'applications dynamique -->
-        <h2>Applications disponibles</h2>
-        <div class="grid-store" id="appCatalogue">
-            <!-- Les applications chargées depuis Supabase apparaîtront ici automatiquement -->
-        </div>
+    <header>
+        <h1>Boutique d'Applications</h1>
+        <button class="btn" onclick="openModal()">Déposer un APK</button>
+    </header>
+    <div class="pub-zone" style="height: 90px;">
+        <script> // Code publicitaire pour la bannière 728x90
+            // Assuming Start.io supports in-page ad versions, use their recommended integration
+            document.write("<div id='startAppAd1'></div>");
+        </script>
+    </div>
+    <div class="container" id="app-list">
+        <p>Chargement des applications...</p>
+    </div>
+    <div class="pub-zone" style="height: 250px;">
+        <script> // Code publicitaire pour la bannière 300x250
+            document.write("<div id='startAppAd2'></div>");
+        </script>
+    </div>
+    <div class="footer">
+        <p class="contact">Pour toute question, contactez-nous à : <a href="mailto:palukugloire406@gmail.com" style="color: #00e676;">palukugloire406@gmail.com</a></p>
     </div>
 
-    <!-- Fenêtre de dépôt d'application (Modal) -->
-    <div class="modal" id="publishModal">
-        <div class="modal-content">
-            <i class="fa-solid fa-xmark close-modal" onclick="toggleModal('publishModal')"></i>
-            <h3 style="margin-top:0; font-size:24px;">Publier votre application</h3>
-            <p style="color:var(--text-muted); font-size:14px; margin-bottom:25px;">Remplissez les informations de votre APK pour l'ajouter instantanément sur la boutique d'accueil.</p>
-            
-            <div class="form-group">
-                <label>Nom de l'application</label>
-                <input type="text" id="appName" placeholder="Ex: Messagerie Hybride">
-            </div>
-            <div class="form-group">
-                <label>Votre nom de développeur</label>
-                <input type="text" id="appDev" placeholder="Ex: Paluku Gloire">
-            </div>
-            <div class="form-group">
-                <label>Version</label>
-                <input type="text" id="appVersion" placeholder="Ex: 1.0.0">
-            </div>
-            <div class="form-group">
-                <label>Description du projet</label>
-                <textarea id="appDesc" rows="3" placeholder="Expliquez ce que fait votre application..."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Fichier APK</label>
-                <input type="file" id="appFile" accept=".apk">
-            </div>
-            <button class="btn-primary" style="width:100%; justify-content:center; margin-top:10px;" onclick="uploadApplication()">Lancer la publication</button>
+    <div id="publishModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation();">
+            <h2>Déposer une Application</h2>
+            <form id="uploadForm">
+                <input type="text" id="appName" placeholder="Nom de l'application" required/>
+                <input type="text" id="devName" placeholder="Nom du développeur" required/>
+                <input type="text" id="version" placeholder="Version" required/>
+                <textarea id="description" placeholder="Description" required></textarea>
+                <input type="file" id="apkFile" accept=".apk" required/>
+                <button type="submit" class="btn">Téléverser</button>
+            </form>
+            <button class="btn" onclick="closeModal()">Fermer</button>
         </div>
     </div>
-
-    <script>
-        // CONFIGURATION DE VOS CLÉS SUPABASE INTÉGRÉES
-        const SUPABASE_URL = "https://supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_ZbXbgqgbmGKY4bnigHQJ8g_XECMv_mR";
-
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // Ouvrir/Fermer la fenêtre popup
-        function toggleModal(id) {
-            const modal = document.getElementById(id);
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        // Charger et afficher intelligemment les applications depuis le Cloud Supabase
-        async function loadApps() {
-            const { data: apps, error } = await supabase.from('applications').select('*').order('id', { ascending: false });
-            if (error) return console.error(error);
-
-            const catalogue = document.getElementById('appCatalogue');
-            catalogue.innerHTML = ''; // Nettoyer
-
-            if(!apps || apps.length === 0) {
-                catalogue.innerHTML = '<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">Aucune application publiée pour le moment. Soyez le premier !</p>';
-                return;
-            }
-
-            apps.forEach(app => {
-                catalogue.innerHTML += `
-                    <div class="app-card">
-                        <div class="app-icon-default"><i class="fa-solid fa-robot"></i></div>
-                        <div>
-                            <h3 class="app-title">${app.nom}</h3>
-                            <p class="app-dev">Par ${app.developpeur}</p>
-                        </div>
-                        <p class="app-desc">${app.description}</p>
-                        <div class="app-meta">
-                            <span><i class="fa-solid fa-code-version"></i> v${app.version}</span>
-                            <a href="${app.apk_url}" class="btn-primary" style="padding:6px 14px; font-size:13px;" download><i class="fa-solid fa-download"></i> Télécharger</a>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        // Action intelligente : Envoyer l'APK sur le Cloud et l'ajouter en bdd d'un seul coup
-        async function uploadApplication() {
-            const name = document.getElementById('appName').value;
-            const dev = document.getElementById('appDev').value;
-            const version = document.getElementById('appVersion').value;
-            const desc = document.getElementById('appDesc').value;
-            const fileInput = document.getElementById('appFile');
-
-            if(!name || !dev || !version || !desc || fileInput.files.length === 0) {
-                alert("Veuillez remplir tous les champs et sélectionner un APK.");
-                return;
-            }
-
-            const fileFile = fileInput.files[0];
-            alert("Téléversement de l'APK en cours dans le Cloud... Veuillez patienter quelques secondes.");
-
-            // 1. Envoyer le fichier dans le dossier 'apks' créé sur Supabase Storage
-            const fileExt = fileFile.name.split('.').pop();
-            const fileName = `${Date.now()}.${fileExt}`;
-            const { data: storageData, error: storageError } = await supabase.storage.from('apks').upload(fileName, fileFile);
-
-            if(storageError) { alert("Erreur stockage Cloud : " + storageError.message); return; }
-
-            // Récupérer le lien public direct du fichier téléversé
-Use code with caution.const { data: urlData } = supabase.storage.from('apks').getPublicUrl(fileName);const apkUrl = urlData.publicUrl;// 2. Insérer les métadonnées dans la base de donnéesconst { error: dbError } = await supabase.from('applications').insert([{ nom: name, developpeur: dev, version: version, description: desc, apk_url: apkUrl }]);if(dbError) {alert("Erreur base de données : " + dbError.message);} else {alert("Félicitations ! Votre application a été publiée avec succès sur le Store !");toggleModal('publishModal');// Vider le formulairedocument.getElementById('appName').value = '';document.getElementById('appDev').value = '';document.getElementById('appVersion').value = '';document.getElementById('appDesc').value = '';fileInput.value = '';loadApps(); // Rafraîchir l'affichage instantanément}}// Lancer la lecture au démarrage du sitewindow.onload = loadApps;
+</body>
+</html>
