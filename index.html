@@ -104,6 +104,67 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
 
+        /* Bannières publicitaires */
+        .ad-banner-top {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            padding: 1rem;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ad-banner-top::before {
+            content: 'Publicité';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.6rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.5);
+            padding: 2px 8px;
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .ad-banner-bottom {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            margin: 1.5rem auto;
+            max-width: 340px;
+            padding: 1rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ad-banner-bottom::before {
+            content: 'Publicité';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.6rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.5);
+            padding: 2px 8px;
+            border-radius: 10px;
+            z-index: 1;
+        }
+
         .hero {
             text-align: center;
             padding: 3rem 2rem;
@@ -122,11 +183,7 @@
             background-clip: text;
         }
 
-        .hero p {
-            color: var(--text2);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
+        .hero p { color: var(--text2); margin-bottom: 1.5rem; font-size: 1.1rem; }
 
         .hero-buttons {
             display: flex;
@@ -201,12 +258,7 @@
             flex-wrap: wrap;
         }
 
-        .search-box {
-            flex: 1;
-            min-width: 200px;
-            position: relative;
-        }
-
+        .search-box { flex: 1; min-width: 200px; position: relative; }
         .search-box input {
             width: 100%;
             padding: 0.75rem 1rem 0.75rem 2.5rem;
@@ -217,12 +269,7 @@
             font-size: 0.9rem;
             font-family: 'Inter', sans-serif;
         }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
+        .search-box input:focus { outline: none; border-color: var(--accent); }
         .search-box i {
             position: absolute;
             left: 1rem;
@@ -258,7 +305,6 @@
             font-size: 0.85rem;
             transition: all 0.3s;
         }
-
         .filter-chip.active {
             background: var(--accent);
             color: #000;
@@ -279,7 +325,6 @@
             padding: 1.5rem;
             transition: all 0.3s;
         }
-
         .card:hover {
             transform: translateY(-3px);
             border-color: var(--accent);
@@ -292,7 +337,6 @@
             gap: 1rem;
             margin-bottom: 0.8rem;
         }
-
         .card-icon { font-size: 2.5rem; color: var(--accent); }
         .card-title { font-size: 1.1rem; font-weight: 600; }
         .card-dev { color: var(--text2); font-size: 0.85rem; }
@@ -313,6 +357,7 @@
         }
         .card-version { color: var(--accent); font-weight: 600; }
         .card-downloads { color: var(--text2); }
+
         .card-btn {
             width: 100%;
             padding: 0.6rem;
@@ -355,7 +400,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
         }
         .page-btn.active {
             background: var(--accent);
@@ -364,6 +408,7 @@
         }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
+        /* Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -517,30 +562,6 @@
             margin-top: 3rem;
         }
 
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--accent);
-            color: #000;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: none;
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-        }
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
         @media (max-width: 768px) {
             .header { padding: 0.8rem 1rem; }
             .hero { padding: 2rem 1rem; }
@@ -566,10 +587,15 @@
         </nav>
     </header>
 
+    <!-- PUBLICITÉ START.IO - BANNIÈRE SUPÉRIEURE 728x90 -->
+    <div class="ad-banner-top" id="ad-banner-top-728">
+        <div id="startio-banner-728"></div>
+    </div>
+
     <main class="container">
         <section class="hero">
             <h1>📱 Publiez & Téléchargez des Apps Android</h1>
-            <p>La plateforme communautaire pour partager vos applications Android. Déposez votre APK, et le monde peut le télécharger instantanément.</p>
+            <p>La plateforme communautaire pour partager vos applications Android.</p>
             <div class="hero-buttons">
                 <button class="btn btn-accent" onclick="openPublishModal()">
                     <i class="fas fa-rocket"></i> Publier mon application
@@ -579,6 +605,11 @@
                 </button>
             </div>
         </section>
+
+        <!-- PUBLICITÉ START.IO - BANNIÈRE MILIEU 728x90 -->
+        <div class="ad-banner-top" id="ad-banner-mid-728">
+            <div id="startio-banner-mid-728"></div>
+        </div>
 
         <section class="featured">
             <div class="featured-icon"><i class="fas fa-comments"></i></div>
@@ -593,7 +624,6 @@
                     <span class="tag">🔄 Basculement auto</span>
                     <span class="tag">🔒 Sécurisé</span>
                     <span class="tag">📱 Android 5.0+</span>
-                    <span class="tag">💾 12.4 MB</span>
                 </div>
                 <button class="btn btn-accent" onclick="downloadApp('https://example.com/messagerie.apk', 'Messagerie Hybride')">
                     <i class="fas fa-download"></i> Télécharger l'APK
@@ -632,13 +662,14 @@
         </section>
     </main>
 
+    <!-- PUBLICITÉ START.IO - BANNIÈRE INFÉRIEURE 300x250 -->
+    <div class="ad-banner-bottom" id="ad-banner-bottom-300">
+        <div id="startio-banner-300"></div>
+    </div>
+
     <footer class="footer">
         <p>© 2024 OpenStore - Plateforme communautaire de partage d'applications Android</p>
     </footer>
-
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <i class="fas fa-arrow-up"></i>
-    </button>
 
     <!-- Modal de publication -->
     <div class="modal-overlay" id="publishModal">
@@ -694,14 +725,19 @@
         </div>
     </div>
 
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Start.io SDK -->
+    <script src="https://cdn.start.io/sdk/sdk.js"></script>
 
     <script>
         // ==========================================
-        // CONFIGURATION
+        // 🔑 CONFIGURATION
         // ==========================================
         const SUPABASE_URL = "https://supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_ZbXbgqgbmGKY4bnigHQJ8g_XECMv_mR";
+        const STARTIO_PUB_ID = "206453012";
         
         let supabase;
         
@@ -717,80 +753,108 @@
         };
 
         // ==========================================
-        // INITIALISATION
+        // INITIALISATION START.IO
         // ==========================================
-        async function init() {
-            console.log('🚀 Démarrage OpenStore...');
+        function initStartIO() {
+            console.log('📢 Initialisation Start.io - Pub ID: ' + STARTIO_PUB_ID);
             
             try {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('✅ Supabase connecté');
-                await loadApps();
-            } catch (error) {
-                console.log('📝 Mode démo');
-                loadDemoApps();
-            }
-            
-            window.addEventListener('scroll', () => {
-                const btn = document.getElementById('backToTop');
-                if (window.scrollY > 300) {
-                    btn.classList.add('visible');
+                // Configuration Start.io
+                if (typeof Startio !== 'undefined') {
+                    Startio.init({
+                        pubId: STARTIO_PUB_ID
+                    });
+                    
+                    // Bannière 728x90 - Haut
+                    Startio.showBanner({
+                        containerId: 'startio-banner-728',
+                        size: '728x90'
+                    });
+                    
+                    // Bannière 728x90 - Milieu
+                    Startio.showBanner({
+                        containerId: 'startio-banner-mid-728',
+                        size: '728x90'
+                    });
+                    
+                    // Bannière 300x250 - Bas
+                    Startio.showBanner({
+                        containerId: 'startio-banner-300',
+                        size: '300x250'
+                    });
+                    
+                    console.log('✅ Publicités Start.io chargées');
                 } else {
-                    btn.classList.remove('visible');
+                    // Fallback si SDK non chargé
+                    showPlaceholderAds();
                 }
-            });
-            
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closePublishModal();
-            });
-            
-            document.getElementById('publishModal').addEventListener('click', function(e) {
-                if (e.target === this) closePublishModal();
-            });
+            } catch (error) {
+                console.log('⚠️ Start.io non disponible, placeholders affichés');
+                showPlaceholderAds();
+            }
+        }
+        
+        function showPlaceholderAds() {
+            document.getElementById('startio-banner-728').innerHTML = 
+                '<div style="padding:20px; color:#6b7280; border:2px dashed #1f2937; border-radius:12px; width:100%;">📢 Publicité Start.io - 728x90</div>';
+            document.getElementById('startio-banner-mid-728').innerHTML = 
+                '<div style="padding:20px; color:#6b7280; border:2px dashed #1f2937; border-radius:12px; width:100%;">📢 Publicité Start.io - 728x90</div>';
+            document.getElementById('startio-banner-300').innerHTML = 
+                '<div style="padding:20px; color:#6b7280; border:2px dashed #1f2937; border-radius:12px; width:300px; height:250px; display:flex; align-items:center; justify-content:center;">📢 Publicité Start.io<br>300x250</div>';
         }
 
+        // ==========================================
+        // INITIALISATION SUPABASE
+        // ==========================================
+        async function initSupabase() {
+            try {
+                console.log('🔌 Connexion à Supabase...');
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                
+                // Test de connexion
+                const { data, error } = await supabase
+                    .from('applications')
+                    .select('count', { count: 'exact', head: true });
+                
+                if (error) {
+                    console.error('❌ Table applications non trouvée:', error.message);
+                    return false;
+                }
+                
+                console.log('✅ Supabase connecté !');
+                return true;
+            } catch (error) {
+                console.error('❌ Erreur Supabase:', error.message);
+                return false;
+            }
+        }
+
+        // ==========================================
+        // CHARGEMENT DES APPLICATIONS
+        // ==========================================
         async function loadApps() {
             try {
+                console.log('📥 Chargement des applications...');
+                
                 const { data, error } = await supabase
                     .from('applications')
                     .select('*')
                     .order('id', { ascending: false });
 
                 if (error) throw error;
+
                 state.apps = data || [];
+                console.log(`✅ ${state.apps.length} applications chargées`);
+                
                 applyFiltersAndRender();
                 
                 if (state.apps.length === 0) {
-                    showEmptyState('Aucune application. Soyez le premier à publier !');
+                    showEmptyState('Aucune application. Publiez la première !');
                 }
             } catch (error) {
-                console.error('Erreur:', error);
-                loadDemoApps();
+                console.error('❌ Erreur chargement:', error.message);
+                showEmptyState('Erreur de connexion. Vérifiez votre connexion internet.');
             }
-        }
-
-        function loadDemoApps() {
-            state.apps = [
-                {
-                    id: 1, nom: 'Calculateur Pro', developpeur: 'DevCalculator',
-                    version: '2.1.0', category: 'outils',
-                    description: 'Calculatrice scientifique avec historique et graphiques.',
-                    apk_url: '#', created_at: new Date().toISOString()
-                },
-                {
-                    id: 2, nom: 'Pixel Runner', developpeur: 'GameStudio',
-                    version: '1.5.2', category: 'jeux',
-                    description: 'Jeu de plateforme rétro avec graphismes pixel art.',
-                    apk_url: '#', created_at: new Date().toISOString()
-                },
-                {
-                    id: 3, nom: 'QuickNotes', developpeur: 'NoteApps',
-                    version: '3.0.0', category: 'productivite',
-                    description: 'Prise de notes rapide avec synchronisation cloud.',
-                    apk_url: '#', created_at: new Date().toISOString()
-                }
-            ];
-            applyFiltersAndRender();
         }
 
         function showEmptyState(message) {
@@ -806,7 +870,7 @@
         }
 
         // ==========================================
-        // FILTRES ET RECHERCHE
+        // FILTRES, RECHERCHE, TRI
         // ==========================================
         function applyFiltersAndRender() {
             let apps = [...state.apps];
@@ -896,7 +960,6 @@
                     </div>`;
             }).join('');
 
-            // Pagination
             if (totalPages > 1) {
                 let html = '';
                 html += `<button class="page-btn" onclick="goToPage(${state.currentPage - 1})" ${state.currentPage === 1 ? 'disabled' : ''}>‹</button>`;
@@ -924,7 +987,7 @@
         // ==========================================
         function downloadApp(url, appName, appId) {
             if (!url || url === '#') {
-                showToast('⚠️ Lien de téléchargement non disponible (mode démo)', 'warning');
+                showToast('⚠️ Lien non disponible', 'warning');
                 return;
             }
 
@@ -933,8 +996,8 @@
                 localStorage.setItem('openstore_downloads', JSON.stringify(state.downloadCounts));
             }
 
-            showToast(`📥 Téléchargement de "${appName}" démarré !`, 'success');
-            setTimeout(() => window.open(url, '_blank'), 800);
+            showToast(`📥 Téléchargement de "${appName}" !`, 'success');
+            setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 800);
             setTimeout(() => renderApps(), 1000);
         }
 
@@ -959,13 +1022,13 @@
             if (!file) return;
 
             if (!file.name.toLowerCase().endsWith('.apk')) {
-                showToast('❌ Veuillez sélectionner un fichier .apk', 'warning');
+                showToast('❌ Fichier .apk requis', 'warning');
                 input.value = '';
                 return;
             }
 
             if (file.size > 50 * 1024 * 1024) {
-                showToast('❌ Fichier trop volumineux (max 50 MB)', 'warning');
+                showToast('❌ Max 50 MB', 'warning');
                 input.value = '';
                 return;
             }
@@ -1006,23 +1069,44 @@
                     throw new Error('Tous les champs sont obligatoires.');
                 }
 
-                if (supabase) {
-                    const fileName = `apk_${Date.now()}_${apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
-                    const { error: uploadError } = await supabase.storage.from('apks').upload(fileName, apkFile);
-                    if (uploadError) throw new Error('Erreur upload. Vérifiez le bucket "apks".');
-
-                    const { data: urlData } = supabase.storage.from('apks').getPublicUrl(fileName);
-                    const { error: insertError } = await supabase.from('applications').insert([{
-                        nom: appName, developpeur: developer, version: version,
-                        category: category, description: description, apk_url: urlData.publicUrl
-                    }]);
-                    if (insertError) throw new Error('Erreur enregistrement.');
-                } else {
-                    state.apps.unshift({
-                        id: Date.now(), nom: appName, developpeur: developer,
-                        version: version, category: category, description: description,
-                        apk_url: '#', created_at: new Date().toISOString()
+                // Upload vers Supabase
+                const fileName = `apk_${Date.now()}_${apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+                
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('apks')
+                    .upload(fileName, apkFile, {
+                        cacheControl: '3600',
+                        upsert: false
                     });
+
+                if (uploadError) {
+                    console.error('Erreur upload:', uploadError);
+                    throw new Error('Erreur upload. Vérifiez le bucket "apks" dans Supabase Storage.');
+                }
+
+                // Récupérer l'URL publique
+                const { data: urlData } = supabase.storage
+                    .from('apks')
+                    .getPublicUrl(fileName);
+
+                const publicUrl = urlData.publicUrl;
+                console.log('📎 URL publique:', publicUrl);
+
+                // Insérer dans la base de données
+                const { data: insertData, error: insertError } = await supabase
+                    .from('applications')
+                    .insert([{
+                        nom: appName,
+                        developpeur: developer,
+                        version: version,
+                        category: category,
+                        description: description,
+                        apk_url: publicUrl
+                    }]);
+
+                if (insertError) {
+                    console.error('Erreur insertion:', insertError);
+                    throw new Error('Erreur enregistrement. Vérifiez la table "applications".');
                 }
 
                 clearInterval(interval);
@@ -1031,13 +1115,14 @@
                 setTimeout(async () => {
                     showToast('✅ Application publiée avec succès !', 'success');
                     closePublishModal();
-                    if (supabase) await loadApps();
-                    else applyFiltersAndRender();
+                    await loadApps();
                 }, 500);
 
             } catch (error) {
                 clearInterval(interval);
+                progressBar.classList.remove('active');
                 showToast('❌ ' + error.message, 'error');
+                console.error('Erreur:', error);
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
@@ -1060,6 +1145,7 @@
             container.appendChild(toast);
             setTimeout(() => {
                 toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
                 setTimeout(() => toast.remove(), 300);
             }, 4000);
         }
@@ -1071,9 +1157,47 @@
             return div.innerHTML;
         }
 
+        // ==========================================
         // DÉMARRAGE
+        // ==========================================
+        async function init() {
+            console.log('🚀 OpenStore - Démarrage');
+            console.log('📋 Config: Supabase=' + SUPABASE_URL + ', Start.io=' + STARTIO_PUB_ID);
+            
+            // Initialiser Start.io
+            initStartIO();
+            
+            // Initialiser Supabase
+            const connected = await initSupabase();
+            
+            if (connected) {
+                console.log('✅ Mode PRODUCTION activé');
+                await loadApps();
+            } else {
+                console.log('⚠️ Mode DÉMO - Table applications non trouvée');
+                showEmptyState('Base de données non configurée. Créez la table "applications" dans Supabase.');
+            }
+            
+            // Événements
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closePublishModal();
+            });
+            
+            document.getElementById('publishModal').addEventListener('click', function(e) {
+                if (e.target === this) closePublishModal();
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', init);
-        console.log('✅ OpenStore prêt - Tous les boutons fonctionnent !');
+        
+        console.log('
+        ╔══════════════════════════════════╗
+        ║     🚀 OpenStore Prêt           ║
+        ║  📱 Publiez vos apps Android    ║
+        ║  📥 Téléchargez des apps        ║
+        ║  📢 Pub Start.io: ' + STARTIO_PUB_ID + '      ║
+        ╚══════════════════════════════════╝
+        ');
     </script>
 </body>
 </html>
