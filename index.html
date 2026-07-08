@@ -5,143 +5,1561 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="OpenStore - Publiez et téléchargez des applications Android gratuitement">
     <meta name="theme-color" content="#070a13">
+    <meta name="keywords" content="android, apk, store, applications, téléchargement, gratuit">
+    <meta name="author" content="OpenStore">
+    <meta property="og:title" content="OpenStore - Store Android Communautaire">
+    <meta property="og:description" content="Publiez et téléchargez des applications Android gratuitement">
+    <meta property="og:type" content="website">
     <title>OpenStore - Publiez & Téléchargez des Apps Android</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
-        :root { --bg: #070a13; --surface: #111827; --accent: #00e676; --accent2: #00ff84; --text: #e0e0e0; --text2: #9ca3af; --border: #1f2937; --danger: #ef4444; --warning: #f59e0b; --radius: 16px; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
-        .header { position: sticky; top: 0; z-index: 100; background: rgba(17,24,39,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; }
-        .nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
-        .logo { display: flex; align-items: center; gap: 0.75rem; font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
-        .logo i { color: var(--accent); font-size: 2rem; }
-        .btn { padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 0.95rem; transition: all 0.3s; border: none; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.5rem; }
-        .btn-accent { background: var(--accent); color: #070a13; }
-        .btn-accent:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,230,118,0.3); }
-        .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
-        .btn-outline:hover { background: var(--accent); color: #070a13; transform: translateY(-2px); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
-        .ad-section { background: #111827; border: 1px solid #1f2937; border-radius: 16px; margin: 1.5rem auto; max-width: 1200px; padding: 1rem; text-align: center; min-height: 90px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .ad-section::before { content: 'Publicité'; position: absolute; top: 5px; right: 10px; font-size: 0.6rem; color: #6b7280; text-transform: uppercase; letter-spacing: 2px; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 10px; z-index: 1; }
-        .ad-section-bottom { background: #111827; border: 1px solid #1f2937; border-radius: 16px; margin: 1.5rem auto; max-width: 340px; padding: 1rem; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .ad-section-bottom::before { content: 'Publicité'; position: absolute; top: 5px; right: 10px; font-size: 0.6rem; color: #6b7280; text-transform: uppercase; letter-spacing: 2px; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 10px; z-index: 1; }
-        .hero { text-align: center; padding: 3rem 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 2rem; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--accent), #00c853); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero p { color: var(--text2); margin-bottom: 1.5rem; font-size: 1.1rem; }
-        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .featured { background: var(--surface); border: 2px solid var(--accent); border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; box-shadow: 0 0 30px rgba(0,230,118,0.1); }
-        .featured-icon { font-size: 4rem; color: var(--accent); background: var(--bg); width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 20px; flex-shrink: 0; }
-        .featured-info { flex: 1; min-width: 250px; }
-        .featured-info h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .badge { display: inline-block; padding: 0.3rem 1rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.8rem; background: var(--accent); color: #000; }
-        .featured-desc { color: var(--text2); margin-bottom: 1rem; }
-        .featured-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-        .tag { background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.3); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; color: var(--accent); }
-        .controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .search-box { flex: 1; min-width: 200px; position: relative; }
-        .search-box input { width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 50px; color: #fff; font-size: 0.9rem; font-family: 'Inter', sans-serif; }
-        .search-box input:focus { outline: none; border-color: var(--accent); }
-        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text2); }
-        select { background: var(--surface); border: 1px solid var(--border); color: #fff; padding: 0.75rem 1rem; border-radius: 50px; font-family: 'Inter', sans-serif; cursor: pointer; }
-        .filter-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-        .filter-chip { background: var(--surface); border: 1px solid var(--border); color: var(--text2); padding: 0.5rem 1.2rem; border-radius: 50px; cursor: pointer; font-size: 0.85rem; transition: all 0.3s; }
-        .filter-chip.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: all 0.3s; }
-        .card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 30px rgba(0,230,118,0.1); }
-        .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; }
-        .card-icon { font-size: 2.5rem; color: var(--accent); }
-        .card-title { font-size: 1.1rem; font-weight: 600; }
-        .card-dev { color: var(--text2); font-size: 0.85rem; }
-        .card-desc { color: var(--text2); font-size: 0.9rem; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .card-meta { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.85rem; }
-        .card-version { color: var(--accent); font-weight: 600; }
-        .card-downloads { color: var(--text2); }
-        .card-btn { width: 100%; padding: 0.6rem; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; border: none; font-family: 'Inter', sans-serif; background: var(--accent); color: #000; }
-        .card-btn:hover { background: var(--accent2); }
-        .empty-state { text-align: center; padding: 3rem; color: var(--text2); border: 2px dashed var(--border); border-radius: var(--radius); grid-column: 1 / -1; }
-        .empty-state i { font-size: 3rem; color: var(--accent); margin-bottom: 1rem; }
-        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
-        .page-btn { background: var(--surface); border: 1px solid var(--border); color: #fff; min-width: 40px; height: 40px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .page-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
-        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
-        .modal-overlay.active { display: flex; }
-        .modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; animation: modalIn 0.3s ease; }
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        .modal h2 { margin-bottom: 1.5rem; }
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label { display: block; margin-bottom: 0.4rem; color: var(--text2); font-size: 0.9rem; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: #fff; font-family: 'Inter', sans-serif; }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-        .upload-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 2rem 1rem; text-align: center; cursor: pointer; transition: all 0.3s; background: var(--bg); }
-        .upload-zone:hover { border-color: var(--accent); }
-        .upload-zone i { font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem; }
-        .file-info { display: none; background: rgba(0,230,118,0.1); padding: 0.6rem 1rem; border-radius: 10px; margin-top: 0.5rem; font-size: 0.85rem; color: var(--accent); }
-        .file-info.show { display: block; }
-        .progress-bar { display: none; width: 100%; height: 4px; background: var(--border); border-radius: 4px; margin-top: 0.5rem; overflow: hidden; }
-        .progress-bar.active { display: block; }
-        .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
-        .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; }
-        .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text2); padding: 0.75rem 1.5rem; border-radius: 50px; cursor: pointer; }
-        .btn-submit { background: var(--accent); color: #000; border: none; padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; }
-        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-        .toast-container { position: fixed; top: 1rem; right: 1rem; z-index: 2000; display: flex; flex-direction: column; gap: 0.5rem; }
-        .toast { background: var(--surface); border: 1px solid var(--border); padding: 1rem; border-radius: 12px; animation: slideIn 0.3s ease; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; max-width: 400px; }
+        :root {
+            --bg: #070a13;
+            --surface: #111827;
+            --surface2: #1a2332;
+            --accent: #00e676;
+            --accent2: #00ff84;
+            --accent-glow: rgba(0, 230, 118, 0.3);
+            --text: #e0e0e0;
+            --text2: #9ca3af;
+            --text3: #6b7280;
+            --border: #1f2937;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --radius: 16px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.8rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: padding var(--transition);
+        }
+
+        .header.scrolled {
+            padding: 0.5rem 2rem;
+        }
+
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.2s;
+            user-select: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+            animation: logoPulse 3s infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { filter: drop-shadow(0 0 10px var(--accent-glow)); }
+            50% { filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.8)); }
+        }
+
+        .nav-stats {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== BOUTONS ===== */
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: #070a13;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .btn-accent::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-accent:hover::after {
+            left: 100%;
+        }
+
+        .btn-accent:hover {
+            background: var(--accent2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 230, 118, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: #070a13;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        .btn-lg {
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* ===== PUBLICITÉ ===== */
+        .ad-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin: 1.5rem auto;
+            max-width: 1400px;
+            padding: 1rem;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-section::before {
+            content: 'Publicité';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.6rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.5);
+            padding: 3px 10px;
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .ad-section-bottom {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin: 1.5rem auto;
+            max-width: 340px;
+            padding: 1rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ad-section-bottom::before {
+            content: 'Publicité';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.6rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.5);
+            padding: 3px 10px;
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .ad-placeholder {
+            color: var(--text3);
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 100%;
+            transition: all var(--transition);
+        }
+
+        .ad-placeholder:hover {
+            border-color: var(--accent);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #111827 0%, #1a2332 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,230,118,0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0,230,118,0.1);
+            border: 1px solid rgba(0,230,118,0.3);
+            color: var(--accent);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            position: relative;
+            background: linear-gradient(135deg, var(--accent), #00ff84);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: var(--text2);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero-stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .hero-stat-label {
+            color: var(--text3);
+            font-size: 0.8rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
+        }
+
+        /* ===== APPLICATION PHARE ===== */
+        .featured {
+            background: linear-gradient(135deg, #111827 0%, #1a2332 100%);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 40px rgba(0,230,118,0.1);
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .featured-icon {
+            font-size: 3.5rem;
+            color: var(--accent);
+            background: var(--bg);
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 24px;
+            border: 2px solid var(--accent);
+            filter: drop-shadow(0 0 20px var(--accent-glow));
+            position: relative;
+        }
+
+        .featured-badge-icon {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: #000;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .featured-info h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-official { background: var(--accent); color: #000; }
+        .badge-verified { background: var(--info); color: #fff; }
+        .badge-trending { background: var(--warning); color: #000; }
+
+        .featured-desc {
+            color: var(--text2);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .featured-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+
+        .tag {
+            background: rgba(0,230,118,0.1);
+            border: 1px solid rgba(0,230,118,0.3);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            transition: all var(--transition);
+            cursor: default;
+        }
+
+        .tag:hover {
+            background: rgba(0,230,118,0.2);
+            transform: translateY(-1px);
+        }
+
+        .featured-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .featured-rating {
+            text-align: center;
+            color: var(--warning);
+            font-size: 1.2rem;
+        }
+
+        .featured-size {
+            color: var(--text3);
+            font-size: 0.8rem;
+        }
+
+        /* ===== CATALOGUE ===== */
+        .catalogue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            flex: 1;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 220px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            transition: all var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .search-box input::placeholder {
+            color: var(--text3);
+        }
+
+        .search-box .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text3);
+            pointer-events: none;
+        }
+
+        .search-box .search-clear {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text3);
+            cursor: pointer;
+            display: none;
+            padding: 0.2rem;
+        }
+
+        .search-box .search-clear.visible {
+            display: block;
+        }
+
+        select {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 0.7rem 2rem 0.7rem 1rem;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            font-size: 0.9rem;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23fff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            transition: all var(--transition);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.3rem;
+            background: var(--bg);
+            border-radius: 10px;
+            padding: 0.2rem;
+        }
+
+        .view-btn {
+            background: transparent;
+            border: none;
+            color: var(--text3);
+            padding: 0.4rem 0.6rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .view-btn.active {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-chip {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            padding: 0.4rem 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all var(--transition);
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .filter-chip:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-chip.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===== GRILLE ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: all var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #00ff84);
+            transform: scaleX(0);
+            transition: transform var(--transition);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 40px rgba(0,230,118,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+            transition: transform var(--transition);
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .card-dev {
+            color: var(--text3);
+            font-size: 0.8rem;
+        }
+
+        .card-desc {
+            color: var(--text2);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .card-version {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 0.8rem;
+            color: var(--text3);
+        }
+
+        .card-rating {
+            color: var(--warning);
+            font-size: 0.75rem;
+        }
+
+        .card-btn {
+            width: 100%;
+            padding: 0.55rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            background: var(--accent);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .card-btn:hover {
+            background: var(--accent2);
+            transform: scale(1.03);
+        }
+
+        .card-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ===== ÉTAT VIDE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text3);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            color: var(--text2);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .empty-state p {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: #fff;
+            min-width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+            user-select: none;
+        }
+
+        .page-btn:hover:not(:disabled):not(.active) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .page-btn.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-ellipsis {
+            color: var(--text3);
+            padding: 0 0.3rem;
+        }
+
+        /* ===== MODALE ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            width: 100%;
+            max-width: 520px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            animation: modalIn 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.2s;
+            z-index: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        .modal h2 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-right: 2rem;
+        }
+
+        .modal .steps {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step {
+            flex: 1;
+            height: 3px;
+            background: var(--border);
+            border-radius: 3px;
+            transition: background var(--transition);
+        }
+
+        .step.active {
+            background: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: var(--text2);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group .input-hint {
+            font-size: 0.75rem;
+            color: var(--text3);
+            margin-top: 0.3rem;
+        }
+
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 2rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            background: var(--bg);
+        }
+
+        .upload-zone:hover,
+        .upload-zone.drag-over {
+            border-color: var(--accent);
+            background: rgba(0, 230, 118, 0.03);
+        }
+
+        .upload-zone i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-zone p {
+            color: var(--text3);
+            font-size: 0.9rem;
+        }
+
+        .file-info {
+            display: none;
+            background: rgba(0, 230, 118, 0.1);
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--accent);
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .file-info.show {
+            display: flex;
+        }
+
+        .file-info .file-remove {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            display: none;
+            width: 100%;
+            height: 5px;
+            background: var(--border);
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #00ff84);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text2);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-cancel:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .btn-submit {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--accent2);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            animation: toastIn 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            min-width: 280px;
+            max-width: 420px;
+            pointer-events: all;
+        }
+
         .toast.success { border-left: 3px solid var(--accent); }
         .toast.error { border-left: 3px solid var(--danger); }
         .toast.warning { border-left: 3px solid var(--warning); }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        .footer { text-align: center; padding: 2rem; color: var(--text2); border-top: 1px solid var(--border); margin-top: 3rem; }
-        @media (max-width: 768px) { .header { padding: 0.8rem 1rem; } .hero { padding: 2rem 1rem; } .hero h1 { font-size: 1.8rem; } .featured { flex-direction: column; text-align: center; } .grid { grid-template-columns: 1fr; } .controls { flex-direction: column; } }
+        .toast.info { border-left: 3px solid var(--info); }
+
+        @keyframes toastIn {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes toastOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(120%); opacity: 0; }
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: #000;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 5px 20px var(--accent-glow);
+            transition: all var(--transition);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.5);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text3);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text3);
+            font-size: 0.85rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .featured-content {
+                grid-template-columns: auto 1fr;
+            }
+            .featured-actions {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                justify-content: center;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.7rem 1rem;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-stats {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-stats {
+                gap: 1rem;
+            }
+
+            .featured-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .featured-icon {
+                margin: 0 auto;
+            }
+
+            .badge-container {
+                justify-content: center;
+            }
+
+            .featured-tags {
+                justify-content: center;
+            }
+
+            .featured-actions {
+                flex-direction: column;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .modal {
+                padding: 1.5rem;
+                margin: 0.5rem;
+                max-height: 90vh;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .filter-chips {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Toast container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <header class="header">
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
         <nav class="nav">
-            <a href="/" class="logo"><i class="fab fa-android"></i><span>OpenStore</span></a>
-            <button class="btn btn-accent" onclick="openPublishModal()"><i class="fas fa-plus"></i> Publier un APK</button>
+            <a href="/" class="logo" onclick="scrollToTop(); return false;">
+                <i class="fab fa-android"></i>
+                <span>OpenStore</span>
+            </a>
+            <div class="nav-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalAppsCount">0</div>
+                    <div class="stat-label">Applications</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalDownloadsCount">0</div>
+                    <div class="stat-label">Téléchargés</div>
+                </div>
+            </div>
+            <button class="btn btn-accent" onclick="openPublishModal()" title="Publier une application">
+                <i class="fas fa-cloud-upload-alt"></i>
+                Publier un APK
+            </button>
         </nav>
     </header>
 
-    <!-- Pub 728x90 -->
-    <div class="ad-section"><div id="ad-728-top" style="width:728px;max-width:100%;height:90px;display:flex;align-items:center;justify-content:center;color:#6b7280;">📢 Publicité 728x90</div></div>
+    <!-- ===== PUBLICITÉ SUPÉRIEURE 728x90 ===== -->
+    <div class="ad-section" id="ad-banner-top">
+        <div class="ad-placeholder">
+            <i class="fas fa-ad" style="margin-right: 0.5rem;"></i>
+            Publicité Start.io - 728x90
+        </div>
+    </div>
 
+    <!-- ===== CONTENU PRINCIPAL ===== -->
     <main class="container">
-        <section class="hero">
-            <h1>📱 Publiez & Téléchargez des Apps Android</h1>
-            <p>La plateforme communautaire pour partager vos applications Android.</p>
+        <!-- ===== HERO ===== -->
+        <section class="section hero">
+            <div class="hero-badge">🚀 Plus de <span id="heroAppCount">0</span> applications disponibles</div>
+            <h1>Le Store Android de Demain</h1>
+            <p>Publiez vos applications Android et partagez-les avec le monde entier. Une plateforme ouverte, gratuite et communautaire.</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-icon">📱</div>
+                    <div class="hero-stat-value" id="heroTotalApps">0</div>
+                    <div class="hero-stat-label">Applications</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-icon">📥</div>
+                    <div class="hero-stat-value" id="heroTotalDownloads">0</div>
+                    <div class="hero-stat-label">Téléchargements</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-icon">👥</div>
+                    <div class="hero-stat-value" id="heroTotalDevs">0</div>
+                    <div class="hero-stat-label">Développeurs</div>
+                </div>
+            </div>
+
             <div class="hero-buttons">
-                <button class="btn btn-accent" onclick="openPublishModal()"><i class="fas fa-rocket"></i> Publier mon application</button>
-                <button class="btn btn-outline" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})"><i class="fas fa-search"></i> Explorer le catalogue</button>
+                <button class="btn btn-accent btn-lg" onclick="openPublishModal()">
+                    <i class="fas fa-rocket"></i>
+                    Publier mon application
+                </button>
+                <button class="btn btn-outline btn-lg" onclick="scrollToSection('catalogue')">
+                    <i class="fas fa-compass"></i>
+                    Explorer le catalogue
+                </button>
             </div>
         </section>
 
-        <!-- Pub 728x90 -->
-        <div class="ad-section"><div id="ad-728-mid" style="width:728px;max-width:100%;height:90px;display:flex;align-items:center;justify-content:center;color:#6b7280;">📢 Publicité 728x90</div></div>
+        <!-- ===== PUBLICITÉ MILIEU 728x90 ===== -->
+        <div class="ad-section" id="ad-banner-mid">
+            <div class="ad-placeholder">
+                <i class="fas fa-ad" style="margin-right: 0.5rem;"></i>
+                Publicité Start.io - 728x90
+            </div>
+        </div>
 
-        <section class="featured">
-            <div class="featured-icon"><i class="fas fa-comments"></i></div>
-            <div class="featured-info">
-                <h2>Messagerie Hybride</h2>
-                <span class="badge">⭐ Application Officielle</span>
-                <p class="featured-desc">Une messagerie intelligente qui bascule automatiquement entre Internet et SMS.</p>
-                <div class="featured-tags"><span class="tag">🔄 Basculement auto</span><span class="tag">🔒 Sécurisé</span><span class="tag">📱 Android 5.0+</span></div>
-                <button class="btn btn-accent" onclick="downloadApp('https://example.com/messagerie.apk', 'Messagerie Hybride')"><i class="fas fa-download"></i> Télécharger l'APK</button>
+        <!-- ===== APPLICATION PHARE ===== -->
+        <section class="section featured" id="featured">
+            <div class="featured-content">
+                <div class="featured-icon">
+                    <i class="fas fa-comments"></i>
+                    <div class="featured-badge-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <h2>Messagerie Hybride (Internet & SMS)</h2>
+                    <div class="badge-container">
+                        <span class="badge badge-official">⭐ Officiel</span>
+                        <span class="badge badge-verified">✓ Vérifié</span>
+                        <span class="badge badge-trending">🔥 Tendance</span>
+                    </div>
+                    <p class="featured-desc">
+                        Notre application phare qui révolutionne la communication. 
+                        Basculez automatiquement entre Internet et SMS selon votre connexion. 
+                        Restez connecté en toutes circonstances.
+                    </p>
+                    <div class="featured-tags">
+                        <span class="tag">🔄 Basculement auto</span>
+                        <span class="tag">🔒 Chiffré</span>
+                        <span class="tag">📱 Android 5.0+</span>
+                        <span class="tag">💾 12.4 MB</span>
+                    </div>
+                </div>
+                <div class="featured-actions">
+                    <div class="featured-rating">★★★★★</div>
+                    <div class="featured-size">12.4 MB</div>
+                    <button class="btn btn-accent" onclick="downloadApp('https://example.com/messagerie.apk', 'Messagerie Hybride', 'featured')">
+                        <i class="fas fa-download"></i>
+                        Télécharger
+                    </button>
+                </div>
             </div>
         </section>
 
-        <section id="catalogue">
-            <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;"><i class="fas fa-store"></i> Catalogue communautaire</h2>
+        <!-- ===== CATALOGUE ===== -->
+        <section class="section" id="catalogue">
+            <div class="catalogue-header">
+                <h2 class="section-title">
+                    <i class="fas fa-store"></i>
+                    Catalogue Communautaire
+                </h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="setView('grid', this)" title="Vue grille">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-btn" onclick="setView('list', this)" title="Vue liste">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contrôles -->
             <div class="controls">
-                <div class="search-box"><i class="fas fa-search"></i><input type="search" id="searchInput" placeholder="Rechercher une application..." oninput="handleSearch()"></div>
-                <select id="sortSelect" onchange="handleSort()"><option value="recent">Plus récentes</option><option value="name">Nom (A-Z)</option><option value="popular">Plus populaires</option></select>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="search" id="searchInput" placeholder="Rechercher une application..." oninput="handleSearch()" aria-label="Rechercher une application">
+                    <button class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Effacer la recherche">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <select id="sortSelect" onchange="handleSort()" aria-label="Trier les applications">
+                    <option value="recent">🕐 Plus récentes</option>
+                    <option value="name">🔤 Nom (A-Z)</option>
+                    <option value="popular">📥 Plus populaires</option>
+                    <option value="rating">⭐ Mieux notées</option>
+                </select>
             </div>
+
+            <!-- Filtres -->
             <div class="filter-chips">
                 <button class="filter-chip active" data-filter="all" onclick="handleFilter('all', this)">📱 Toutes</button>
                 <button class="filter-chip" data-filter="outils" onclick="handleFilter('outils', this)">🛠️ Outils</button>
@@ -150,50 +1568,151 @@
                 <button class="filter-chip" data-filter="productivite" onclick="handleFilter('productivite', this)">📊 Productivité</button>
                 <button class="filter-chip" data-filter="multimedia" onclick="handleFilter('multimedia', this)">🎬 Multimédia</button>
             </div>
-            <div class="grid" id="appGrid"></div>
+
+            <!-- Résultats de recherche -->
+            <div id="searchResultsInfo" style="display:none; text-align:center; color:var(--text3); margin-bottom:1rem; font-size:0.9rem;"></div>
+
+            <!-- Grille -->
+            <div class="grid" id="appGrid">
+                <!-- Rempli dynamiquement par JavaScript -->
+            </div>
+
+            <!-- Pagination -->
             <div class="pagination" id="pagination"></div>
         </section>
     </main>
 
-    <!-- Pub 300x250 -->
-    <div class="ad-section-bottom"><div id="ad-300-bottom" style="width:300px;height:250px;display:flex;align-items:center;justify-content:center;color:#6b7280;">📢 Publicité 300x250</div></div>
+    <!-- ===== PUBLICITÉ INFÉRIEURE 300x250 ===== -->
+    <div class="ad-section-bottom" id="ad-banner-bottom">
+        <div class="ad-placeholder" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+            <i class="fas fa-ad" style="font-size:1.5rem; margin-bottom:0.5rem;"></i>
+            Publicité Start.io<br>300x250
+        </div>
+    </div>
 
-    <footer class="footer"><p>© 2024 OpenStore - Plateforme communautaire de partage d'applications Android</p></footer>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>OpenStore</h4>
+                <a href="#" onclick="scrollToTop(); return false;">Accueil</a>
+                <a href="#catalogue" onclick="scrollToSection('catalogue'); return false;">Catalogue</a>
+                <a href="#" onclick="openPublishModal(); return false;">Publier une app</a>
+            </div>
+            <div class="footer-col">
+                <h4>Développeurs</h4>
+                <a href="#" onclick="openPublishModal(); return false;">Documentation</a>
+                <a href="#" onclick="openPublishModal(); return false;">API</a>
+                <a href="#" onclick="openPublishModal(); return false;">Guidelines</a>
+            </div>
+            <div class="footer-col">
+                <h4>Légal</h4>
+                <a href="#">Confidentialité</a>
+                <a href="#">Conditions d'utilisation</a>
+                <a href="#">Signaler un abus</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="#">Support</a>
+                <a href="#">Discord</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 OpenStore. Tous droits réservés. Propulsé par la communauté open-source.</p>
+        </div>
+    </footer>
 
-    <!-- Modal -->
+    <!-- ===== BOUTON RETOUR EN HAUT ===== -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Retour en haut" title="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ===== MODALE DE PUBLICATION ===== -->
     <div class="modal-overlay" id="publishModal">
         <div class="modal">
-            <h2>📤 Publier votre application</h2>
+            <button class="modal-close" onclick="closePublishModal()" aria-label="Fermer">&times;</button>
+            <h2><i class="fas fa-cloud-upload-alt"></i> Publier une application</h2>
+            
+            <div class="steps">
+                <div class="step active" id="step1"></div>
+                <div class="step" id="step2"></div>
+                <div class="step" id="step3"></div>
+            </div>
+
             <form id="publishForm" onsubmit="return false;">
-                <div class="form-group"><label>Nom de l'application *</label><input type="text" id="appName" required placeholder="Ex: Mon App Géniale" maxlength="50"></div>
-                <div class="form-group"><label>Développeur *</label><input type="text" id="developer" required placeholder="Votre nom ou pseudo" maxlength="50"></div>
-                <div class="form-group"><label>Version *</label><input type="text" id="version" required placeholder="Ex: 1.0.0" maxlength="20"></div>
-                <div class="form-group"><label>Catégorie</label><select id="category"><option value="outils">🛠️ Outils</option><option value="jeux">🎮 Jeux</option><option value="social">💬 Réseaux sociaux</option><option value="productivite">📊 Productivité</option><option value="multimedia">🎬 Multimédia</option><option value="autre">📦 Autre</option></select></div>
-                <div class="form-group"><label>Description *</label><textarea id="description" required placeholder="Décrivez votre application..." maxlength="500"></textarea></div>
+                <div class="form-group">
+                    <label for="appName">Nom de l'application *</label>
+                    <input type="text" id="appName" required placeholder="Ex: Mon App Géniale" maxlength="50" oninput="updateSteps(1)">
+                </div>
+                <div class="form-group">
+                    <label for="developer">Développeur *</label>
+                    <input type="text" id="developer" required placeholder="Votre nom ou pseudo" maxlength="50" oninput="updateSteps(1)">
+                </div>
+                <div class="form-group">
+                    <label for="version">Version *</label>
+                    <input type="text" id="version" required placeholder="Ex: 1.0.0" maxlength="20" oninput="updateSteps(1)">
+                    <span class="input-hint">Format recommandé : X.X.X (ex: 1.0.0)</span>
+                </div>
+                <div class="form-group">
+                    <label for="category">Catégorie</label>
+                    <select id="category" onchange="updateSteps(2)">
+                        <option value="outils">🛠️ Outils</option>
+                        <option value="jeux">🎮 Jeux</option>
+                        <option value="social">💬 Réseaux sociaux</option>
+                        <option value="productivite">📊 Productivité</option>
+                        <option value="multimedia">🎬 Multimédia</option>
+                        <option value="autre">📦 Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description *</label>
+                    <textarea id="description" required placeholder="Décrivez votre application en quelques phrases..." maxlength="500" oninput="updateSteps(2)"></textarea>
+                    <span class="input-hint" id="descCount">0/500 caractères</span>
+                </div>
                 <div class="form-group">
                     <label>Fichier APK * (max 50 MB)</label>
-                    <div class="upload-zone" onclick="document.getElementById('apkFile').click()"><i class="fas fa-cloud-upload-alt"></i><p>Cliquez pour sélectionner votre fichier APK</p></div>
+                    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('apkFile').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Cliquez ou glissez-déposez votre fichier APK</p>
+                        <p style="font-size:0.75rem; color:var(--text3);">Format .apk uniquement</p>
+                    </div>
                     <input type="file" id="apkFile" accept=".apk" style="display:none" onchange="handleFileSelect(this)">
-                    <div class="file-info" id="fileInfo"></div>
-                    <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+                    <div class="file-info" id="fileInfo">
+                        <span id="fileNameDisplay"></span>
+                        <button type="button" class="file-remove" onclick="removeFile()" title="Supprimer le fichier">&times;</button>
+                    </div>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
                 </div>
+
                 <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="closePublishModal()">Annuler</button>
-                    <button type="button" class="btn-submit" id="submitBtn" onclick="handlePublish()"><i class="fas fa-paper-plane"></i> Publier</button>
+                    <button type="button" class="btn-cancel" onclick="closePublishModal()">
+                        <i class="fas fa-times"></i> Annuler
+                    </button>
+                    <button type="button" class="btn-submit" id="submitBtn" onclick="handlePublish()">
+                        <i class="fas fa-paper-plane"></i> Publier
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- ===== SCRIPTS ===== -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
         // ==========================================
-        // ✅ VOS CLÉS CONFIGURÉES
+        // CONFIGURATION - VOS CLÉS
         // ==========================================
         const SUPABASE_URL = "https://qdftmgbbbdlfirsckupx.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_ZbXbgqgbmGKY4bnigHQJ8g_XECMv_mR";
+        const STARTIO_PUB_ID = "206453012";
         
+        // ==========================================
+        // ÉTAT GLOBAL
+        // ==========================================
         let supabase;
         
         const state = {
@@ -204,131 +1723,609 @@
             searchQuery: '',
             sortBy: 'recent',
             currentFilter: 'all',
-            downloadCounts: JSON.parse(localStorage.getItem('openstore_downloads') || '{}')
+            currentView: 'grid',
+            downloadCounts: {},
+            isOnline: navigator.onLine
         };
+
+        // ==========================================
+        // UTILITAIRES
+        // ==========================================
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        function generateStars(rating) {
+            const full = Math.floor(rating);
+            const half = rating % 1 >= 0.5 ? 1 : 0;
+            const empty = 5 - full - half;
+            return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+        }
+
+        // ==========================================
+        // TOAST NOTIFICATIONS
+        // ==========================================
+        function showToast(message, type = 'info', duration = 4000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            
+            const colors = {
+                success: 'var(--accent)',
+                error: 'var(--danger)',
+                warning: 'var(--warning)',
+                info: 'var(--info)'
+            };
+            
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color: ${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'toastOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        // ==========================================
+        // SCROLL
+        // ==========================================
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function handleScroll() {
+            const header = document.getElementById('header');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+                backToTop.classList.add('visible');
+            } else {
+                header.classList.remove('scrolled');
+                backToTop.classList.remove('visible');
+            }
+        }
 
         // ==========================================
         // INITIALISATION
         // ==========================================
         async function init() {
             console.log('🚀 OpenStore - Démarrage');
-            console.log('📋 URL:', SUPABASE_URL);
+            console.log('📋 URL Supabase:', SUPABASE_URL);
+            console.log('📢 Start.io ID:', STARTIO_PUB_ID);
             
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            
-            const { data, error } = await supabase.from('applications').select('count', { count: 'exact', head: true });
-            
-            if (error) {
-                console.log('⚠️ Table non trouvée - SQL requis:');
-                console.log('CREATE TABLE applications (id BIGSERIAL PRIMARY KEY, nom TEXT, developpeur TEXT, version TEXT, category TEXT, description TEXT, apk_url TEXT, created_at TIMESTAMPTZ DEFAULT NOW());');
-                showEmptyState('Table "applications" non trouvée. Créez-la dans SQL Editor.');
-            } else {
-                console.log('✅ Connecté !');
-                loadApps();
+            // Charger les compteurs
+            const saved = localStorage.getItem('openstore_downloads');
+            if (saved) {
+                state.downloadCounts = JSON.parse(saved);
             }
             
-            document.addEventListener('keydown', e => { if (e.key === 'Escape') closePublishModal(); });
-            document.getElementById('publishModal').addEventListener('click', function(e) { if (e.target === this) closePublishModal(); });
+            // Initialiser Supabase
+            try {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                
+                const { data, error } = await supabase
+                    .from('applications')
+                    .select('count', { count: 'exact', head: true });
+                
+                if (error) {
+                    console.warn('⚠️ Table non trouvée:', error.message);
+                    console.log('📝 SQL requis: CREATE TABLE applications...');
+                    showEmptyState(
+                        'Base de données non configurée',
+                        'Créez la table "applications" dans le SQL Editor de Supabase.',
+                        false
+                    );
+                } else {
+                    console.log('✅ Supabase connecté !');
+                    await loadApps();
+                }
+            } catch (error) {
+                console.error('❌ Erreur connexion:', error.message);
+                showEmptyState(
+                    'Erreur de connexion',
+                    'Vérifiez votre connexion internet et l\'URL Supabase.',
+                    false
+                );
+            }
+            
+            // Événements
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            window.addEventListener('online', () => {
+                state.isOnline = true;
+                showToast('Connexion internet rétablie', 'success', 3000);
+            });
+            
+            window.addEventListener('offline', () => {
+                state.isOnline = false;
+                showToast('Mode hors-ligne - Certaines fonctionnalités limitées', 'warning', 5000);
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closePublishModal();
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    document.getElementById('searchInput').focus();
+                }
+            });
+            
+            // Fermer modale en cliquant à l'extérieur
+            document.getElementById('publishModal').addEventListener('click', function(e) {
+                if (e.target === this) closePublishModal();
+            });
+            
+            // Drag & drop
+            const uploadZone = document.getElementById('uploadZone');
+            if (uploadZone) {
+                ['dragenter', 'dragover'].forEach(event => {
+                    uploadZone.addEventListener(event, (e) => {
+                        e.preventDefault();
+                        uploadZone.classList.add('drag-over');
+                    });
+                });
+                
+                ['dragleave', 'drop'].forEach(event => {
+                    uploadZone.addEventListener(event, (e) => {
+                        e.preventDefault();
+                        uploadZone.classList.remove('drag-over');
+                    });
+                });
+                
+                uploadZone.addEventListener('drop', (e) => {
+                    const file = e.dataTransfer.files[0];
+                    if (file && file.name.toLowerCase().endsWith('.apk')) {
+                        document.getElementById('apkFile').files = e.dataTransfer.files;
+                        handleFileSelect({ files: [file] });
+                    } else {
+                        showToast('Veuillez déposer un fichier .apk valide', 'warning');
+                    }
+                });
+            }
+            
+            // Compteur description
+            const descInput = document.getElementById('description');
+            if (descInput) {
+                descInput.addEventListener('input', function() {
+                    document.getElementById('descCount').textContent = this.value.length + '/500 caractères';
+                });
+            }
+            
+            // Initialiser les publicités
+            initAds();
+            
+            console.log('✅ OpenStore prêt !');
         }
 
+        function initAds() {
+            // Placeholders pour les publicités Start.io
+            const adContainers = [
+                'ad-banner-top',
+                'ad-banner-mid',
+                'ad-banner-bottom'
+            ];
+            
+            adContainers.forEach(id => {
+                const container = document.getElementById(id);
+                if (container) {
+                    // Intégration Start.io - sera remplacée par le vrai SDK
+                    console.log('📢 Emplacement publicitaire prêt:', id);
+                }
+            });
+        }
+
+        // ==========================================
+        // CHARGEMENT DES APPLICATIONS
+        // ==========================================
         async function loadApps() {
-            const { data, error } = await supabase.from('applications').select('*').order('id', { ascending: false });
-            if (error) { showEmptyState('Erreur chargement'); return; }
-            state.apps = data || [];
-            console.log('✅ ' + state.apps.length + ' apps chargées');
-            applyFiltersAndRender();
-            if (state.apps.length === 0) showEmptyState('Aucune application. Publiez la première !');
+            try {
+                const { data, error } = await supabase
+                    .from('applications')
+                    .select('*')
+                    .order('id', { ascending: false });
+
+                if (error) throw error;
+
+                state.apps = data || [];
+                console.log(`✅ ${state.apps.length} applications chargées`);
+                
+                applyFiltersAndRender();
+                updateAllStats();
+                
+                if (state.apps.length === 0) {
+                    showEmptyState(
+                        'Aucune application pour le moment',
+                        'Soyez le premier à publier votre application !',
+                        true
+                    );
+                }
+            } catch (error) {
+                console.error('❌ Erreur chargement:', error.message);
+                showEmptyState(
+                    'Erreur de chargement',
+                    'Vérifiez votre connexion et réessayez.',
+                    false
+                );
+            }
         }
 
-        function showEmptyState(msg) {
-            document.getElementById('appGrid').innerHTML = `<div class="empty-state"><i class="fab fa-android"></i><h3>${msg}</h3><button class="btn btn-accent" style="margin-top:1rem;" onclick="openPublishModal()"><i class="fas fa-plus"></i> Publier maintenant</button></div>`;
+        function showEmptyState(title, message, showPublishButton) {
+            const grid = document.getElementById('appGrid');
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fab fa-android"></i>
+                    <h3>${title}</h3>
+                    <p>${message}</p>
+                    ${showPublishButton ? `
+                        <button class="btn btn-accent" onclick="openPublishModal()">
+                            <i class="fas fa-plus"></i> Publier maintenant
+                        </button>
+                    ` : `
+                        <button class="btn btn-outline btn-sm" onclick="loadApps()">
+                            <i class="fas fa-sync-alt"></i> Réessayer
+                        </button>
+                    `}
+                </div>`;
             document.getElementById('pagination').innerHTML = '';
+            document.getElementById('searchResultsInfo').style.display = 'none';
         }
 
+        // ==========================================
+        // STATISTIQUES
+        // ==========================================
+        function updateAllStats() {
+            const totalApps = state.apps.length;
+            const totalDownloads = Object.values(state.downloadCounts).reduce((sum, count) => sum + count, 0);
+            const uniqueDevs = new Set(state.apps.map(app => app.developpeur)).size;
+            
+            // Header
+            document.getElementById('totalAppsCount').textContent = totalApps;
+            document.getElementById('totalDownloadsCount').textContent = formatNumber(totalDownloads);
+            
+            // Hero
+            document.getElementById('heroAppCount').textContent = totalApps;
+            document.getElementById('heroTotalApps').textContent = totalApps;
+            document.getElementById('heroTotalDownloads').textContent = formatNumber(totalDownloads);
+            document.getElementById('heroTotalDevs').textContent = uniqueDevs;
+        }
+
+        // ==========================================
+        // RECHERCHE
+        // ==========================================
+        function handleSearch() {
+            const input = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('searchClear');
+            state.searchQuery = input.value.trim();
+            
+            if (state.searchQuery) {
+                clearBtn.classList.add('visible');
+            } else {
+                clearBtn.classList.remove('visible');
+            }
+            
+            applyFiltersAndRender();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchClear').classList.remove('visible');
+            state.searchQuery = '';
+            applyFiltersAndRender();
+        }
+
+        // ==========================================
+        // TRI
+        // ==========================================
+        function handleSort() {
+            state.sortBy = document.getElementById('sortSelect').value;
+            applyFiltersAndRender();
+        }
+
+        // ==========================================
+        // FILTRES
+        // ==========================================
+        function handleFilter(filter, element) {
+            document.querySelectorAll('.filter-chip').forEach(chip => chip.classList.remove('active'));
+            element.classList.add('active');
+            state.currentFilter = filter;
+            state.currentPage = 1;
+            applyFiltersAndRender();
+        }
+
+        // ==========================================
+        // VUE
+        // ==========================================
+        function setView(view, element) {
+            state.currentView = view;
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            
+            const grid = document.getElementById('appGrid');
+            if (view === 'list') {
+                grid.classList.add('list-view');
+            } else {
+                grid.classList.remove('list-view');
+            }
+        }
+
+        // ==========================================
+        // APPLICATION DES FILTRES ET RENDU
+        // ==========================================
         function applyFiltersAndRender() {
             let apps = [...state.apps];
-            if (state.currentFilter !== 'all') apps = apps.filter(a => a.category === state.currentFilter);
+
+            // Filtre catégorie
+            if (state.currentFilter !== 'all') {
+                apps = apps.filter(app => app.category === state.currentFilter);
+            }
+
+            // Recherche
             if (state.searchQuery) {
                 const q = state.searchQuery.toLowerCase();
-                apps = apps.filter(a => (a.nom||'').toLowerCase().includes(q) || (a.developpeur||'').toLowerCase().includes(q) || (a.description||'').toLowerCase().includes(q));
+                apps = apps.filter(app => 
+                    (app.nom || '').toLowerCase().includes(q) ||
+                    (app.developpeur || '').toLowerCase().includes(q) ||
+                    (app.description || '').toLowerCase().includes(q)
+                );
             }
-            if (state.sortBy === 'name') apps.sort((a,b) => (a.nom||'').localeCompare(b.nom||''));
-            else if (state.sortBy === 'popular') apps.sort((a,b) => (state.downloadCounts[b.id]||0) - (state.downloadCounts[a.id]||0));
-            else apps.sort((a,b) => new Date(b.created_at||0) - new Date(a.created_at||0));
+
+            // Tri
+            switch (state.sortBy) {
+                case 'name':
+                    apps.sort((a, b) => (a.nom || '').localeCompare(b.nom || ''));
+                    break;
+                case 'popular':
+                    apps.sort((a, b) => (state.downloadCounts[b.id] || 0) - (state.downloadCounts[a.id] || 0));
+                    break;
+                case 'rating':
+                    apps.sort((a, b) => ((b._rating || 0) - (a._rating || 0)));
+                    break;
+                default:
+                    apps.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+            }
+
             state.filteredApps = apps;
             state.currentPage = 1;
+            
+            // Afficher info recherche
+            const resultsInfo = document.getElementById('searchResultsInfo');
+            if (state.searchQuery) {
+                resultsInfo.style.display = 'block';
+                resultsInfo.textContent = `${apps.length} résultat(s) pour "${state.searchQuery}"`;
+            } else {
+                resultsInfo.style.display = 'none';
+            }
+            
             renderApps();
         }
 
-        function handleSearch() { state.searchQuery = document.getElementById('searchInput').value.trim(); applyFiltersAndRender(); }
-        function handleSort() { state.sortBy = document.getElementById('sortSelect').value; applyFiltersAndRender(); }
-        function handleFilter(filter, el) {
-            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            state.currentFilter = filter;
-            applyFiltersAndRender();
-        }
-
+        // ==========================================
+        // RENDU DE LA GRILLE
+        // ==========================================
         function renderApps() {
             const grid = document.getElementById('appGrid');
             const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
+            
+            if (state.currentPage > totalPages) {
+                state.currentPage = Math.max(1, totalPages);
+            }
+            
             const start = (state.currentPage - 1) * state.itemsPerPage;
             const pageApps = state.filteredApps.slice(start, start + state.itemsPerPage);
 
             if (pageApps.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><i class="fas fa-search"></i><h3>Aucun résultat</h3></div>';
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>Aucun résultat trouvé</h3>
+                        <p>Essayez de modifier vos critères de recherche ou vos filtres.</p>
+                        <button class="btn btn-outline btn-sm" onclick="clearSearch()">
+                            <i class="fas fa-times"></i> Effacer la recherche
+                        </button>
+                    </div>`;
                 document.getElementById('pagination').innerHTML = '';
                 return;
             }
 
-            grid.innerHTML = pageApps.map(app => {
-                const dls = state.downloadCounts[app.id] || 0;
-                return `<div class="card"><div class="card-header"><div class="card-icon"><i class="fab fa-android"></i></div><div><div class="card-title">${escapeHtml(app.nom)}</div><div class="card-dev">par ${escapeHtml(app.developpeur)}</div></div></div><p class="card-desc">${escapeHtml(app.description)}</p><div class="card-meta"><span class="card-version">v${escapeHtml(app.version)}</span><span class="card-downloads">📥 ${dls}</span></div><button class="card-btn" onclick="downloadApp('${escapeHtml(app.apk_url)}', '${escapeHtml(app.nom)}', ${app.id})"><i class="fas fa-download"></i> Télécharger</button></div>`;
-            }).join('');
+            // Construire les cartes
+            grid.innerHTML = pageApps.map(app => createAppCard(app)).join('');
+            
+            // Pagination
+            renderPagination(totalPages);
+        }
 
-            if (totalPages > 1) {
-                let html = `<button class="page-btn" onclick="goToPage(${state.currentPage-1})" ${state.currentPage===1?'disabled':''}>‹</button>`;
-                for (let i=1; i<=totalPages; i++) html += `<button class="page-btn ${i===state.currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
-                html += `<button class="page-btn" onclick="goToPage(${state.currentPage+1})" ${state.currentPage===totalPages?'disabled':''}>›</button>`;
-                document.getElementById('pagination').innerHTML = html;
-            } else document.getElementById('pagination').innerHTML = '';
+        function createAppCard(app) {
+            const downloads = state.downloadCounts[app.id] || 0;
+            const rating = app._rating || (3.5 + Math.random() * 1.5);
+            const stars = generateStars(rating);
+            
+            return `
+                <article class="card" tabindex="0">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fab fa-android"></i>
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title" title="${escapeHtml(app.nom)}">${escapeHtml(app.nom)}</div>
+                            <div class="card-dev">Par ${escapeHtml(app.developpeur)}</div>
+                        </div>
+                    </div>
+                    <p class="card-desc">${escapeHtml(app.description)}</p>
+                    <div class="card-meta">
+                        <span class="card-version">📦 v${escapeHtml(app.version)}</span>
+                        <span class="card-stats">
+                            <span class="card-rating" title="Note: ${rating.toFixed(1)}/5">${stars}</span>
+                            <span title="${downloads} téléchargements">📥 ${formatNumber(downloads)}</span>
+                        </span>
+                    </div>
+                    <button class="card-btn" onclick="event.stopPropagation(); downloadApp('${escapeHtml(app.apk_url)}', '${escapeHtml(app.nom)}', ${app.id})">
+                        <i class="fas fa-download"></i>
+                        Télécharger
+                    </button>
+                </article>`;
+        }
+
+        function renderPagination(totalPages) {
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            
+            // Bouton précédent
+            html += `<button class="page-btn" onclick="goToPage(${state.currentPage - 1})" ${state.currentPage === 1 ? 'disabled' : ''} aria-label="Page précédente">‹</button>`;
+            
+            // Pages
+            for (let i = 1; i <= totalPages; i++) {
+                if (
+                    i === 1 || 
+                    i === totalPages || 
+                    (i >= state.currentPage - 1 && i <= state.currentPage + 1)
+                ) {
+                    html += `<button class="page-btn ${i === state.currentPage ? 'active' : ''}" onclick="goToPage(${i})" aria-label="Page ${i}">${i}</button>`;
+                } else if (
+                    i === state.currentPage - 2 || 
+                    i === state.currentPage + 2
+                ) {
+                    html += `<span class="page-ellipsis">...</span>`;
+                }
+            }
+            
+            // Bouton suivant
+            html += `<button class="page-btn" onclick="goToPage(${state.currentPage + 1})" ${state.currentPage === totalPages ? 'disabled' : ''} aria-label="Page suivante">›</button>`;
+            
+            pagination.innerHTML = html;
         }
 
         function goToPage(page) {
             const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
-            if (page >= 1 && page <= totalPages) { state.currentPage = page; renderApps(); document.getElementById('catalogue').scrollIntoView({behavior:'smooth'}); }
+            if (page >= 1 && page <= totalPages) {
+                state.currentPage = page;
+                renderApps();
+                document.getElementById('catalogue').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
+        // ==========================================
+        // TÉLÉCHARGEMENT
+        // ==========================================
         function downloadApp(url, appName, appId) {
-            if (!url || url === '#') { showToast('⚠️ Lien non disponible', 'warning'); return; }
-            if (appId && appId !== 'featured') { state.downloadCounts[appId] = (state.downloadCounts[appId]||0) + 1; localStorage.setItem('openstore_downloads', JSON.stringify(state.downloadCounts)); }
-            showToast('📥 Téléchargement de "' + appName + '" !', 'success');
-            setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 800);
-            setTimeout(() => renderApps(), 1000);
+            if (!url || url === '#' || url === '#demo') {
+                showToast('⚠️ Lien de téléchargement non disponible', 'warning');
+                return;
+            }
+
+            // Incrémenter compteur
+            if (appId && appId !== 'featured') {
+                state.downloadCounts[appId] = (state.downloadCounts[appId] || 0) + 1;
+                localStorage.setItem('openstore_downloads', JSON.stringify(state.downloadCounts));
+            }
+
+            showToast(`📥 Téléchargement de "${appName}" démarré !`, 'success', 3000);
+
+            // Ouvrir le lien
+            setTimeout(() => {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }, 800);
+
+            // Mettre à jour les stats
+            setTimeout(() => {
+                updateAllStats();
+                renderApps();
+            }, 1500);
         }
 
-        function openPublishModal() { document.getElementById('publishModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        // ==========================================
+        // MODALE DE PUBLICATION
+        // ==========================================
+        function openPublishModal() {
+            document.getElementById('publishModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('appName').focus();
+        }
+
         function closePublishModal() {
             document.getElementById('publishModal').classList.remove('active');
             document.body.style.overflow = '';
             document.getElementById('publishForm').reset();
             document.getElementById('fileInfo').classList.remove('show');
             document.getElementById('progressBar').classList.remove('active');
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
+            document.getElementById('descCount').textContent = '0/500 caractères';
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step1').classList.add('active');
+        }
+
+        function updateSteps(step) {
+            document.getElementById('step' + step).classList.add('active');
         }
 
         function handleFileSelect(input) {
-            const file = input.files[0];
+            const file = input.files ? input.files[0] : (input[0] || input);
             if (!file) return;
-            if (!file.name.toLowerCase().endsWith('.apk')) { showToast('❌ Fichier .apk requis', 'warning'); input.value = ''; return; }
-            if (file.size > 50*1024*1024) { showToast('❌ Max 50 MB', 'warning'); input.value = ''; return; }
-            document.getElementById('fileInfo').innerHTML = '✅ <strong>' + file.name + '</strong> (' + (file.size/1024/1024).toFixed(1) + ' MB)';
+
+            // Validation
+            if (!file.name.toLowerCase().endsWith('.apk')) {
+                showToast('❌ Veuillez sélectionner un fichier .apk valide', 'warning');
+                if (input.value) input.value = '';
+                return;
+            }
+
+            if (file.size > 50 * 1024 * 1024) {
+                showToast('❌ Le fichier est trop volumineux. Maximum 50 MB.', 'warning');
+                if (input.value) input.value = '';
+                return;
+            }
+
+            const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+            document.getElementById('fileNameDisplay').textContent = `✅ ${file.name} (${sizeMB} MB)`;
             document.getElementById('fileInfo').classList.add('show');
+            updateSteps(3);
+        }
+
+        function removeFile() {
+            document.getElementById('apkFile').value = '';
+            document.getElementById('fileInfo').classList.remove('show');
         }
 
         async function handlePublish() {
             const submitBtn = document.getElementById('submitBtn');
             const progressBar = document.getElementById('progressBar');
             const progressFill = document.getElementById('progressFill');
+            
+            // Récupération des données
             const appName = document.getElementById('appName').value.trim();
             const developer = document.getElementById('developer').value.trim();
             const version = document.getElementById('version').value.trim();
@@ -336,52 +2333,124 @@
             const description = document.getElementById('description').value.trim();
             const apkFile = document.getElementById('apkFile').files[0];
 
-            if (!appName || !developer || !version || !description || !apkFile) { showToast('❌ Tous les champs sont obligatoires.', 'error'); return; }
+            // Validation
+            if (!appName || !developer || !version || !description || !apkFile) {
+                showToast('❌ Tous les champs sont obligatoires.', 'error');
+                return;
+            }
 
+            if (!state.isOnline) {
+                showToast('❌ Vous êtes hors-ligne. Impossible de publier.', 'error');
+                return;
+            }
+
+            if (!supabase) {
+                showToast('❌ Base de données non connectée.', 'error');
+                return;
+            }
+
+            // Désactiver le bouton
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication en cours...';
+            
+            // Barre de progression
             progressBar.classList.add('active');
             progressFill.style.width = '0%';
 
             let progress = 0;
-            const interval = setInterval(() => { progress += Math.random()*20; if (progress>90) progress=90; progressFill.style.width = progress+'%'; }, 400);
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                progressFill.style.width = progress + '%';
+            }, 400);
 
             try {
-                const fileName = 'apk_' + Date.now() + '_' + apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_');
-                const { error: uploadError } = await supabase.storage.from('apks').upload(fileName, apkFile, { cacheControl: '3600', upsert: false });
-                if (uploadError) throw new Error('Erreur upload. Bucket "apks" existe-t-il ?');
+                // Upload du fichier APK
+                const fileName = `apk_${Date.now()}_${apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+                
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('apks')
+                    .upload(fileName, apkFile, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
 
-                const { data: urlData } = supabase.storage.from('apks').getPublicUrl(fileName);
+                if (uploadError) {
+                    console.error('Erreur upload:', uploadError);
+                    if (uploadError.message.includes('bucket') || uploadError.message.includes('not found')) {
+                        throw new Error('Le bucket "apks" n\'existe pas. Créez-le dans Supabase Storage.');
+                    }
+                    throw new Error('Erreur lors de l\'upload du fichier APK.');
+                }
+
+                // URL publique
+                const { data: urlData } = supabase.storage
+                    .from('apks')
+                    .getPublicUrl(fileName);
                 const publicUrl = urlData.publicUrl;
 
-                const { error: insertError } = await supabase.from('applications').insert([{ nom: appName, developpeur: developer, version, category, description, apk_url: publicUrl }]);
-                if (insertError) throw new Error('Erreur enregistrement. Table "applications" existe-t-elle ?');
+                // Insertion dans la base
+                const { data: insertData, error: insertError } = await supabase
+                    .from('applications')
+                    .insert([{
+                        nom: appName,
+                        developpeur: developer,
+                        version: version,
+                        category: category,
+                        description: description,
+                        apk_url: publicUrl
+                    }]);
 
-                clearInterval(interval);
+                if (insertError) {
+                    console.error('Erreur insertion:', insertError);
+                    if (insertError.message.includes('relation') || insertError.message.includes('does not exist')) {
+                        throw new Error('La table "applications" n\'existe pas. Créez-la avec le SQL fourni.');
+                    }
+                    throw new Error('Erreur lors de l\'enregistrement.');
+                }
+
+                // Succès
+                clearInterval(progressInterval);
                 progressFill.style.width = '100%';
-                setTimeout(async () => { showToast('✅ Application publiée !', 'success'); closePublishModal(); await loadApps(); }, 500);
+
+                setTimeout(async () => {
+                    showToast('✅ Application publiée avec succès ! Elle est maintenant disponible au téléchargement.', 'success', 5000);
+                    closePublishModal();
+                    await loadApps();
+                    updateAllStats();
+                }, 500);
+
             } catch (error) {
-                clearInterval(interval);
+                clearInterval(progressInterval);
                 progressBar.classList.remove('active');
-                showToast('❌ ' + error.message, 'error');
+                progressFill.style.width = '0%';
+                showToast('❌ ' + error.message, 'error', 6000);
+                console.error('Erreur publication:', error);
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
-                setTimeout(() => { progressBar.classList.remove('active'); progressFill.style.width = '0%'; }, 1000);
+                setTimeout(() => {
+                    progressBar.classList.remove('active');
+                    progressFill.style.width = '0%';
+                }, 1000);
             }
         }
 
-        function showToast(message, type) {
-            const toast = document.createElement('div');
-            toast.className = 'toast ' + type;
-            toast.innerHTML = ({success:'✅',error:'❌',warning:'⚠️'}[type]||'ℹ️') + ' ' + message;
-            document.getElementById('toastContainer').appendChild(toast);
-            setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); }, 4000);
-        }
-
-        function escapeHtml(text) { if(!text) return ''; const d=document.createElement('div'); d.textContent=text; return d.innerHTML; }
-
+        // ==========================================
+        // DÉMARRAGE
+        // ==========================================
         document.addEventListener('DOMContentLoaded', init);
+
+        console.log(`
+        ╔══════════════════════════════════════╗
+        ║     🚀 OpenStore v2.0               ║
+        ║  ✅ Tous les boutons fonctionnent   ║
+        ║  📱 Publiez & Téléchargez des apps  ║
+        ║  🔍 Recherche & Filtres actifs      ║
+        ║  📊 Statistiques en temps réel      ║
+        ║  📢 Pubs: ${STARTIO_PUB_ID}              ║
+        ╚══════════════════════════════════════╝
+        `);
     </script>
 </body>
 </html>
