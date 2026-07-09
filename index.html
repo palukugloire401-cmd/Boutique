@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta name="google-site-verification" content="YJ0QvJF241nyGAr09AQY-4mInNn2P30ufbbQ5The19E" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="OpenStore - Publiez et téléchargez des applications Android gratuitement">
@@ -228,7 +229,7 @@
         .toast.error { border-left: 3px solid var(--danger); }
         @keyframes slideIn { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
 
-        .footer { text-align: center; padding: 2rem; color: var(--text3); border-top: 1px solid var(--border); margin-top: 3rem; }
+        .footer { text-align: center; padding: 2rem; color: var(--text3); border-top: 1px solid var(--border); margin-top: 3rem; font-size:0.9rem; }
 
         @media (max-width: 768px) {
             .header { padding: 0.8rem 1rem; }
@@ -352,135 +353,60 @@
             <button class="modal-close" id="btnModalClose">&times;</button>
             <h2>📤 Publier une application</h2>
             <form id="publishForm" onsubmit="return false;">
-                <div class="form-group">
-                    <label>Nom de l'application *</label>
-                    <input type="text" id="appName" required placeholder="Ex: Mon App Géniale" maxlength="50">
-                </div>
-                <div class="form-group">
-                    <label>Développeur *</label>
-                    <input type="text" id="developer" required placeholder="Votre nom ou pseudo" maxlength="50">
-                </div>
-                <div class="form-group">
-                    <label>Version *</label>
-                    <input type="text" id="version" required placeholder="1.0.0" maxlength="20">
-                </div>
-                <div class="form-group">
-                    <label>Catégorie</label>
-                    <select id="category">
-                        <option value="outils">🛠️ Outils</option>
-                        <option value="jeux">🎮 Jeux</option>
-                        <option value="social">💬 Social</option>
-                        <option value="productivite">📊 Productivité</option>
-                        <option value="multimedia">🎬 Multimédia</option>
-                        <option value="autre">📦 Autre</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Description *</label>
-                    <textarea id="description" required placeholder="Décrivez votre application..." maxlength="500"></textarea>
-                </div>
+                <div class="form-group"><label>Nom de l'application *</label><input type="text" id="appName" required placeholder="Ex: Mon App Géniale" maxlength="50"></div>
+                <div class="form-group"><label>Développeur *</label><input type="text" id="developer" required placeholder="Votre nom ou pseudo" maxlength="50"></div>
+                <div class="form-group"><label>Version *</label><input type="text" id="version" required placeholder="1.0.0" maxlength="20"></div>
+                <div class="form-group"><label>Catégorie</label><select id="category"><option value="outils">🛠️ Outils</option><option value="jeux">🎮 Jeux</option><option value="social">💬 Social</option><option value="productivite">📊 Productivité</option><option value="multimedia">🎬 Multimédia</option><option value="autre">📦 Autre</option></select></div>
+                <div class="form-group"><label>Description *</label><textarea id="description" required placeholder="Décrivez votre application..." maxlength="500"></textarea></div>
                 <div class="form-group">
                     <label>Fichier APK * (max 50 MB)</label>
-                    <div class="upload-zone" id="uploadZone">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Cliquez ici ou glissez-déposez votre APK</p>
-                    </div>
+                    <div class="upload-zone" id="uploadZone"><i class="fas fa-cloud-upload-alt"></i><p>Cliquez ici ou glissez-déposez votre APK</p></div>
                     <input type="file" id="apkFile" accept=".apk" style="display:none;">
                     <div class="file-info" id="fileInfo"></div>
-                    <div class="progress-bar" id="progressBar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
+                    <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" id="btnCancel">Annuler</button>
-                    <button type="button" class="btn-submit" id="btnSubmit">
-                        <i class="fas fa-paper-plane"></i> Publier
-                    </button>
+                    <button type="button" class="btn-submit" id="btnSubmit"><i class="fas fa-paper-plane"></i> Publier</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Start.io SDK -->
     <script src="https://cdn.start.io/sdk/sdk.js"></script>
 
     <script>
-        // ==========================================
-        // CONFIGURATION
-        // ==========================================
         const SUPABASE_URL = "https://qdftmgbbbdlfirsckupx.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_ZbXbgqgbmGKY4bnigHQJ8g_XECMv_mR";
         const STARTIO_PUB_ID = "206453012";
         
         let supabase;
-
         const state = {
-            apps: [],
-            filteredApps: [],
-            currentPage: 1,
-            itemsPerPage: 9,
-            searchQuery: '',
-            sortBy: 'recent',
-            currentFilter: 'all',
+            apps: [], filteredApps: [], currentPage: 1, itemsPerPage: 9,
+            searchQuery: '', sortBy: 'recent', currentFilter: 'all',
             downloadCounts: JSON.parse(localStorage.getItem('os_dl') || '{}')
         };
 
-        // ==========================================
-        // INIT START.IO
-        // ==========================================
         function initStartIO() {
-            try {
-                if (typeof Startio !== 'undefined') {
-                    Startio.init({ pubId: STARTIO_PUB_ID });
-                    console.log('✅ Start.io initialisé - ID:', STARTIO_PUB_ID);
-                } else {
-                    console.log('⚠️ SDK Start.io non chargé - placeholders affichés');
-                }
-            } catch(e) {
-                console.log('⚠️ Start.io:', e.message);
-            }
+            try { if (typeof Startio !== 'undefined') { Startio.init({ pubId: STARTIO_PUB_ID }); console.log('✅ Start.io initialisé'); } }
+            catch(e) { console.log('⚠️ Start.io:', e.message); }
         }
 
-        // ==========================================
-        // TOAST
-        // ==========================================
         function showToast(msg, type) {
-            const t = document.createElement('div');
-            t.className = 'toast ' + type;
+            const t = document.createElement('div'); t.className = 'toast ' + type;
             t.textContent = (type === 'success' ? '✅ ' : '❌ ') + msg;
             document.getElementById('toastContainer').appendChild(t);
             setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(()=>t.remove(),300); }, 4000);
         }
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            const d = document.createElement('div');
-            d.textContent = text;
-            return d.innerHTML;
-        }
+        function escapeHtml(text) { if (!text) return ''; const d = document.createElement('div'); d.textContent = text; return d.innerHTML; }
+        function formatNumber(n) { if (n >= 1000000) return (n/1000000).toFixed(1)+'M'; if (n >= 1000) return (n/1000).toFixed(1)+'K'; return n.toString(); }
 
-        function formatNumber(n) {
-            if (n >= 1000000) return (n/1000000).toFixed(1)+'M';
-            if (n >= 1000) return (n/1000).toFixed(1)+'K';
-            return n.toString();
-        }
-
-        // ==========================================
-        // MODAL
-        // ==========================================
-        function openModal() {
-            document.getElementById('publishModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
+        function openModal() { document.getElementById('publishModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeModal() {
-            document.getElementById('publishModal').classList.remove('active');
-            document.body.style.overflow = '';
-            document.getElementById('publishForm').reset();
-            document.getElementById('fileInfo').classList.remove('show');
+            document.getElementById('publishModal').classList.remove('active'); document.body.style.overflow = '';
+            document.getElementById('publishForm').reset(); document.getElementById('fileInfo').classList.remove('show');
             document.getElementById('progressBar').classList.remove('active');
             document.getElementById('btnSubmit').disabled = false;
             document.getElementById('btnSubmit').innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
@@ -488,58 +414,33 @@
 
         function handleFile(file) {
             if (!file) return;
-            if (!file.name.toLowerCase().endsWith('.apk')) {
-                showToast('Fichier .apk requis', 'error');
-                return;
-            }
-            if (file.size > 50*1024*1024) {
-                showToast('Max 50 MB', 'error');
-                return;
-            }
+            if (!file.name.toLowerCase().endsWith('.apk')) { showToast('Fichier .apk requis', 'error'); return; }
+            if (file.size > 50*1024*1024) { showToast('Max 50 MB', 'error'); return; }
             document.getElementById('fileInfo').textContent = '✅ ' + file.name + ' (' + (file.size/1024/1024).toFixed(1) + ' MB)';
             document.getElementById('fileInfo').classList.add('show');
         }
 
-        // ==========================================
-        // APPLICATIONS
-        // ==========================================
         async function loadApps() {
             try {
                 if (!supabase) return;
                 const { data, error } = await supabase.from('applications').select('*').order('id', { ascending: false });
                 if (error) throw error;
                 state.apps = data || [];
-                console.log('✅ ' + state.apps.length + ' apps chargées');
-            } catch(e) {
-                console.log('⚠️ ' + e.message);
-            }
+            } catch(e) { console.log('⚠️ ' + e.message); }
             applyFilters();
         }
 
         function applyFilters() {
             let apps = [...state.apps];
-            
-            if (state.currentFilter !== 'all') {
-                apps = apps.filter(a => a.category === state.currentFilter);
-            }
-            
+            if (state.currentFilter !== 'all') apps = apps.filter(a => a.category === state.currentFilter);
             if (state.searchQuery) {
                 const q = state.searchQuery.toLowerCase();
-                apps = apps.filter(a => 
-                    (a.nom||'').toLowerCase().includes(q) ||
-                    (a.developpeur||'').toLowerCase().includes(q) ||
-                    (a.description||'').toLowerCase().includes(q)
-                );
+                apps = apps.filter(a => (a.nom||'').toLowerCase().includes(q) || (a.developpeur||'').toLowerCase().includes(q) || (a.description||'').toLowerCase().includes(q));
             }
-
-            switch(state.sortBy) {
-                case 'name': apps.sort((a,b) => (a.nom||'').localeCompare(b.nom||'')); break;
-                case 'popular': apps.sort((a,b) => (state.downloadCounts[b.id]||0) - (state.downloadCounts[a.id]||0)); break;
-                default: apps.sort((a,b) => new Date(b.created_at||0) - new Date(a.created_at||0));
-            }
-
-            state.filteredApps = apps;
-            state.currentPage = 1;
+            if (state.sortBy === 'name') apps.sort((a,b) => (a.nom||'').localeCompare(b.nom||''));
+            else if (state.sortBy === 'popular') apps.sort((a,b) => (state.downloadCounts[b.id]||0) - (state.downloadCounts[a.id]||0));
+            else apps.sort((a,b) => new Date(b.created_at||0) - new Date(a.created_at||0));
+            state.filteredApps = apps; state.currentPage = 1;
             renderApps();
         }
 
@@ -550,15 +451,7 @@
             const pageApps = state.filteredApps.slice(start, start + state.itemsPerPage);
 
             if (pageApps.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fab fa-android"></i>
-                        <h3>Aucune application</h3>
-                        <p>Soyez le premier à publier !</p>
-                        <button class="btn btn-accent" id="btnPublishEmpty2" style="margin-top:1rem;">
-                            <i class="fas fa-plus"></i> Publier maintenant
-                        </button>
-                    </div>`;
+                grid.innerHTML = `<div class="empty-state"><i class="fab fa-android"></i><h3>Aucune application</h3><p>Soyez le premier à publier !</p><button class="btn btn-accent" id="btnPublishEmpty2" style="margin-top:1rem;"><i class="fas fa-plus"></i> Publier maintenant</button></div>`;
                 document.getElementById('pagination').innerHTML = '';
                 const newBtn = document.getElementById('btnPublishEmpty2');
                 if (newBtn) newBtn.addEventListener('click', openModal);
@@ -567,232 +460,82 @@
 
             grid.innerHTML = pageApps.map(app => `
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon"><i class="fab fa-android"></i></div>
-                        <div>
-                            <div class="card-title">${escapeHtml(app.nom)}</div>
-                            <div class="card-dev">par ${escapeHtml(app.developpeur)}</div>
-                        </div>
-                    </div>
+                    <div class="card-header"><div class="card-icon"><i class="fab fa-android"></i></div><div><div class="card-title">${escapeHtml(app.nom)}</div><div class="card-dev">par ${escapeHtml(app.developpeur)}</div></div></div>
                     <p class="card-desc">${escapeHtml(app.description||'').substring(0, 100)}...</p>
-                    <div class="card-meta">
-                        <span class="card-version">v${escapeHtml(app.version)}</span>
-                        <span style="color:var(--text3);">📥 ${formatNumber(state.downloadCounts[app.id]||0)}</span>
-                    </div>
-                    <button class="card-btn" onclick="downloadApp('${escapeHtml(app.apk_url)}','${escapeHtml(app.nom)}',${app.id})">
-                        <i class="fas fa-download"></i> Télécharger
-                    </button>
-                </div>
-            `).join('');
+                    <div class="card-meta"><span class="card-version">v${escapeHtml(app.version)}</span><span style="color:var(--text3);">📥 ${formatNumber(state.downloadCounts[app.id]||0)}</span></div>
+                    <button class="card-btn" onclick="downloadApp('${escapeHtml(app.apk_url)}','${escapeHtml(app.nom)}',${app.id})"><i class="fas fa-download"></i> Télécharger</button>
+                </div>`).join('');
 
             if (totalPages > 1) {
                 let html = `<button class="page-btn" onclick="goToPage(${state.currentPage-1})" ${state.currentPage===1?'disabled':''}>‹</button>`;
-                for (let i=1; i<=totalPages; i++) {
-                    html += `<button class="page-btn ${i===state.currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
-                }
+                for (let i=1; i<=totalPages; i++) html += `<button class="page-btn ${i===state.currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
                 html += `<button class="page-btn" onclick="goToPage(${state.currentPage+1})" ${state.currentPage===totalPages?'disabled':''}>›</button>`;
                 document.getElementById('pagination').innerHTML = html;
-            } else {
-                document.getElementById('pagination').innerHTML = '';
-            }
+            } else document.getElementById('pagination').innerHTML = '';
         }
 
-        function goToPage(page) {
-            const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
-            if (page >= 1 && page <= totalPages) {
-                state.currentPage = page;
-                renderApps();
-            }
-        }
-
+        function goToPage(page) { const tp = Math.ceil(state.filteredApps.length / state.itemsPerPage); if (page >= 1 && page <= tp) { state.currentPage = page; renderApps(); } }
         function downloadApp(url, name, id) {
-            if (!url || url === '#' || url === '#demo') {
-                showToast('Lien non disponible', 'error');
-                return;
-            }
-            if (id && id !== 'featured') {
-                state.downloadCounts[id] = (state.downloadCounts[id] || 0) + 1;
-                localStorage.setItem('os_dl', JSON.stringify(state.downloadCounts));
-            }
+            if (!url || url === '#' || url === '#demo') { showToast('Lien non disponible', 'error'); return; }
+            if (id && id !== 'featured') { state.downloadCounts[id] = (state.downloadCounts[id] || 0) + 1; localStorage.setItem('os_dl', JSON.stringify(state.downloadCounts)); }
             showToast('Téléchargement de "' + name + '" !', 'success');
             setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 800);
             setTimeout(() => renderApps(), 1500);
         }
 
-        // ==========================================
-        // PUBLICATION
-        // ==========================================
         async function handlePublish() {
             const btn = document.getElementById('btnSubmit');
-            const appName = document.getElementById('appName').value.trim();
-            const developer = document.getElementById('developer').value.trim();
-            const version = document.getElementById('version').value.trim();
-            const category = document.getElementById('category').value;
-            const description = document.getElementById('description').value.trim();
-            const apkFile = document.getElementById('apkFile').files[0];
+            const appName = document.getElementById('appName').value.trim(), developer = document.getElementById('developer').value.trim();
+            const version = document.getElementById('version').value.trim(), category = document.getElementById('category').value;
+            const description = document.getElementById('description').value.trim(), apkFile = document.getElementById('apkFile').files[0];
 
-            if (!appName || !developer || !version || !description || !apkFile) {
-                showToast('Tous les champs sont obligatoires', 'error');
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
-            
-            const progressBar = document.getElementById('progressBar');
-            const progressFill = document.getElementById('progressFill');
-            progressBar.classList.add('active');
-            progressFill.style.width = '0%';
-
+            if (!appName || !developer || !version || !description || !apkFile) { showToast('Tous les champs sont obligatoires', 'error'); return; }
+            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
+            const progressBar = document.getElementById('progressBar'), progressFill = document.getElementById('progressFill');
+            progressBar.classList.add('active'); progressFill.style.width = '0%';
             let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 20;
-                if (progress > 90) progress = 90;
-                progressFill.style.width = progress + '%';
-            }, 400);
+            const interval = setInterval(() => { progress += Math.random() * 20; if (progress > 90) progress = 90; progressFill.style.width = progress + '%'; }, 400);
 
             try {
                 if (supabase) {
                     const fileName = 'apk_' + Date.now() + '_' + apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_');
                     const { error: uploadError } = await supabase.storage.from('apks').upload(fileName, apkFile);
                     if (uploadError) throw new Error('Erreur upload. Vérifiez le bucket "apks".');
-
                     const { data: urlData } = supabase.storage.from('apks').getPublicUrl(fileName);
-                    const { error: insertError } = await supabase.from('applications').insert([{
-                        nom: appName, developpeur: developer, version,
-                        category, description, apk_url: urlData.publicUrl
-                    }]);
+                    const { error: insertError } = await supabase.from('applications').insert([{ nom: appName, developpeur: developer, version, category, description, apk_url: urlData.publicUrl }]);
                     if (insertError) throw new Error('Erreur enregistrement. Vérifiez la table "applications".');
                 } else {
-                    state.apps.unshift({
-                        id: Date.now(), nom: appName, developpeur: developer,
-                        version, category, description, apk_url: '#demo',
-                        created_at: new Date().toISOString()
-                    });
+                    state.apps.unshift({ id: Date.now(), nom: appName, developpeur: developer, version, category, description, apk_url: '#demo', created_at: new Date().toISOString() });
                 }
-
-                clearInterval(interval);
-                progressFill.style.width = '100%';
-
-                setTimeout(async () => {
-                    showToast('✅ Application publiée avec succès !', 'success');
-                    closeModal();
-                    if (supabase) await loadApps();
-                    else applyFilters();
-                }, 500);
-
-            } catch (error) {
-                clearInterval(interval);
-                showToast(error.message, 'error');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
-                setTimeout(() => {
-                    progressBar.classList.remove('active');
-                    progressFill.style.width = '0%';
-                }, 1000);
-            }
+                clearInterval(interval); progressFill.style.width = '100%';
+                setTimeout(async () => { showToast('✅ Application publiée avec succès !', 'success'); closeModal(); if (supabase) await loadApps(); else applyFilters(); }, 500);
+            } catch (error) { clearInterval(interval); showToast(error.message, 'error'); }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier'; setTimeout(() => { progressBar.classList.remove('active'); progressFill.style.width = '0%'; }, 1000); }
         }
 
-        // ==========================================
-        // INITIALISATION - TOUS LES EVENT LISTENERS
-        // ==========================================
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 OpenStore - Démarrage');
-            console.log('📢 Start.io ID:', STARTIO_PUB_ID);
-            console.log('📋 Supabase URL:', SUPABASE_URL);
-
-            // Init Start.io
             initStartIO();
-
-            // Init Supabase
-            try {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('✅ Supabase initialisé');
-                loadApps();
-            } catch(e) {
-                console.log('⚠️ Supabase non connecté');
-            }
-
-            // Boutons principaux
+            try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); console.log('✅ Supabase initialisé'); loadApps(); } catch(e) { console.log('⚠️ Supabase non connecté'); }
             document.getElementById('btnPublishHeader').addEventListener('click', openModal);
             document.getElementById('btnPublishHero').addEventListener('click', openModal);
             document.getElementById('btnPublishEmpty').addEventListener('click', openModal);
-            document.getElementById('btnExplore').addEventListener('click', () => {
-                document.getElementById('catalogue').scrollIntoView({ behavior: 'smooth' });
-            });
-
-            // Modal
+            document.getElementById('btnExplore').addEventListener('click', () => { document.getElementById('catalogue').scrollIntoView({ behavior: 'smooth' }); });
             document.getElementById('btnModalClose').addEventListener('click', closeModal);
             document.getElementById('btnCancel').addEventListener('click', closeModal);
-            document.getElementById('publishModal').addEventListener('click', function(e) {
-                if (e.target === this) closeModal();
-            });
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeModal();
-            });
-
-            // Upload zone
-            const uploadZone = document.getElementById('uploadZone');
-            const apkFileInput = document.getElementById('apkFile');
-
-            uploadZone.addEventListener('click', function() {
-                apkFileInput.click();
-            });
-
-            apkFileInput.addEventListener('change', function() {
-                if (this.files[0]) handleFile(this.files[0]);
-            });
-
-            // Drag & drop
-            uploadZone.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                uploadZone.style.borderColor = 'var(--accent)';
-            });
-            uploadZone.addEventListener('dragleave', function() {
-                uploadZone.style.borderColor = 'var(--border)';
-            });
-            uploadZone.addEventListener('drop', function(e) {
-                e.preventDefault();
-                uploadZone.style.borderColor = 'var(--border)';
-                const file = e.dataTransfer.files[0];
-                if (file && file.name.toLowerCase().endsWith('.apk')) {
-                    const dt = new DataTransfer();
-                    dt.items.add(file);
-                    apkFileInput.files = dt.files;
-                    handleFile(file);
-                } else {
-                    showToast('Veuillez déposer un fichier .apk', 'error');
-                }
-            });
-
-            // Submit
+            document.getElementById('publishModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+            const uploadZone = document.getElementById('uploadZone'), apkFileInput = document.getElementById('apkFile');
+            uploadZone.addEventListener('click', function() { apkFileInput.click(); });
+            apkFileInput.addEventListener('change', function() { if (this.files[0]) handleFile(this.files[0]); });
+            uploadZone.addEventListener('dragover', function(e) { e.preventDefault(); uploadZone.style.borderColor = 'var(--accent)'; });
+            uploadZone.addEventListener('dragleave', function() { uploadZone.style.borderColor = 'var(--border)'; });
+            uploadZone.addEventListener('drop', function(e) { e.preventDefault(); uploadZone.style.borderColor = 'var(--border)'; const file = e.dataTransfer.files[0]; if (file && file.name.toLowerCase().endsWith('.apk')) { const dt = new DataTransfer(); dt.items.add(file); apkFileInput.files = dt.files; handleFile(file); } else { showToast('Veuillez déposer un fichier .apk', 'error'); } });
             document.getElementById('btnSubmit').addEventListener('click', handlePublish);
-
-            // Recherche
-            document.getElementById('searchInput').addEventListener('input', function() {
-                state.searchQuery = this.value.trim().toLowerCase();
-                applyFilters();
-            });
-
-            // Tri
-            document.getElementById('sortSelect').addEventListener('change', function() {
-                state.sortBy = this.value;
-                applyFilters();
-            });
-
-            // Filtres
-            document.querySelectorAll('.filter-chip').forEach(chip => {
-                chip.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    state.currentFilter = this.dataset.filter;
-                    state.currentPage = 1;
-                    applyFilters();
-                });
-            });
-
-            console.log('✅ Prêt ! Tous les boutons fonctionnent.');
+            document.getElementById('searchInput').addEventListener('input', function() { state.searchQuery = this.value.trim().toLowerCase(); applyFilters(); });
+            document.getElementById('sortSelect').addEventListener('change', function() { state.sortBy = this.value; applyFilters(); });
+            document.querySelectorAll('.filter-chip').forEach(chip => { chip.addEventListener('click', function() { document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); this.classList.add('active'); state.currentFilter = this.dataset.filter; state.currentPage = 1; applyFilters(); }); });
+            console.log('✅ Prêt !');
         });
     </script>
 </body>
