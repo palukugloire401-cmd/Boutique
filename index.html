@@ -3,660 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenStore - Publiez & Téléchargez des Apps Android</title>
+    <title>OpenStore</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --bg: #070a13; --surface: #111827; --accent: #00e676; --accent2: #00ff84;
-            --text: #e0e0e0; --text2: #9ca3af; --text3: #6b7280; --border: #1f2937;
-            --danger: #ef4444; --warning: #f59e0b; --radius: 16px;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #070a13;
+            color: #e0e0e0;
+            min-height: 100vh;
         }
         
         .header {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(17,24,39,0.95); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); padding: 1rem 2rem;
+            background: #111827;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2937;
         }
-        .nav {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-        }
-        .logo { font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
-        .logo i { color: var(--accent); }
         
-        .btn {
-            padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600;
-            cursor: pointer; font-size: 0.95rem; border: none;
-            font-family: 'Inter', sans-serif; transition: all 0.3s;
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
         }
-        .btn-accent { background: var(--accent); color: #000; }
-        .btn-accent:hover { background: var(--accent2); transform: translateY(-2px); }
-        .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
-        .btn-outline:hover { background: var(--accent); color: #000; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
-
-        .hero {
-            text-align: center; padding: 3rem 2rem; background: var(--surface);
-            border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 2rem;
+        
+        .logo i {
+            color: #00e676;
+            margin-right: 8px;
         }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .hero p { color: var(--text2); margin-bottom: 1.5rem; }
-
-        .section {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem;
+        
+        button {
+            background: #00e676;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
         }
-
-        .controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .search-box { flex: 1; min-width: 200px; position: relative; }
-        .search-box input {
-            width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem;
-            background: var(--bg); border: 1px solid var(--border);
-            border-radius: 50px; color: #fff; font-family: 'Inter', sans-serif;
+        
+        button:hover {
+            background: #00ff84;
         }
-        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text3); }
-        select {
-            background: var(--bg); border: 1px solid var(--border); color: #fff;
-            padding: 0.75rem 1rem; border-radius: 50px; font-family: 'Inter', sans-serif; cursor: pointer;
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+            text-align: center;
         }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
-        .card {
-            background: var(--bg); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 1.5rem; transition: all 0.3s;
+        
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
         }
-        .card:hover { transform: translateY(-3px); border-color: var(--accent); }
-        .card-btn {
-            width: 100%; padding: 0.6rem; border-radius: 50px; font-weight: 600;
-            cursor: pointer; border: none; background: var(--accent); color: #000; margin-top: 1rem;
+        
+        p {
+            color: #9ca3af;
+            margin-bottom: 30px;
+            font-size: 18px;
         }
-        .card-btn:hover { background: var(--accent2); }
-
-        .empty-state {
-            text-align: center; padding: 3rem; color: var(--text2);
-            border: 2px dashed var(--border); border-radius: var(--radius); grid-column: 1/-1;
-        }
-
-        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
-        .page-btn {
-            background: var(--bg); border: 1px solid var(--border); color: #fff;
-            min-width: 40px; height: 40px; border-radius: 10px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .page-btn.active { background: var(--accent); color: #000; }
-        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
+        
         /* MODAL */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px); z-index: 1000;
-            display: none; align-items: center; justify-content: center; padding: 1rem;
-        }
-        .modal-overlay.active { display: flex; }
         .modal {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 500px;
-            max-height: 85vh; overflow-y: auto; animation: modalIn 0.3s ease;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
         }
-        @keyframes modalIn { from { opacity:0; transform:scale(0.9); } to { opacity:1; transform:scale(1); } }
-        .modal h2 { margin-bottom: 1.5rem; color: #fff; }
-        .modal-close {
-            position: absolute; top: 1rem; right: 1rem; background: none;
-            border: none; color: var(--text3); font-size: 1.5rem; cursor: pointer;
-        }
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.3rem; color: var(--text2); font-size: 0.9rem; }
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 0.7rem; background: var(--bg);
-            border: 1px solid var(--border); border-radius: 10px; color: #fff;
-            font-family: 'Inter', sans-serif;
-        }
-        .form-group textarea { resize: vertical; min-height: 80px; }
         
-        .upload-zone {
-            border: 2px dashed var(--border); border-radius: 12px;
-            padding: 2rem; text-align: center; cursor: pointer;
-            background: var(--bg); transition: all 0.3s;
+        .modal.show {
+            display: flex;
         }
-        .upload-zone:hover { border-color: var(--accent); background: rgba(0,230,118,0.03); }
-        .upload-zone i { font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem; }
-        .upload-zone p { color: var(--text3); }
         
-        .file-info {
-            display: none; background: rgba(0,230,118,0.1); padding: 0.6rem 1rem;
-            border-radius: 10px; margin-top: 0.5rem; color: var(--accent); font-size: 0.85rem;
+        .modal-box {
+            background: #111827;
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid #1f2937;
         }
-        .file-info.show { display: block; }
         
-        .progress-bar {
-            display: none; width: 100%; height: 4px; background: var(--border);
-            border-radius: 4px; margin-top: 0.5rem; overflow: hidden;
+        .modal-box h2 {
+            margin-bottom: 20px;
+            color: white;
         }
-        .progress-bar.active { display: block; }
-        .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
         
-        .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; }
+        .modal-box input,
+        .modal-box textarea,
+        .modal-box select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #070a13;
+            border: 1px solid #1f2937;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .modal-box textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #1f2937;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            background: #070a13;
+        }
+        
+        .upload-area:hover {
+            border-color: #00e676;
+        }
+        
+        .upload-area i {
+            font-size: 30px;
+            color: #00e676;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
         .btn-cancel {
-            background: transparent; border: 1px solid var(--border);
-            color: var(--text2); padding: 0.75rem 1.5rem; border-radius: 50px; cursor: pointer;
+            background: transparent;
+            border: 1px solid #1f2937;
+            color: #9ca3af;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
         }
-        .btn-submit {
-            background: var(--accent); color: #000; border: none;
-            padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer;
+        
+        .btn-cancel:hover {
+            border-color: #ef4444;
+            color: #ef4444;
         }
-        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .toast-container {
-            position: fixed; top: 1rem; right: 1rem; z-index: 2000;
-            display: flex; flex-direction: column; gap: 0.5rem;
-        }
+        
         .toast {
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 1rem; border-radius: 12px; animation: slideIn 0.3s ease;
-            font-size: 0.9rem; max-width: 400px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #111827;
+            border-left: 3px solid #00e676;
+            padding: 15px 20px;
+            border-radius: 10px;
+            z-index: 9999;
+            animation: slide 0.3s ease;
         }
-        .toast.success { border-left: 3px solid var(--accent); }
-        .toast.error { border-left: 3px solid var(--danger); }
-        @keyframes slideIn { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
-
-        .footer { text-align: center; padding: 2rem; color: var(--text3); border-top: 1px solid var(--border); margin-top: 3rem; }
-
-        @media (max-width: 768px) {
-            .hero { padding: 2rem 1rem; }
-            .hero h1 { font-size: 1.8rem; }
-            .grid { grid-template-columns: 1fr; }
+        
+        @keyframes slide {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="toast-container" id="toastContainer"></div>
-
     <!-- HEADER -->
-    <header class="header">
-        <nav class="nav">
-            <a href="/" class="logo"><i class="fab fa-android"></i> OpenStore</a>
-            <button class="btn btn-accent" id="btnPublishHeader">
-                <i class="fas fa-plus"></i> Publier un APK
-            </button>
-        </nav>
-    </header>
+    <div class="header">
+        <a href="/" class="logo">
+            <i class="fab fa-android"></i> OpenStore
+        </a>
+        <button onclick="ouvrirModal()">
+            <i class="fas fa-plus"></i> Publier un APK
+        </button>
+    </div>
 
-    <main class="container">
-        <!-- HERO -->
-        <section class="hero">
-            <h1>📱 Publiez & Téléchargez des Apps Android</h1>
-            <p>La plateforme communautaire pour partager vos applications Android.</p>
-            <button class="btn btn-accent" id="btnPublishHero" style="margin-right:1rem;">
-                <i class="fas fa-rocket"></i> Publier mon application
-            </button>
-            <button class="btn btn-outline" id="btnExplore">
-                <i class="fas fa-compass"></i> Explorer le catalogue
-            </button>
-        </section>
-
-        <!-- CATALOGUE -->
-        <section class="section" id="catalogue">
-            <h2 style="font-size:1.5rem;margin-bottom:1.5rem;"><i class="fas fa-store"></i> Catalogue</h2>
-            
-            <div class="controls">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="search" id="searchInput" placeholder="Rechercher...">
-                </div>
-                <select id="sortSelect">
-                    <option value="recent">Plus récentes</option>
-                    <option value="name">Nom (A-Z)</option>
-                    <option value="popular">Plus populaires</option>
-                </select>
-            </div>
-
-            <div class="grid" id="appGrid">
-                <div class="empty-state">
-                    <i class="fab fa-android" style="font-size:3rem;color:var(--accent);margin-bottom:1rem;"></i>
-                    <h3>Aucune application</h3>
-                    <p>Soyez le premier à publier !</p>
-                    <button class="btn btn-accent" id="btnPublishEmpty" style="margin-top:1rem;">
-                        <i class="fas fa-plus"></i> Publier maintenant
-                    </button>
-                </div>
-            </div>
-            <div class="pagination" id="pagination"></div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>© 2024 OpenStore - Plateforme communautaire</p>
-    </footer>
+    <!-- CONTENU -->
+    <div class="container">
+        <h1>📱 Publiez & Téléchargez des Apps Android</h1>
+        <p>Plateforme communautaire de partage d'applications Android.</p>
+        <button onclick="ouvrirModal()" style="margin-right:10px;">
+            <i class="fas fa-rocket"></i> Publier mon application
+        </button>
+        <button onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})" 
+                style="background:transparent; border:2px solid #00e676; color:#00e676;">
+            <i class="fas fa-compass"></i> Explorer le catalogue
+        </button>
+    </div>
 
     <!-- MODAL -->
-    <div class="modal-overlay" id="publishModal">
-        <div class="modal" style="position:relative;">
-            <button class="modal-close" id="btnModalClose">&times;</button>
+    <div class="modal" id="maModal">
+        <div class="modal-box">
             <h2>📤 Publier une application</h2>
-            <form id="publishForm" onsubmit="return false;">
-                <div class="form-group">
-                    <label>Nom de l'application *</label>
-                    <input type="text" id="appName" required placeholder="Ex: Mon App" maxlength="50">
-                </div>
-                <div class="form-group">
-                    <label>Développeur *</label>
-                    <input type="text" id="developer" required placeholder="Votre nom" maxlength="50">
-                </div>
-                <div class="form-group">
-                    <label>Version *</label>
-                    <input type="text" id="version" required placeholder="1.0.0" maxlength="20">
-                </div>
-                <div class="form-group">
-                    <label>Catégorie</label>
-                    <select id="category">
-                        <option value="outils">🛠️ Outils</option>
-                        <option value="jeux">🎮 Jeux</option>
-                        <option value="social">💬 Social</option>
-                        <option value="productivite">📊 Productivité</option>
-                        <option value="multimedia">🎬 Multimédia</option>
-                        <option value="autre">📦 Autre</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Description *</label>
-                    <textarea id="description" required placeholder="Décrivez votre app..." maxlength="500"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Fichier APK * (max 50 MB)</label>
-                    <div class="upload-zone" id="uploadZone">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Cliquez ici pour sélectionner votre APK</p>
-                        <p style="font-size:0.75rem;">ou glissez-déposez</p>
-                    </div>
-                    <input type="file" id="apkFile" accept=".apk" style="display:none;">
-                    <div class="file-info" id="fileInfo"></div>
-                    <div class="progress-bar" id="progressBar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-cancel" id="btnCancel">Annuler</button>
-                    <button type="button" class="btn-submit" id="btnSubmit">
-                        <i class="fas fa-paper-plane"></i> Publier
-                    </button>
-                </div>
-            </form>
+            
+            <input type="text" id="appName" placeholder="Nom de l'application">
+            <input type="text" id="developer" placeholder="Développeur">
+            <input type="text" id="version" placeholder="Version (ex: 1.0.0)">
+            
+            <select id="category">
+                <option value="outils">🛠️ Outils</option>
+                <option value="jeux">🎮 Jeux</option>
+                <option value="social">💬 Social</option>
+                <option value="autre">📦 Autre</option>
+            </select>
+            
+            <textarea id="description" placeholder="Description de l'application..."></textarea>
+            
+            <div class="upload-area" onclick="document.getElementById('apkFile').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Cliquez pour sélectionner un APK</p>
+                <input type="file" id="apkFile" accept=".apk" style="display:none;" onchange="fichierSelectionne()">
+            </div>
+            
+            <div id="fileInfo" style="display:none; color:#00e676; margin-bottom:10px;"></div>
+            
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
+                <button onclick="publier()">Publier</button>
+            </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- CATALOGUE -->
+    <div id="catalogue" style="max-width:1000px;margin:50px auto;padding:20px;">
+        <h2 style="text-align:center;margin-bottom:30px;">📱 Catalogue</h2>
+        <div id="appGrid" style="text-align:center;color:#6b7280;padding:50px;border:2px dashed #1f2937;border-radius:16px;">
+            <i class="fab fa-android" style="font-size:50px;color:#00e676;margin-bottom:20px;display:block;"></i>
+            Aucune application pour le moment.
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
 
     <script>
         // ==========================================
-        // CONFIGURATION
+        // FONCTIONS SIMPLES POUR LA MODALE
         // ==========================================
-        const SUPABASE_URL = "https://qdftmgbbbdlfirsckupx.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_ZbXbgqgbmGKY4bnigHQJ8g_XECMv_mR";
-        let supabase;
-
-        const state = {
-            apps: [],
-            filteredApps: [],
-            currentPage: 1,
-            itemsPerPage: 9,
-            searchQuery: '',
-            sortBy: 'recent',
-            downloadCounts: JSON.parse(localStorage.getItem('os_downloads') || '{}')
-        };
-
-        // ==========================================
-        // TOAST
-        // ==========================================
-        function showToast(msg, type) {
-            const t = document.createElement('div');
-            t.className = 'toast ' + type;
-            t.textContent = (type === 'success' ? '✅ ' : '❌ ') + msg;
-            document.getElementById('toastContainer').appendChild(t);
-            setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 4000);
+        
+        function ouvrirModal() {
+            console.log('✅ ouvrirModal() appelée !');
+            document.getElementById('maModal').classList.add('show');
         }
-
-        // ==========================================
-        // MODAL - FONCTIONS SIMPLES ET DIRECTES
-        // ==========================================
-        function openModal() {
-            console.log('✅ openModal() appelée');
-            document.getElementById('publishModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        
+        function fermerModal() {
+            console.log('✅ fermerModal() appelée !');
+            document.getElementById('maModal').classList.remove('show');
+            // Vider le formulaire
+            document.getElementById('appName').value = '';
+            document.getElementById('developer').value = '';
+            document.getElementById('version').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('apkFile').value = '';
+            document.getElementById('fileInfo').style.display = 'none';
         }
-
-        function closeModal() {
-            console.log('✅ closeModal() appelée');
-            document.getElementById('publishModal').classList.remove('active');
-            document.body.style.overflow = '';
-            document.getElementById('publishForm').reset();
-            document.getElementById('fileInfo').classList.remove('show');
-            document.getElementById('progressBar').classList.remove('active');
-            document.getElementById('btnSubmit').disabled = false;
-            document.getElementById('btnSubmit').innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
-        }
-
-        // ==========================================
-        // INITIALISATION - TOUT EST DANS LE DOMContentLoaded
-        // ==========================================
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 DOM chargé - Initialisation des boutons...');
-
-            // Initialiser Supabase
-            try {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('✅ Supabase initialisé');
-                loadApps();
-            } catch(e) {
-                console.log('⚠️ Supabase non connecté - mode démo');
+        
+        function fichierSelectionne() {
+            const file = document.getElementById('apkFile').files[0];
+            if (file) {
+                const size = (file.size / 1024 / 1024).toFixed(1);
+                document.getElementById('fileInfo').textContent = '✅ ' + file.name + ' (' + size + ' MB)';
+                document.getElementById('fileInfo').style.display = 'block';
             }
-
-            // ===== BOUTON HEADER =====
-            document.getElementById('btnPublishHeader').addEventListener('click', function() {
-                console.log('🟢 Clic: Publier un APK (header)');
-                openModal();
-            });
-
-            // ===== BOUTON HERO =====
-            document.getElementById('btnPublishHero').addEventListener('click', function() {
-                console.log('🟢 Clic: Publier mon application (hero)');
-                openModal();
-            });
-
-            // ===== BOUTON ÉTAT VIDE =====
-            document.getElementById('btnPublishEmpty').addEventListener('click', function() {
-                console.log('🟢 Clic: Publier maintenant (empty state)');
-                openModal();
-            });
-
-            // ===== BOUTON EXPLORER =====
-            document.getElementById('btnExplore').addEventListener('click', function() {
-                console.log('🟢 Clic: Explorer le catalogue');
-                document.getElementById('catalogue').scrollIntoView({ behavior: 'smooth' });
-            });
-
-            // ===== BOUTON FERMER MODAL =====
-            document.getElementById('btnModalClose').addEventListener('click', function() {
-                console.log('🔴 Clic: Fermer modal (X)');
-                closeModal();
-            });
-
-            // ===== BOUTON ANNULER =====
-            document.getElementById('btnCancel').addEventListener('click', function() {
-                console.log('🔴 Clic: Annuler');
-                closeModal();
-            });
-
-            // ===== FERMER EN CLIQUANT À L'EXTÉRIEUR =====
-            document.getElementById('publishModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    console.log('🔴 Clic: Extérieur modal');
-                    closeModal();
-                }
-            });
-
-            // ===== TOUCHE ESCAPE =====
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    console.log('🔴 Touche Escape');
-                    closeModal();
-                }
-            });
-
-            // ===== UPLOAD ZONE - CLIC =====
-            document.getElementById('uploadZone').addEventListener('click', function() {
-                console.log('📁 Clic: Zone upload');
-                document.getElementById('apkFile').click();
-            });
-
-            // ===== UPLOAD ZONE - DROP =====
-            const uploadZone = document.getElementById('uploadZone');
-            uploadZone.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                uploadZone.style.borderColor = 'var(--accent)';
-            });
-            uploadZone.addEventListener('dragleave', function() {
-                uploadZone.style.borderColor = 'var(--border)';
-            });
-            uploadZone.addEventListener('drop', function(e) {
-                e.preventDefault();
-                uploadZone.style.borderColor = 'var(--border)';
-                const file = e.dataTransfer.files[0];
-                if (file && file.name.toLowerCase().endsWith('.apk')) {
-                    const dt = new DataTransfer();
-                    dt.items.add(file);
-                    document.getElementById('apkFile').files = dt.files;
-                    handleFile(file);
-                } else {
-                    showToast('Fichier .apk requis', 'error');
-                }
-            });
-
-            // ===== CHANGEMENT FICHIER =====
-            document.getElementById('apkFile').addEventListener('change', function() {
-                if (this.files[0]) handleFile(this.files[0]);
-            });
-
-            // ===== RECHERCHE =====
-            document.getElementById('searchInput').addEventListener('input', function() {
-                state.searchQuery = this.value.trim().toLowerCase();
-                applyFilters();
-            });
-
-            // ===== TRI =====
-            document.getElementById('sortSelect').addEventListener('change', function() {
-                state.sortBy = this.value;
-                applyFilters();
-            });
-
-            // ===== BOUTON PUBLIER (SUBMIT) =====
-            document.getElementById('btnSubmit').addEventListener('click', async function() {
-                console.log('🚀 Clic: Publier (submit)');
-                
-                const appName = document.getElementById('appName').value.trim();
-                const developer = document.getElementById('developer').value.trim();
-                const version = document.getElementById('version').value.trim();
-                const category = document.getElementById('category').value;
-                const description = document.getElementById('description').value.trim();
-                const apkFile = document.getElementById('apkFile').files[0];
-
-                if (!appName || !developer || !version || !description || !apkFile) {
-                    showToast('Tous les champs sont obligatoires', 'error');
-                    return;
-                }
-
-                const btn = document.getElementById('btnSubmit');
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
-                
-                const progressBar = document.getElementById('progressBar');
-                const progressFill = document.getElementById('progressFill');
-                progressBar.classList.add('active');
-                progressFill.style.width = '0%';
-
-                let progress = 0;
-                const interval = setInterval(() => {
-                    progress += Math.random() * 20;
-                    if (progress > 90) progress = 90;
-                    progressFill.style.width = progress + '%';
-                }, 400);
-
-                try {
-                    if (supabase) {
-                        const fileName = 'apk_' + Date.now() + '_' + apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_');
-                        const { error: uploadError } = await supabase.storage.from('apks').upload(fileName, apkFile);
-                        if (uploadError) throw new Error('Erreur upload');
-
-                        const { data: urlData } = supabase.storage.from('apks').getPublicUrl(fileName);
-                        const { error: insertError } = await supabase.from('applications').insert([{
-                            nom: appName, developpeur: developer, version, category, description, apk_url: urlData.publicUrl
-                        }]);
-                        if (insertError) throw new Error('Erreur enregistrement');
-                    } else {
-                        state.apps.unshift({
-                            id: Date.now(), nom: appName, developpeur: developer,
-                            version, category, description, apk_url: '#',
-                            created_at: new Date().toISOString()
-                        });
-                    }
-
-                    clearInterval(interval);
-                    progressFill.style.width = '100%';
-
-                    setTimeout(() => {
-                        showToast('Application publiée !', 'success');
-                        closeModal();
-                        if (supabase) loadApps();
-                        else applyFilters();
-                    }, 500);
-
-                } catch (error) {
-                    clearInterval(interval);
-                    showToast(error.message, 'error');
-                } finally {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
-                    setTimeout(() => {
-                        progressBar.classList.remove('active');
-                        progressFill.style.width = '0%';
-                    }, 1000);
-                }
-            });
-
-            console.log('✅ Tous les boutons sont initialisés !');
-        });
-
-        // ==========================================
-        // FONCTIONS AUXILIAIRES
-        // ==========================================
-        function handleFile(file) {
-            if (!file.name.toLowerCase().endsWith('.apk')) {
-                showToast('Fichier .apk requis', 'error');
+        }
+        
+        function afficherToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = '✅ ' + message;
+            document.getElementById('toastContainer').appendChild(toast);
+            setTimeout(function() {
+                toast.remove();
+            }, 3000);
+        }
+        
+        function publier() {
+            const nom = document.getElementById('appName').value.trim();
+            const dev = document.getElementById('developer').value.trim();
+            const ver = document.getElementById('version').value.trim();
+            const desc = document.getElementById('description').value.trim();
+            const file = document.getElementById('apkFile').files[0];
+            
+            if (!nom || !dev || !ver || !desc || !file) {
+                alert('Veuillez remplir tous les champs et sélectionner un fichier APK.');
                 return;
             }
-            if (file.size > 50 * 1024 * 1024) {
-                showToast('Max 50 MB', 'error');
-                return;
-            }
-            document.getElementById('fileInfo').textContent = '✅ ' + file.name + ' (' + (file.size/1024/1024).toFixed(1) + ' MB)';
-            document.getElementById('fileInfo').classList.add('show');
-        }
-
-        async function loadApps() {
-            try {
-                const { data } = await supabase.from('applications').select('*').order('id', { ascending: false });
-                state.apps = data || [];
-                applyFilters();
-            } catch(e) {
-                console.log('Erreur chargement');
-            }
-        }
-
-        function applyFilters() {
-            let apps = [...state.apps];
-            if (state.searchQuery) {
-                apps = apps.filter(a => 
-                    (a.nom||'').toLowerCase().includes(state.searchQuery) ||
-                    (a.developpeur||'').toLowerCase().includes(state.searchQuery)
-                );
-            }
-            if (state.sortBy === 'name') apps.sort((a,b) => (a.nom||'').localeCompare(b.nom||''));
-            else if (state.sortBy === 'popular') apps.sort((a,b) => (state.downloadCounts[b.id]||0) - (state.downloadCounts[a.id]||0));
-            state.filteredApps = apps;
-            state.currentPage = 1;
-            renderApps();
-        }
-
-        function renderApps() {
-            const grid = document.getElementById('appGrid');
-            const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
-            const start = (state.currentPage - 1) * state.itemsPerPage;
-            const pageApps = state.filteredApps.slice(start, start + state.itemsPerPage);
-
-            if (pageApps.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fab fa-android" style="font-size:3rem;color:var(--accent);margin-bottom:1rem;"></i>
-                        <h3>Aucune application</h3>
-                        <p>Soyez le premier à publier !</p>
-                        <button class="btn btn-accent" id="btnPublishEmpty2" style="margin-top:1rem;">
-                            <i class="fas fa-plus"></i> Publier maintenant
-                        </button>
-                    </div>`;
-                document.getElementById('pagination').innerHTML = '';
-                
-                // Réattacher l'événement au nouveau bouton
-                setTimeout(() => {
-                    const newBtn = document.getElementById('btnPublishEmpty2');
-                    if (newBtn) newBtn.addEventListener('click', openModal);
-                }, 100);
-                return;
-            }
-
-            grid.innerHTML = pageApps.map(app => `
-                <div class="card">
-                    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.8rem;">
-                        <i class="fab fa-android" style="font-size:2.5rem;color:var(--accent);"></i>
+            
+            console.log('📤 Publication de :', nom);
+            afficherToast('Application "' + nom + '" publiée avec succès !');
+            fermerModal();
+            
+            // Ajouter au catalogue
+            document.getElementById('appGrid').innerHTML = `
+                <div style="background:#111827;border:1px solid #1f2937;border-radius:16px;padding:20px;text-align:left;margin-bottom:10px;">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                        <i class="fab fa-android" style="font-size:30px;color:#00e676;"></i>
                         <div>
-                            <div style="font-weight:600;">${escapeHtml(app.nom)}</div>
-                            <div style="color:var(--text3);font-size:0.85rem;">par ${escapeHtml(app.developpeur)}</div>
+                            <strong>${nom}</strong>
+                            <div style="color:#6b7280;font-size:14px;">par ${dev}</div>
                         </div>
                     </div>
-                    <p style="color:var(--text2);font-size:0.9rem;">${escapeHtml(app.description||'').substring(0,100)}...</p>
-                    <div style="display:flex;justify-content:space-between;margin:0.8rem 0;font-size:0.85rem;">
-                        <span style="color:var(--accent);">v${escapeHtml(app.version)}</span>
-                        <span style="color:var(--text3);">📥 ${state.downloadCounts[app.id]||0}</span>
-                    </div>
-                    <button class="card-btn" onclick="downloadApp('${escapeHtml(app.apk_url)}','${escapeHtml(app.nom)}',${app.id})">
-                        <i class="fas fa-download"></i> Télécharger
-                    </button>
+                    <p style="color:#9ca3af;font-size:14px;">${desc}</p>
+                    <div style="color:#00e676;font-size:13px;margin-top:10px;">v${ver}</div>
                 </div>
-            `).join('');
-
-            if (totalPages > 1) {
-                let html = `<button class="page-btn" onclick="goToPage(${state.currentPage-1})" ${state.currentPage===1?'disabled':''}>‹</button>`;
-                for (let i=1; i<=totalPages; i++) {
-                    html += `<button class="page-btn ${i===state.currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
-                }
-                html += `<button class="page-btn" onclick="goToPage(${state.currentPage+1})" ${state.currentPage===totalPages?'disabled':''}>›</button>`;
-                document.getElementById('pagination').innerHTML = html;
-            } else {
-                document.getElementById('pagination').innerHTML = '';
+            ` + document.getElementById('appGrid').innerHTML;
+        }
+        
+        // Fermer la modale en cliquant à l'extérieur
+        document.getElementById('maModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                fermerModal();
             }
-        }
-
-        function goToPage(page) {
-            const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
-            if (page >= 1 && page <= totalPages) {
-                state.currentPage = page;
-                renderApps();
+        });
+        
+        // Fermer avec Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                fermerModal();
             }
-        }
-
-        function downloadApp(url, name, id) {
-            if (!url || url === '#') { showToast('Lien non disponible', 'error'); return; }
-            if (id) {
-                state.downloadCounts[id] = (state.downloadCounts[id] || 0) + 1;
-                localStorage.setItem('os_downloads', JSON.stringify(state.downloadCounts));
-            }
-            showToast('Téléchargement de ' + name + ' !', 'success');
-            setTimeout(() => window.open(url, '_blank'), 800);
-        }
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            const d = document.createElement('div');
-            d.textContent = text;
-            return d.innerHTML;
-        }
+        });
+        
+        console.log('✅ Script chargé - Cliquez sur "Publier un APK" pour tester !');
     </script>
 </body>
 </html>
