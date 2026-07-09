@@ -3,335 +3,797 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenStore</title>
+    <meta name="description" content="OpenStore - Publiez et téléchargez des applications Android gratuitement">
+    <meta name="theme-color" content="#070a13">
+    <title>OpenStore - Publiez & Téléchargez des Apps Android</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --bg: #070a13; --surface: #111827; --accent: #00e676; --accent2: #00ff84;
+            --text: #e0e0e0; --text2: #9ca3af; --text3: #6b7280; --border: #1f2937;
+            --danger: #ef4444; --radius: 16px;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #070a13;
-            color: #e0e0e0;
-            min-height: 100vh;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh;
         }
-        
+
         .header {
-            background: #111827;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #1f2937;
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(17,24,39,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); padding: 1rem 2rem;
         }
-        
-        .logo {
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            text-decoration: none;
+        .nav {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
         }
-        
-        .logo i {
-            color: #00e676;
-            margin-right: 8px;
+        .logo { font-size: 1.4rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .logo i { color: var(--accent); }
+
+        .btn {
+            padding: 0.7rem 1.5rem; border-radius: 50px; font-weight: 600;
+            cursor: pointer; font-size: 0.9rem; border: none;
+            font-family: 'Inter', sans-serif; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 0.5rem;
         }
-        
-        button {
-            background: #00e676;
-            color: #000;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
+        .btn-accent { background: var(--accent); color: #000; }
+        .btn-accent:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,230,118,0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+        .btn-outline:hover { background: var(--accent); color: #000; transform: translateY(-2px); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+        .ad-banner {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); margin: 1.5rem auto; max-width: 1200px;
+            padding: 1rem; text-align: center; min-height: 90px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
         }
-        
-        button:hover {
-            background: #00ff84;
+        .ad-banner::before {
+            content: 'Publicité'; position: absolute; top: 8px; right: 12px;
+            font-size: 0.6rem; color: var(--text3); text-transform: uppercase;
+            letter-spacing: 2px; background: rgba(0,0,0,0.5);
+            padding: 3px 10px; border-radius: 10px; z-index: 1;
         }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 30px;
-            text-align: center;
+        .ad-placeholder {
+            color: var(--text3); border: 2px dashed var(--border);
+            border-radius: 12px; padding: 1.5rem; width: 100%;
         }
-        
-        h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
+
+        .hero {
+            text-align: center; padding: 3rem 2rem;
+            background: linear-gradient(135deg, #111827 0%, #1a2332 100%);
+            border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 2rem;
         }
-        
-        p {
-            color: #9ca3af;
-            margin-bottom: 30px;
-            font-size: 18px;
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), #00ff84);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        
+        .hero p { color: var(--text2); margin-bottom: 2rem; font-size: 1.1rem; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .section {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem;
+        }
+
+        .featured {
+            border: 2px solid var(--accent); box-shadow: 0 0 30px rgba(0,230,118,0.1);
+            display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;
+        }
+        .featured-icon {
+            font-size: 3.5rem; color: var(--accent); background: var(--bg);
+            width: 110px; height: 110px; display: flex; align-items: center;
+            justify-content: center; border-radius: 24px; border: 2px solid var(--accent);
+            flex-shrink: 0;
+        }
+        .featured-info { flex: 1; min-width: 250px; }
+        .featured-info h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .badge {
+            display: inline-block; padding: 0.25rem 0.8rem; border-radius: 50px;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            background: var(--accent); color: #000; margin-bottom: 0.8rem;
+        }
+        .featured-desc { color: var(--text2); margin-bottom: 1rem; }
+
+        .controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .search-box { flex: 1; min-width: 200px; position: relative; }
+        .search-box input {
+            width: 100%; padding: 0.7rem 1rem 0.7rem 2.5rem;
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: 50px; color: #fff; font-family: 'Inter', sans-serif;
+        }
+        .search-box input:focus { outline: none; border-color: var(--accent); }
+        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text3); }
+        select {
+            background: var(--bg); border: 1px solid var(--border); color: #fff;
+            padding: 0.7rem 1rem; border-radius: 50px; font-family: 'Inter', sans-serif; cursor: pointer;
+        }
+        .filter-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .filter-chip {
+            background: var(--bg); border: 1px solid var(--border); color: var(--text2);
+            padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; font-size: 0.8rem;
+            transition: all 0.3s; white-space: nowrap;
+        }
+        .filter-chip.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+        .card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 1.5rem; transition: all 0.3s;
+        }
+        .card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 30px rgba(0,230,118,0.1); }
+        .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; }
+        .card-icon { font-size: 2.5rem; color: var(--accent); }
+        .card-title { font-weight: 600; }
+        .card-dev { color: var(--text3); font-size: 0.8rem; }
+        .card-desc { color: var(--text2); font-size: 0.85rem; margin-bottom: 1rem; }
+        .card-meta { display: flex; justify-content: space-between; margin-bottom: 0.8rem; font-size: 0.8rem; }
+        .card-version { color: var(--accent); font-weight: 600; }
+        .card-btn {
+            width: 100%; padding: 0.55rem; border-radius: 50px; font-weight: 600;
+            cursor: pointer; border: none; background: var(--accent); color: #000;
+            font-family: 'Inter', sans-serif; transition: all 0.3s;
+        }
+        .card-btn:hover { background: var(--accent2); }
+
+        .empty-state {
+            text-align: center; padding: 3rem; color: var(--text3);
+            border: 2px dashed var(--border); border-radius: var(--radius); grid-column: 1/-1;
+        }
+        .empty-state i { font-size: 3rem; color: var(--accent); margin-bottom: 1rem; }
+
+        .pagination { display: flex; justify-content: center; gap: 0.4rem; margin-top: 2rem; }
+        .page-btn {
+            background: var(--bg); border: 1px solid var(--border); color: #fff;
+            min-width: 38px; height: 38px; border-radius: 10px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .page-btn.active { background: var(--accent); color: #000; }
+        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
         /* MODAL */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px); z-index: 1000;
+            display: none; align-items: center; justify-content: center; padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 2rem; width: 100%;
+            max-width: 500px; max-height: 85vh; overflow-y: auto;
+            animation: modalIn 0.3s ease; position: relative;
         }
-        
-        .modal.show {
-            display: flex;
+        @keyframes modalIn { from { opacity:0; transform:scale(0.9); } to { opacity:1; transform:scale(1); } }
+        .modal-close {
+            position: absolute; top: 1rem; right: 1rem; background: none;
+            border: none; color: var(--text3); font-size: 1.5rem; cursor: pointer;
         }
-        
-        .modal-box {
-            background: #111827;
-            padding: 30px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 500px;
-            border: 1px solid #1f2937;
+        .modal-close:hover { color: var(--danger); }
+        .modal h2 { color: #fff; margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.3rem; color: var(--text2); font-size: 0.85rem; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 0.7rem; background: var(--bg);
+            border: 1px solid var(--border); border-radius: 10px; color: #fff;
+            font-family: 'Inter', sans-serif;
         }
-        
-        .modal-box h2 {
-            margin-bottom: 20px;
-            color: white;
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .upload-zone {
+            border: 2px dashed var(--border); border-radius: 12px;
+            padding: 2rem; text-align: center; cursor: pointer;
+            background: var(--bg); transition: all 0.3s;
         }
-        
-        .modal-box input,
-        .modal-box textarea,
-        .modal-box select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            background: #070a13;
-            border: 1px solid #1f2937;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
+        .upload-zone:hover { border-color: var(--accent); }
+        .upload-zone i { font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem; }
+        .file-info {
+            display: none; background: rgba(0,230,118,0.1); padding: 0.6rem 1rem;
+            border-radius: 10px; margin-top: 0.5rem; color: var(--accent); font-size: 0.85rem;
         }
-        
-        .modal-box textarea {
-            resize: vertical;
-            min-height: 80px;
+        .file-info.show { display: block; }
+        .progress-bar {
+            display: none; width: 100%; height: 4px; background: var(--border);
+            border-radius: 4px; margin-top: 0.5rem; overflow: hidden;
         }
-        
-        .upload-area {
-            border: 2px dashed #1f2937;
-            padding: 30px;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            background: #070a13;
-        }
-        
-        .upload-area:hover {
-            border-color: #00e676;
-        }
-        
-        .upload-area i {
-            font-size: 30px;
-            color: #00e676;
-        }
-        
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-        
+        .progress-bar.active { display: block; }
+        .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
+        .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; }
         .btn-cancel {
-            background: transparent;
-            border: 1px solid #1f2937;
-            color: #9ca3af;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
+            background: transparent; border: 1px solid var(--border);
+            color: var(--text2); padding: 0.7rem 1.5rem; border-radius: 50px; cursor: pointer;
         }
-        
-        .btn-cancel:hover {
-            border-color: #ef4444;
-            color: #ef4444;
+        .btn-submit {
+            background: var(--accent); color: #000; border: none;
+            padding: 0.7rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer;
         }
-        
+        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .toast-container {
+            position: fixed; top: 1rem; right: 1rem; z-index: 2000;
+            display: flex; flex-direction: column; gap: 0.5rem;
+        }
         .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #111827;
-            border-left: 3px solid #00e676;
-            padding: 15px 20px;
-            border-radius: 10px;
-            z-index: 9999;
-            animation: slide 0.3s ease;
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 1rem; border-radius: 12px; animation: slideIn 0.3s ease;
+            font-size: 0.9rem; max-width: 400px;
         }
-        
-        @keyframes slide {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
+        .toast.success { border-left: 3px solid var(--accent); }
+        .toast.error { border-left: 3px solid var(--danger); }
+        @keyframes slideIn { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+
+        .footer { text-align: center; padding: 2rem; color: var(--text3); border-top: 1px solid var(--border); margin-top: 3rem; }
+
+        @media (max-width: 768px) {
+            .header { padding: 0.8rem 1rem; }
+            .hero { padding: 2rem 1rem; }
+            .hero h1 { font-size: 1.6rem; }
+            .featured { flex-direction: column; text-align: center; }
+            .featured-icon { margin: 0 auto; }
+            .grid { grid-template-columns: 1fr; }
+            .controls { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
+    <div class="toast-container" id="toastContainer"></div>
+
     <!-- HEADER -->
-    <div class="header">
-        <a href="/" class="logo">
-            <i class="fab fa-android"></i> OpenStore
-        </a>
-        <button onclick="ouvrirModal()">
-            <i class="fas fa-plus"></i> Publier un APK
-        </button>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo"><i class="fab fa-android"></i> OpenStore</a>
+            <button class="btn btn-accent" id="btnPublishHeader">
+                <i class="fas fa-plus"></i> Publier un APK
+            </button>
+        </nav>
+    </header>
+
+    <!-- PUBLICITÉ 728x90 -->
+    <div class="ad-banner">
+        <div class="ad-placeholder">📢 Publicité Start.io - 728x90 (ID: 206453012)</div>
     </div>
 
-    <!-- CONTENU -->
-    <div class="container">
-        <h1>📱 Publiez & Téléchargez des Apps Android</h1>
-        <p>Plateforme communautaire de partage d'applications Android.</p>
-        <button onclick="ouvrirModal()" style="margin-right:10px;">
-            <i class="fas fa-rocket"></i> Publier mon application
-        </button>
-        <button onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})" 
-                style="background:transparent; border:2px solid #00e676; color:#00e676;">
-            <i class="fas fa-compass"></i> Explorer le catalogue
-        </button>
+    <main class="container">
+        <!-- HERO -->
+        <section class="hero">
+            <h1>📱 Publiez & Téléchargez des Apps Android</h1>
+            <p>Plateforme communautaire gratuite. Publiez vos APK, téléchargez des apps.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-accent" id="btnPublishHero">
+                    <i class="fas fa-rocket"></i> Publier mon application
+                </button>
+                <button class="btn btn-outline" id="btnExplore">
+                    <i class="fas fa-compass"></i> Explorer le catalogue
+                </button>
+            </div>
+        </section>
+
+        <!-- PUBLICITÉ 728x90 -->
+        <div class="ad-banner">
+            <div class="ad-placeholder">📢 Publicité Start.io - 728x90 (ID: 206453012)</div>
+        </div>
+
+        <!-- APP PHARE -->
+        <section class="section featured">
+            <div class="featured-icon"><i class="fas fa-comments"></i></div>
+            <div class="featured-info">
+                <h2>Messagerie Hybride (Internet & SMS)</h2>
+                <span class="badge">⭐ Officiel</span>
+                <p class="featured-desc">Bascule automatiquement entre Internet et SMS. Restez connecté en toutes circonstances.</p>
+                <button class="btn btn-accent" onclick="downloadApp('https://example.com/messagerie.apk', 'Messagerie Hybride', 'featured')">
+                    <i class="fas fa-download"></i> Télécharger (12.4 MB)
+                </button>
+            </div>
+        </section>
+
+        <!-- CATALOGUE -->
+        <section class="section" id="catalogue">
+            <h2 style="font-size:1.5rem; margin-bottom:1.5rem;"><i class="fas fa-store"></i> Catalogue communautaire</h2>
+
+            <div class="controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="search" id="searchInput" placeholder="Rechercher une application...">
+                </div>
+                <select id="sortSelect">
+                    <option value="recent">🕐 Plus récentes</option>
+                    <option value="name">🔤 Nom A-Z</option>
+                    <option value="popular">📥 Plus populaires</option>
+                </select>
+            </div>
+
+            <div class="filter-chips">
+                <button class="filter-chip active" data-filter="all">📱 Toutes</button>
+                <button class="filter-chip" data-filter="outils">🛠️ Outils</button>
+                <button class="filter-chip" data-filter="jeux">🎮 Jeux</button>
+                <button class="filter-chip" data-filter="social">💬 Social</button>
+                <button class="filter-chip" data-filter="productivite">📊 Productivité</button>
+                <button class="filter-chip" data-filter="multimedia">🎬 Multimédia</button>
+            </div>
+
+            <div class="grid" id="appGrid">
+                <div class="empty-state">
+                    <i class="fab fa-android"></i>
+                    <h3>Aucune application</h3>
+                    <p>Soyez le premier à publier !</p>
+                    <button class="btn btn-accent" id="btnPublishEmpty" style="margin-top:1rem;">
+                        <i class="fas fa-plus"></i> Publier maintenant
+                    </button>
+                </div>
+            </div>
+            <div class="pagination" id="pagination"></div>
+        </section>
+    </main>
+
+    <!-- PUBLICITÉ 300x250 -->
+    <div class="ad-banner" style="max-width:340px;">
+        <div class="ad-placeholder" style="height:250px; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+            <i class="fas fa-ad" style="font-size:1.5rem; margin-bottom:0.5rem;"></i>
+            Publicité Start.io<br>300x250 (ID: 206453012)
+        </div>
     </div>
 
-    <!-- MODAL -->
-    <div class="modal" id="maModal">
-        <div class="modal-box">
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2024 OpenStore - Tous droits réservés</p>
+        <p style="font-size:0.8rem; margin-top:0.5rem;">Publicités via Start.io - ID: 206453012</p>
+    </footer>
+
+    <!-- MODALE -->
+    <div class="modal-overlay" id="publishModal">
+        <div class="modal">
+            <button class="modal-close" id="btnModalClose">&times;</button>
             <h2>📤 Publier une application</h2>
-            
-            <input type="text" id="appName" placeholder="Nom de l'application">
-            <input type="text" id="developer" placeholder="Développeur">
-            <input type="text" id="version" placeholder="Version (ex: 1.0.0)">
-            
-            <select id="category">
-                <option value="outils">🛠️ Outils</option>
-                <option value="jeux">🎮 Jeux</option>
-                <option value="social">💬 Social</option>
-                <option value="autre">📦 Autre</option>
-            </select>
-            
-            <textarea id="description" placeholder="Description de l'application..."></textarea>
-            
-            <div class="upload-area" onclick="document.getElementById('apkFile').click()">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Cliquez pour sélectionner un APK</p>
-                <input type="file" id="apkFile" accept=".apk" style="display:none;" onchange="fichierSelectionne()">
-            </div>
-            
-            <div id="fileInfo" style="display:none; color:#00e676; margin-bottom:10px;"></div>
-            
-            <div class="modal-buttons">
-                <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
-                <button onclick="publier()">Publier</button>
-            </div>
+            <form id="publishForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label>Nom de l'application *</label>
+                    <input type="text" id="appName" required placeholder="Ex: Mon App Géniale" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label>Développeur *</label>
+                    <input type="text" id="developer" required placeholder="Votre nom ou pseudo" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label>Version *</label>
+                    <input type="text" id="version" required placeholder="1.0.0" maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label>Catégorie</label>
+                    <select id="category">
+                        <option value="outils">🛠️ Outils</option>
+                        <option value="jeux">🎮 Jeux</option>
+                        <option value="social">💬 Social</option>
+                        <option value="productivite">📊 Productivité</option>
+                        <option value="multimedia">🎬 Multimédia</option>
+                        <option value="autre">📦 Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description *</label>
+                    <textarea id="description" required placeholder="Décrivez votre application..." maxlength="500"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Fichier APK * (max 50 MB)</label>
+                    <div class="upload-zone" id="uploadZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Cliquez ici ou glissez-déposez votre APK</p>
+                    </div>
+                    <input type="file" id="apkFile" accept=".apk" style="display:none;">
+                    <div class="file-info" id="fileInfo"></div>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="btnCancel">Annuler</button>
+                    <button type="button" class="btn-submit" id="btnSubmit">
+                        <i class="fas fa-paper-plane"></i> Publier
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <!-- CATALOGUE -->
-    <div id="catalogue" style="max-width:1000px;margin:50px auto;padding:20px;">
-        <h2 style="text-align:center;margin-bottom:30px;">📱 Catalogue</h2>
-        <div id="appGrid" style="text-align:center;color:#6b7280;padding:50px;border:2px dashed #1f2937;border-radius:16px;">
-            <i class="fab fa-android" style="font-size:50px;color:#00e676;margin-bottom:20px;display:block;"></i>
-            Aucune application pour le moment.
-        </div>
-    </div>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <div id="toastContainer"></div>
+    <!-- Start.io SDK -->
+    <script src="https://cdn.start.io/sdk/sdk.js"></script>
 
     <script>
         // ==========================================
-        // FONCTIONS SIMPLES POUR LA MODALE
+        // CONFIGURATION
         // ==========================================
+        const SUPABASE_URL = "https://qdftmgbbbdlfirsckupx.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_ZbXbgqgbmGKY4bnigHQJ8g_XECMv_mR";
+        const STARTIO_PUB_ID = "206453012";
         
-        function ouvrirModal() {
-            console.log('✅ ouvrirModal() appelée !');
-            document.getElementById('maModal').classList.add('show');
-        }
-        
-        function fermerModal() {
-            console.log('✅ fermerModal() appelée !');
-            document.getElementById('maModal').classList.remove('show');
-            // Vider le formulaire
-            document.getElementById('appName').value = '';
-            document.getElementById('developer').value = '';
-            document.getElementById('version').value = '';
-            document.getElementById('description').value = '';
-            document.getElementById('apkFile').value = '';
-            document.getElementById('fileInfo').style.display = 'none';
-        }
-        
-        function fichierSelectionne() {
-            const file = document.getElementById('apkFile').files[0];
-            if (file) {
-                const size = (file.size / 1024 / 1024).toFixed(1);
-                document.getElementById('fileInfo').textContent = '✅ ' + file.name + ' (' + size + ' MB)';
-                document.getElementById('fileInfo').style.display = 'block';
+        let supabase;
+
+        const state = {
+            apps: [],
+            filteredApps: [],
+            currentPage: 1,
+            itemsPerPage: 9,
+            searchQuery: '',
+            sortBy: 'recent',
+            currentFilter: 'all',
+            downloadCounts: JSON.parse(localStorage.getItem('os_dl') || '{}')
+        };
+
+        // ==========================================
+        // INIT START.IO
+        // ==========================================
+        function initStartIO() {
+            try {
+                if (typeof Startio !== 'undefined') {
+                    Startio.init({ pubId: STARTIO_PUB_ID });
+                    console.log('✅ Start.io initialisé - ID:', STARTIO_PUB_ID);
+                } else {
+                    console.log('⚠️ SDK Start.io non chargé - placeholders affichés');
+                }
+            } catch(e) {
+                console.log('⚠️ Start.io:', e.message);
             }
         }
-        
-        function afficherToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = '✅ ' + message;
-            document.getElementById('toastContainer').appendChild(toast);
-            setTimeout(function() {
-                toast.remove();
-            }, 3000);
+
+        // ==========================================
+        // TOAST
+        // ==========================================
+        function showToast(msg, type) {
+            const t = document.createElement('div');
+            t.className = 'toast ' + type;
+            t.textContent = (type === 'success' ? '✅ ' : '❌ ') + msg;
+            document.getElementById('toastContainer').appendChild(t);
+            setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(()=>t.remove(),300); }, 4000);
         }
-        
-        function publier() {
-            const nom = document.getElementById('appName').value.trim();
-            const dev = document.getElementById('developer').value.trim();
-            const ver = document.getElementById('version').value.trim();
-            const desc = document.getElementById('description').value.trim();
-            const file = document.getElementById('apkFile').files[0];
-            
-            if (!nom || !dev || !ver || !desc || !file) {
-                alert('Veuillez remplir tous les champs et sélectionner un fichier APK.');
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const d = document.createElement('div');
+            d.textContent = text;
+            return d.innerHTML;
+        }
+
+        function formatNumber(n) {
+            if (n >= 1000000) return (n/1000000).toFixed(1)+'M';
+            if (n >= 1000) return (n/1000).toFixed(1)+'K';
+            return n.toString();
+        }
+
+        // ==========================================
+        // MODAL
+        // ==========================================
+        function openModal() {
+            document.getElementById('publishModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('publishModal').classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('publishForm').reset();
+            document.getElementById('fileInfo').classList.remove('show');
+            document.getElementById('progressBar').classList.remove('active');
+            document.getElementById('btnSubmit').disabled = false;
+            document.getElementById('btnSubmit').innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
+        }
+
+        function handleFile(file) {
+            if (!file) return;
+            if (!file.name.toLowerCase().endsWith('.apk')) {
+                showToast('Fichier .apk requis', 'error');
                 return;
             }
+            if (file.size > 50*1024*1024) {
+                showToast('Max 50 MB', 'error');
+                return;
+            }
+            document.getElementById('fileInfo').textContent = '✅ ' + file.name + ' (' + (file.size/1024/1024).toFixed(1) + ' MB)';
+            document.getElementById('fileInfo').classList.add('show');
+        }
+
+        // ==========================================
+        // APPLICATIONS
+        // ==========================================
+        async function loadApps() {
+            try {
+                if (!supabase) return;
+                const { data, error } = await supabase.from('applications').select('*').order('id', { ascending: false });
+                if (error) throw error;
+                state.apps = data || [];
+                console.log('✅ ' + state.apps.length + ' apps chargées');
+            } catch(e) {
+                console.log('⚠️ ' + e.message);
+            }
+            applyFilters();
+        }
+
+        function applyFilters() {
+            let apps = [...state.apps];
             
-            console.log('📤 Publication de :', nom);
-            afficherToast('Application "' + nom + '" publiée avec succès !');
-            fermerModal();
+            if (state.currentFilter !== 'all') {
+                apps = apps.filter(a => a.category === state.currentFilter);
+            }
             
-            // Ajouter au catalogue
-            document.getElementById('appGrid').innerHTML = `
-                <div style="background:#111827;border:1px solid #1f2937;border-radius:16px;padding:20px;text-align:left;margin-bottom:10px;">
-                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-                        <i class="fab fa-android" style="font-size:30px;color:#00e676;"></i>
+            if (state.searchQuery) {
+                const q = state.searchQuery.toLowerCase();
+                apps = apps.filter(a => 
+                    (a.nom||'').toLowerCase().includes(q) ||
+                    (a.developpeur||'').toLowerCase().includes(q) ||
+                    (a.description||'').toLowerCase().includes(q)
+                );
+            }
+
+            switch(state.sortBy) {
+                case 'name': apps.sort((a,b) => (a.nom||'').localeCompare(b.nom||'')); break;
+                case 'popular': apps.sort((a,b) => (state.downloadCounts[b.id]||0) - (state.downloadCounts[a.id]||0)); break;
+                default: apps.sort((a,b) => new Date(b.created_at||0) - new Date(a.created_at||0));
+            }
+
+            state.filteredApps = apps;
+            state.currentPage = 1;
+            renderApps();
+        }
+
+        function renderApps() {
+            const grid = document.getElementById('appGrid');
+            const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
+            const start = (state.currentPage - 1) * state.itemsPerPage;
+            const pageApps = state.filteredApps.slice(start, start + state.itemsPerPage);
+
+            if (pageApps.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fab fa-android"></i>
+                        <h3>Aucune application</h3>
+                        <p>Soyez le premier à publier !</p>
+                        <button class="btn btn-accent" id="btnPublishEmpty2" style="margin-top:1rem;">
+                            <i class="fas fa-plus"></i> Publier maintenant
+                        </button>
+                    </div>`;
+                document.getElementById('pagination').innerHTML = '';
+                const newBtn = document.getElementById('btnPublishEmpty2');
+                if (newBtn) newBtn.addEventListener('click', openModal);
+                return;
+            }
+
+            grid.innerHTML = pageApps.map(app => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fab fa-android"></i></div>
                         <div>
-                            <strong>${nom}</strong>
-                            <div style="color:#6b7280;font-size:14px;">par ${dev}</div>
+                            <div class="card-title">${escapeHtml(app.nom)}</div>
+                            <div class="card-dev">par ${escapeHtml(app.developpeur)}</div>
                         </div>
                     </div>
-                    <p style="color:#9ca3af;font-size:14px;">${desc}</p>
-                    <div style="color:#00e676;font-size:13px;margin-top:10px;">v${ver}</div>
+                    <p class="card-desc">${escapeHtml(app.description||'').substring(0, 100)}...</p>
+                    <div class="card-meta">
+                        <span class="card-version">v${escapeHtml(app.version)}</span>
+                        <span style="color:var(--text3);">📥 ${formatNumber(state.downloadCounts[app.id]||0)}</span>
+                    </div>
+                    <button class="card-btn" onclick="downloadApp('${escapeHtml(app.apk_url)}','${escapeHtml(app.nom)}',${app.id})">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
                 </div>
-            ` + document.getElementById('appGrid').innerHTML;
+            `).join('');
+
+            if (totalPages > 1) {
+                let html = `<button class="page-btn" onclick="goToPage(${state.currentPage-1})" ${state.currentPage===1?'disabled':''}>‹</button>`;
+                for (let i=1; i<=totalPages; i++) {
+                    html += `<button class="page-btn ${i===state.currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
+                }
+                html += `<button class="page-btn" onclick="goToPage(${state.currentPage+1})" ${state.currentPage===totalPages?'disabled':''}>›</button>`;
+                document.getElementById('pagination').innerHTML = html;
+            } else {
+                document.getElementById('pagination').innerHTML = '';
+            }
         }
-        
-        // Fermer la modale en cliquant à l'extérieur
-        document.getElementById('maModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                fermerModal();
+
+        function goToPage(page) {
+            const totalPages = Math.ceil(state.filteredApps.length / state.itemsPerPage);
+            if (page >= 1 && page <= totalPages) {
+                state.currentPage = page;
+                renderApps();
             }
-        });
-        
-        // Fermer avec Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                fermerModal();
+        }
+
+        function downloadApp(url, name, id) {
+            if (!url || url === '#' || url === '#demo') {
+                showToast('Lien non disponible', 'error');
+                return;
             }
+            if (id && id !== 'featured') {
+                state.downloadCounts[id] = (state.downloadCounts[id] || 0) + 1;
+                localStorage.setItem('os_dl', JSON.stringify(state.downloadCounts));
+            }
+            showToast('Téléchargement de "' + name + '" !', 'success');
+            setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 800);
+            setTimeout(() => renderApps(), 1500);
+        }
+
+        // ==========================================
+        // PUBLICATION
+        // ==========================================
+        async function handlePublish() {
+            const btn = document.getElementById('btnSubmit');
+            const appName = document.getElementById('appName').value.trim();
+            const developer = document.getElementById('developer').value.trim();
+            const version = document.getElementById('version').value.trim();
+            const category = document.getElementById('category').value;
+            const description = document.getElementById('description').value.trim();
+            const apkFile = document.getElementById('apkFile').files[0];
+
+            if (!appName || !developer || !version || !description || !apkFile) {
+                showToast('Tous les champs sont obligatoires', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
+            
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            progressBar.classList.add('active');
+            progressFill.style.width = '0%';
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 20;
+                if (progress > 90) progress = 90;
+                progressFill.style.width = progress + '%';
+            }, 400);
+
+            try {
+                if (supabase) {
+                    const fileName = 'apk_' + Date.now() + '_' + apkFile.name.replace(/[^a-zA-Z0-9.]/g, '_');
+                    const { error: uploadError } = await supabase.storage.from('apks').upload(fileName, apkFile);
+                    if (uploadError) throw new Error('Erreur upload. Vérifiez le bucket "apks".');
+
+                    const { data: urlData } = supabase.storage.from('apks').getPublicUrl(fileName);
+                    const { error: insertError } = await supabase.from('applications').insert([{
+                        nom: appName, developpeur: developer, version,
+                        category, description, apk_url: urlData.publicUrl
+                    }]);
+                    if (insertError) throw new Error('Erreur enregistrement. Vérifiez la table "applications".');
+                } else {
+                    state.apps.unshift({
+                        id: Date.now(), nom: appName, developpeur: developer,
+                        version, category, description, apk_url: '#demo',
+                        created_at: new Date().toISOString()
+                    });
+                }
+
+                clearInterval(interval);
+                progressFill.style.width = '100%';
+
+                setTimeout(async () => {
+                    showToast('✅ Application publiée avec succès !', 'success');
+                    closeModal();
+                    if (supabase) await loadApps();
+                    else applyFilters();
+                }, 500);
+
+            } catch (error) {
+                clearInterval(interval);
+                showToast(error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Publier';
+                setTimeout(() => {
+                    progressBar.classList.remove('active');
+                    progressFill.style.width = '0%';
+                }, 1000);
+            }
+        }
+
+        // ==========================================
+        // INITIALISATION - TOUS LES EVENT LISTENERS
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 OpenStore - Démarrage');
+            console.log('📢 Start.io ID:', STARTIO_PUB_ID);
+            console.log('📋 Supabase URL:', SUPABASE_URL);
+
+            // Init Start.io
+            initStartIO();
+
+            // Init Supabase
+            try {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('✅ Supabase initialisé');
+                loadApps();
+            } catch(e) {
+                console.log('⚠️ Supabase non connecté');
+            }
+
+            // Boutons principaux
+            document.getElementById('btnPublishHeader').addEventListener('click', openModal);
+            document.getElementById('btnPublishHero').addEventListener('click', openModal);
+            document.getElementById('btnPublishEmpty').addEventListener('click', openModal);
+            document.getElementById('btnExplore').addEventListener('click', () => {
+                document.getElementById('catalogue').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Modal
+            document.getElementById('btnModalClose').addEventListener('click', closeModal);
+            document.getElementById('btnCancel').addEventListener('click', closeModal);
+            document.getElementById('publishModal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            // Upload zone
+            const uploadZone = document.getElementById('uploadZone');
+            const apkFileInput = document.getElementById('apkFile');
+
+            uploadZone.addEventListener('click', function() {
+                apkFileInput.click();
+            });
+
+            apkFileInput.addEventListener('change', function() {
+                if (this.files[0]) handleFile(this.files[0]);
+            });
+
+            // Drag & drop
+            uploadZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadZone.style.borderColor = 'var(--accent)';
+            });
+            uploadZone.addEventListener('dragleave', function() {
+                uploadZone.style.borderColor = 'var(--border)';
+            });
+            uploadZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadZone.style.borderColor = 'var(--border)';
+                const file = e.dataTransfer.files[0];
+                if (file && file.name.toLowerCase().endsWith('.apk')) {
+                    const dt = new DataTransfer();
+                    dt.items.add(file);
+                    apkFileInput.files = dt.files;
+                    handleFile(file);
+                } else {
+                    showToast('Veuillez déposer un fichier .apk', 'error');
+                }
+            });
+
+            // Submit
+            document.getElementById('btnSubmit').addEventListener('click', handlePublish);
+
+            // Recherche
+            document.getElementById('searchInput').addEventListener('input', function() {
+                state.searchQuery = this.value.trim().toLowerCase();
+                applyFilters();
+            });
+
+            // Tri
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                state.sortBy = this.value;
+                applyFilters();
+            });
+
+            // Filtres
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    state.currentFilter = this.dataset.filter;
+                    state.currentPage = 1;
+                    applyFilters();
+                });
+            });
+
+            console.log('✅ Prêt ! Tous les boutons fonctionnent.');
         });
-        
-        console.log('✅ Script chargé - Cliquez sur "Publier un APK" pour tester !');
     </script>
 </body>
 </html>
