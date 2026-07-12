@@ -4,209 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenStore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #070a13;
-            color: #e0e0e0;
-            margin: 0;
-            min-height: 100vh;
-        }
-        .header {
-            background: #111827;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header a {
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .header span {
-            color: #00e676;
-        }
-        button, .btn {
-            background: #00e676;
-            color: #000;
-            border: none;
-            padding: 12px 22px;
-            border-radius: 50px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        button:hover, .btn:hover {
-            background: #00ff84;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 28px;
-            color: #fff;
-            margin: 20px 0;
-        }
-        p {
-            color: #9ca3af;
-            margin: 15px 0;
-        }
-        .box {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
-        }
-        .ad {
-            text-align: center;
-            color: #6b7280;
-            border: 2px dashed #1f2937;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 15px 0;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #6b7280;
-            border-top: 1px solid #1f2937;
-            margin-top: 30px;
-        }
-        form input, form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            background: #070a13;
-            border: 1px solid #1f2937;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 14px;
-        }
-        form textarea {
-            min-height: 70px;
-            resize: vertical;
-        }
-        hr {
-            border: none;
-            border-top: 1px solid #1f2937;
-            margin: 20px 0;
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Arial,sans-serif;background:#070a13;color:#e0e0e0;min-height:100vh}
+        .header{background:#111827;padding:15px;display:flex;justify-content:space-between;align-items:center}
+        .logo{color:#fff;font-size:20px;font-weight:bold}.logo i{color:#00e676}
+        button{background:#00e676;color:#000;border:none;padding:10px 20px;border-radius:50px;font-weight:bold;cursor:pointer;font-size:14px}button:hover{background:#00ff84}
+        .container{max-width:1000px;margin:0 auto;padding:15px}
+        .grid{display:grid;grid-template-columns:1fr;gap:12px}@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}@media(min-width:900px){.grid{grid-template-columns:1fr 1fr 1fr}}
+        .card{background:#111827;border:1px solid #1f2937;border-radius:14px;padding:18px}
+        .card h3{color:#fff;margin-bottom:5px}.card p{color:#9ca3af;font-size:13px;margin:8px 0}
+        .btn-download{display:block;width:100%;padding:14px;background:#00e676;color:#000;border:none;border-radius:12px;font-size:15px;font-weight:bold;cursor:pointer;text-align:center;text-decoration:none;margin:10px 0}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:999;align-items:center;justify-content:center;padding:15px}.modal.show{display:flex}
+        .modal-box{background:#111827;padding:20px;border-radius:16px;width:100%;max-width:450px;border:1px solid #1f2937}
+        .modal-box h2{color:#fff;margin-bottom:15px}.modal-box input,.modal-box textarea{width:100%;padding:10px;margin-bottom:10px;background:#070a13;border:1px solid #1f2937;border-radius:10px;color:#fff;font-size:13px}
+        .upload-area{border:2px dashed #1f2937;padding:20px;text-align:center;border-radius:10px;margin-bottom:10px;cursor:pointer;background:#070a13}.upload-area:hover{border-color:#00e676}
+        .toast{position:fixed;top:15px;right:15px;background:#111827;border-left:3px solid #00e676;padding:12px;border-radius:10px;z-index:9999;font-size:13px;animation:slide 0.3s ease}@keyframes slide{from{transform:translateX(100%)}to{transform:translateX(0)}}
     </style>
 </head>
 <body>
+<div id="toastContainer" style="position:fixed;top:15px;right:15px;z-index:9999;display:flex;flex-direction:column;gap:8px;"></div>
 
-    <div class="header">
-        <a href="/">🤖 <span>OpenStore</span></a>
-        <a href="#publier" class="btn">➕ Publier un APK</a>
+<header class="header">
+    <a href="/" class="logo"><i class="fab fa-android"></i> OpenStore</a>
+    <button onclick="ouvrirModal()"><i class="fas fa-upload"></i> Publier</button>
+</header>
+
+<div class="container">
+    <div style="background:#111827;border:1px solid #1f2937;border-radius:12px;padding:15px;text-align:center;color:#6b7280;margin-bottom:15px;">📢 Publicité Start.io - ID: 204468294</div>
+    <h1 style="text-align:center;color:#fff;margin:15px 0;">📱 Catalogue</h1>
+    <div class="grid" id="appGrid"><p style="color:#9ca3af;text-align:center;">Chargement...</p></div>
+    <p style="text-align:center;color:#6b7280;margin-top:15px;">📢 Publicité 300x250 - ID: 204468294</p>
+</div>
+
+<footer style="text-align:center;padding:15px;color:#6b7280;border-top:1px solid #1f2937;margin-top:20px;font-size:12px;"><p>© 2024 OpenStore</p></footer>
+
+<div class="modal" id="maModal"><div class="modal-box"><h2>📤 Publier</h2>
+    <input type="text" id="appName" placeholder="Nom *">
+    <input type="text" id="developer" placeholder="Développeur *">
+    <input type="text" id="version" placeholder="Version *">
+    <textarea id="description" placeholder="Description *" style="min-height:60px;resize:vertical;"></textarea>
+    <input type="text" id="appUrl" placeholder="Lien de téléchargement (URL directe APK)">
+    <p style="color:#9ca3af;font-size:11px;margin-bottom:10px;">Collez un lien direct vers votre APK</p>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button style="background:transparent;border:1px solid #1f2937;color:#9ca3af;" onclick="fermerModal()">Annuler</button>
+        <button onclick="publier()">📤 Publier</button>
     </div>
+</div></div>
 
-    <div class="container">
-        <div class="ad">📢 Publicité Start.io - 728x90 (ID: 206453012)</div>
-
-        <div class="box">
-            <h1>📱 Publiez & Téléchargez des Apps Android</h1>
-            <p>Plateforme communautaire gratuite de partage d'applications Android.</p>
-            <a href="#publier" class="btn">🚀 Publier mon application</a>
-            &nbsp;
-            <a href="#catalogue" class="btn" style="background:transparent;border:2px solid #00e676;color:#00e676;">🔍 Voir le catalogue</a>
-        </div>
-
-        <div class="ad">📢 Publicité Start.io - 728x90 (ID: 206453012)</div>
-
-        <div class="box" style="border:2px solid #00e676;">
-            <h2>💬 Messagerie Hybride</h2>
-            <p style="display:inline-block;background:#00e676;color:#000;padding:3px 12px;border-radius:50px;font-size:11px;font-weight:bold;">⭐ OFFICIEL</p>
-            <p style="color:#9ca3af;">Bascule automatiquement entre Internet et SMS.</p>
-            <a href="#" class="btn" onclick="alert('Téléchargement démarré !')">📥 Télécharger (12.4 MB)</a>
-        </div>
-
-        <div class="box" id="catalogue">
-            <h2>📱 Catalogue communautaire</h2>
-            <p style="color:#6b7280;">Aucune application pour le moment.</p>
-            <a href="#publier" class="btn">➕ Publier maintenant</a>
-        </div>
-
-        <hr>
-
-        <div class="box" id="publier">
-            <h2>📤 Publier votre application</h2>
-            <p style="color:#9ca3af;">Remplissez le formulaire ci-dessous :</p>
-            
-            <form onsubmit="publierApp(event)">
-                <input type="text" id="nom" placeholder="Nom de l'application *" required>
-                <input type="text" id="dev" placeholder="Développeur *" required>
-                <input type="text" id="ver" placeholder="Version (ex: 1.0.0) *" required>
-                <textarea id="desc" placeholder="Description *" required></textarea>
-                <input type="file" id="fichier" accept=".apk" style="margin:10px 0;">
-                <br><br>
-                <button type="submit">📤 Publier l'application</button>
-            </form>
-            
-            <div id="confirmation" style="display:none;color:#00e676;margin-top:15px;font-weight:bold;"></div>
-        </div>
-    </div>
-
-    <div class="ad" style="max-width:340px;margin:0 auto;height:250px;display:flex;align-items:center;justify-content:center;">
-        📢 Publicité Start.io<br>300x250 (ID: 206453012)
-    </div>
-
-    <div class="footer">
-        <p>© 2024 OpenStore - Tous droits réservés</p>
-        <p style="font-size:12px;">Publicités Start.io - ID: 206453012</p>
-    </div>
-
-    <script>
-        function publierApp(event) {
-            event.preventDefault();
-            
-            var nom = document.getElementById('nom').value;
-            var dev = document.getElementById('dev').value;
-            var ver = document.getElementById('ver').value;
-            var desc = document.getElementById('desc').value;
-            
-            if (!nom || !dev || !ver || !desc) {
-                alert('Veuillez remplir tous les champs.');
-                return;
-            }
-            
-            // Afficher confirmation
-            var msg = document.getElementById('confirmation');
-            msg.textContent = '✅ Application "' + nom + '" publiée avec succès !';
-            msg.style.display = 'block';
-            
-            // Ajouter au catalogue
-            document.getElementById('catalogue').innerHTML = 
-                '<h2>📱 Catalogue communautaire</h2>' +
-                '<div style="background:#070a13;border:1px solid #1f2937;border-radius:12px;padding:20px;text-align:left;margin:10px 0;">' +
-                '<strong>' + nom + '</strong> <span style="color:#6b7280;">par ' + dev + '</span>' +
-                '<p style="color:#9ca3af;font-size:14px;">' + desc + '</p>' +
-                '<span style="color:#00e676;font-size:12px;">v' + ver + '</span>' +
-                '<br><button class="btn" style="margin-top:8px;padding:8px 15px;font-size:13px;" onclick="alert(\'Téléchargement démarré !\')">📥 Télécharger</button>' +
-                '</div>' +
-                '<a href="#publier" class="btn" style="margin-top:10px;">➕ Publier une autre app</a>';
-            
-            // Vider le formulaire
-            document.getElementById('nom').value = '';
-            document.getElementById('dev').value = '';
-            document.getElementById('ver').value = '';
-            document.getElementById('desc').value = '';
-            document.getElementById('fichier').value = '';
-            
-            // Remonter vers le catalogue
-            setTimeout(function() {
-                document.getElementById('catalogue').scrollIntoView({behavior: 'smooth'});
-            }, 500);
-        }
-        
-        console.log('✅ OpenStore prêt !');
-    </script>
+<script>
+const DB_URL="https://openstore-22f32-default-rtdb.firebaseio.com/apps.json";
+let apps=[],telechargements=JSON.parse(localStorage.getItem('dl')||'{}');
+async function loadApps(){try{let r=await fetch(DB_URL);apps=(await r.json())||[];if(apps.length===0)apps=JSON.parse(localStorage.getItem('apps')||'[]')}catch(e){apps=JSON.parse(localStorage.getItem('apps')||'[]')}afficher()}
+function afficher(){let g=document.getElementById('appGrid');if(apps.length===0){g.innerHTML='<p style="color:#9ca3af;text-align:center;">Aucune app</p>';return}g.innerHTML=apps.map(function(a){let dl=telechargements[a.id]||0,url=a.url||'',isReal=url.startsWith('http');return'<div class="card"><h3>'+(a.nom||'')+'</h3><p>Par '+(a.dev||'')+' | v'+(a.ver||'1.0')+'</p><p>'+(a.desc||'')+'</p><p style="color:#00e676;font-size:11px;">📥 '+dl+'</p>'+(isReal?'<a href="'+url+'" class="btn-download" target="_blank" onclick="compterDL('+a.id+')"><i class="fas fa-download"></i> TÉLÉCHARGER</a>':'<button class="btn-download" onclick="compterDL('+a.id+')"><i class="fas fa-download"></i> TÉLÉCHARGER</button>')+'</div>'}).join('')}
+function compterDL(id){telechargements[id]=(telechargements[id]||0)+1;localStorage.setItem('dl',JSON.stringify(telechargements));setTimeout(function(){afficher()},500)}
+function publier(){let n=document.getElementById('appName').value.trim(),d=document.getElementById('developer').value.trim(),v=document.getElementById('version').value.trim(),desc=document.getElementById('description').value.trim(),url=document.getElementById('appUrl').value.trim();if(!n||!d||!v||!desc){alert('Remplissez tous les champs');return}if(!url){alert('Ajoutez un lien');return}apps.unshift({id:Date.now(),nom:n,dev:d,ver:v,desc:desc,url:url,date:new Date().toISOString()});localStorage.setItem('apps',JSON.stringify(apps));fetch(DB_URL,{method:'PUT',body:JSON.stringify(apps)}).catch(function(){});alert('✅ '+n+' publiée !');fermerModal();afficher()}
+function ouvrirModal(){document.getElementById('maModal').classList.add('show')}
+function fermerModal(){document.getElementById('maModal').classList.remove('show')}
+document.getElementById('maModal').onclick=function(e){if(e.target===this)fermerModal()};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')fermerModal()});
+loadApps();
+</script>
 </body>
 </html>
